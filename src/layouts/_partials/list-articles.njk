@@ -1,0 +1,38 @@
+<section class="articles-list">
+
+    {% for article in articleQuery.articles | reverse %}
+        <article>
+            <p><time datetime="article.publishedDate" class="published">{{article.publishedDate | replace('Z','') | postDate }}</time></p>
+            <h2 class="article-title">
+                <a href="/articles/{{article.shortId}}/index.html">{{article.meta.title}}</a>
+            </h2>
+
+            {% if not article.meta.blurb %}
+                <section class="abstract">
+                    <p>This will be a small blurb: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti perferendis nemo, facere ipsum nesciunt ullam aliquid provident corporis dolorum molestias ducimus ab debitis soluta optio numquam qui, veritatis illum, quisquam a eos cum sint? Quos minus dolor a alias aspernatur?</p>
+                </section>
+            {% endif %}
+
+            <ul class="authors metadata">
+
+                {% for author in article.parsedSubmission.authors %}
+                    <li class="author metadata">
+                        <span class="author-name">{{author.lastName}}</span></li>
+                {% endfor %}
+            </ul> {% if article.parsedSubmission.objectType %}
+                    <span class="object-type metadata">
+                        <a href="#">{{article.parsedSubmission.objectType}}</a>
+                    </span>
+                {% endif %}
+
+            <p class="metas">
+                {% for item in article.parsedSubmission.content %}
+                    <span class="meta metadata">
+                        <a href="#">{{item}}</a>
+                    </span>
+                {% endfor %}
+            </p>
+        </a>
+    </article>
+{% endfor %}
+</section>

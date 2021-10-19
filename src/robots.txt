@@ -1,0 +1,9 @@
+---
+title: robot
+permalink: /robots.txt
+---
+
+
+
+User-agent: *
+Disallow: index.html

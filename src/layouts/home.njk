@@ -1,0 +1,39 @@
+{% extends "base.njk" %}
+
+{% block background %}
+    {% if assets.background %}
+        <div class="background">{{assets.background | safe}}</div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <main>
+        <header>
+            <h1>{{title}}</h1>
+            <section class="intro">{{content | safe}}</section>
+        </header>
+
+        <section class="section-latest">
+            {# <h2>Newest articles</h2> #}
+            {% include "_partials/list-articles.njk" %}
+
+            {# {% for article in articleQuery.articles | reverse %}
+
+                <article class="post">
+                    <h3>{{article.meta.title}}</h3>
+                    {% for author in article.parsedSubmission.authors %}
+                        <li class="author">
+                            <span class="author-name">{{author.lastName}}</span>
+                        </li>
+                    {% endfor %}
+                    <p>{{article.meta.abstract | safe}}</p>
+
+                    {# <p class="more">
+                        <a href="/articles/{{article.shortId}}">Read More</a>
+                    </p>
+                </article>
+            {% endfor %} #} 
+        </section>
+
+    </main>
+{% endblock %}

@@ -1,0 +1,7 @@
+<a class="logo" href="/">
+{% if assets.logo %}
+{{assets.logo | safe}}    
+{% else  %}
+    <p class="site-title">{{site.name | safe}}</p>
+{% endif %}
+</a>

@@ -1,0 +1,172 @@
+{% extends '../layouts/base.njk' %}
+{% set currentPage = article %}
+{% set title = article.meta.title %}
+
+{% block topbar %}
+    {# nothning there #}
+    <aside class="topbar"></aside>
+
+    {# add to link to the website #}
+{% endblock %}
+
+{% block content %}
+
+    <main>
+
+        <span class="runnin-title">{{article.meta.title}}</span>
+
+        <header>
+
+            <div class="logobis">{{assets.logopreview | safe}}</div>
+            <p class="metanext">
+                <time datetime="article.publishedDate">{{article.publishedDate | replace('Z','') | postDate }}</time>
+
+                {% if article.parsedSubmission.objectType %}
+                     — <span class="object-type">{{article.parsedSubmission.objectType}}</span>
+                {% endif %}
+
+            </p>
+
+            <h1>{{article.meta.title}}</h1>
+
+            <section class="authors">
+                {# <h2 id="authors">Authors</h2> #}
+
+                <ul class="authors metadata">
+                    {% for author in article.parsedSubmission.authors %}
+                        <li class="author metadata">
+                            <span class="author-name">{{- author.firstName -}}&nbsp;{{- author.lastName -}}</span>
+                            <span class="author-affiliation">({{- author.affiliation -}})</span>
+                            <a class="email" href="mailto:{{author.email}}">{% include "_partials/icon-email.njk" %}</a>
+                            {# &nbsp;<span class="icon-name">email</span> #}
+
+                        </li>
+                    {% endfor %}
+
+                </ul>
+
+            </section>
+
+            <p class="metas">
+
+                {% for item in article.parsedSubmission.content %}
+                    <span class="meta">{{item}}</span>
+                {% endfor %}
+
+            </p>
+            {# check if article has a downloadable file #}
+
+            <div class="meta-dl">
+
+                {{collection.supplementaryFiles}}
+                {% for item in collections.supplementaryFiles%}
+                    {% if 'article.pdf' in item and article.shortId in item %}
+                        <a href="{{item | replace('static', '')}}" download>Download the PDF</a>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+            <div class="licence">
+                <a href="https://creativecommons.org/licenses/by/4.0/legalcode">
+                    <span>{% include "_partials/ccbysa.njk" %}</span></a>
+            </div>
+        </header>
+        <div class="meta-data">
+
+            <aside class="toc-wrapper">
+                <h3>Table of contents</h3>
+                <nav>
+                    <ul>
+                        <li class="main">
+                            <a href="#abstract">Abstract</a>
+                        </li>
+                        <li class="main">
+                            <a href="#article">Article</a>
+                        </li>
+                        {{article.meta.source | addIDtoTitles | toc({"tags":["h2","h3", "figure"]}) | safe }}
+                        {% if collections.supplementaryFiles.length > 1 %}
+
+                            <li class="main">
+                                <a href="#supplementary">Supplementary Files</a>
+                            </li>
+
+                        {% endif %}
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+
+        <article>
+            <section class="manuscript">
+                <section class="abstract">
+                    <h2 id="abstract">Abstract</h2>
+                    {{article.meta.abstract | addIDtoTitles | safe}}
+                    
+                     {% if article.parsedSubmission.dateReceived %}
+                        <p class="metaNext">
+                            <strong>Received</strong>
+                            <time datetime="{{article.parsedSubmission.dateReceived}}">{{article.parsedSubmission.dateReceived  | replace(".", "-") | postDate }}</time>
+                        </p>
+                    {% endif %}
+                     {% if article.parsedSubmission['dateReceived '] %}
+                     
+                        <p class="metaNext">
+                            <strong>Received</strong>
+                            <time datetime="{{article.parsedSubmission['dateReceived ']}}">{{article.parsedSubmission['dateReceived ']  | replace(".", "-") | postDate }}</time>
+                        </p>
+                    {% endif %}
+                    {% if article.parsedSubmission.DateAccepted %}
+                        <p class="metaNext">
+                            <time datetime="{{article.parsedSubmission.DateAccepted}}">
+                                <strong>Accepted</strong>
+                                {{article.parsedSubmission.DateAccepted | replace(".", "-") | postDate }}</time>
+                        </p>
+                    {% endif %}
+                    
+
+                   
+                    {% if article.parsedSubmission.AuthorCorrespondence %}
+                        <p class="metaNext">
+                            <strong>Correspondence</strong>
+                            <a href="mailto:{{article.parsedSubmission.AuthorCorrespondence | safe}}">{{article.parsedSubmission.AuthorCorrespondence | safe}}</a>
+
+                        </p>
+                    {% endif %}
+
+                </section>
+
+                <section id="article" class="article">
+                    {{article.meta.source  | addIDtoTitles   | safe}}</section>
+
+                {% if collections.supplementaryFiles.length > 1 %}
+                    <section>
+                        <h2 id="supplementary">Supplementary Files</h2>
+
+                        {% for item in collections.supplementaryFiles%}
+                            {% if article.shortID in item %}
+
+                                {# use the article .shortdId  #}
+
+                                <a href="{{item | replace('static', '')}}" download>{{item | cleanLink }}</a>
+                            {% endif %}
+                        {% endfor %}
+
+                    </section>
+                {% endif %}
+
+            </article>
+
+        </main>
+    {% endblock %}
+
+    {% block footer %}
+        <footer>
+
+            <div class="logobis">{{assets.logopreview | safe}}</div>
+
+        </footer>
+    {% endblock %}
+
+    {% block side %}
+        {# nothing  #}
+    {% endblock %}
