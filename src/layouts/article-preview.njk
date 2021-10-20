@@ -102,17 +102,17 @@
                     <h2 id="abstract">Abstract</h2>
                     {{article.meta.abstract | addIDtoTitles | safe}}
                     
-                     {% if article.parsedSubmission.dateReceived %}
+                     {% if article.parsedSubmission.DateReceived %}
                         <p class="metaNext">
                             <strong>Received</strong>
-                            <time datetime="{{article.parsedSubmission.dateReceived}}">{{article.parsedSubmission.dateReceived  | replace(".", "-") | postDate }}</time>
+                            <time datetime="{{article.parsedSubmission.DateReceived}}">{{article.parsedSubmission.DateReceived  | replace(".", "-") | postDate }}</time>
                         </p>
                     {% endif %}
-                     {% if article.parsedSubmission['dateReceived '] %}
+                     {% if article.parsedSubmission['DateReceived '] %}
                      
                         <p class="metaNext">
                             <strong>Received</strong>
-                            <time datetime="{{article.parsedSubmission['dateReceived ']}}">{{article.parsedSubmission['dateReceived ']  | replace(".", "-") | postDate }}</time>
+                            <time datetime="{{article.parsedSubmission['DateReceived ']}}">{{article.parsedSubmission['DateReceived ']  | replace(".", "-") | postDate }}</time>
                         </p>
                     {% endif %}
                     {% if article.parsedSubmission.DateAccepted %}
