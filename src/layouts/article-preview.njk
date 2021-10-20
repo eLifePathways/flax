@@ -60,7 +60,7 @@
 
                 {{collection.supplementaryFiles}}
                 {% for item in collections.supplementaryFiles%}
-                    {% if 'article.pdf' in item and article.shortId in item %}
+                    {% if 'article' in item and article.shortId in item %}
                         <a href="{{item | replace('static', '')}}" download>Download the PDF</a>
                     {% endif %}
                 {% endfor %}
