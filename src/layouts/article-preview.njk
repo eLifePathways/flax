@@ -37,8 +37,10 @@
                         <li class="author metadata">
                             <span class="author-name">{{- author.firstName -}}&nbsp;{{- author.lastName -}}</span>
                             <span class="author-affiliation">({{- author.affiliation -}})</span>
+                        {% if author.email %}
                             <a class="email" href="mailto:{{author.email}}">{% include "_partials/icon-email.njk" %}</a>
                             {# &nbsp;<span class="icon-name">email</span> #}
+                        {% endif %}
 
                         </li>
                     {% endfor %}
