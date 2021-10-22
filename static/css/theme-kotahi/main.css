@@ -138,6 +138,7 @@ h3 {
   padding: 8px;
 }
 
+
 .logo svg {
   height: 40px;
 }
@@ -1257,6 +1258,9 @@ header {
   font-size: .90em;
 }
 
+.runnin-title {
+  display: none;
+}
 }
 
 @media screen and (max-width: 700px) {
