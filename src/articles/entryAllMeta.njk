@@ -1,0 +1,50 @@
+---
+pagination:
+  data: articleQuery.articles
+  size: 1
+  alias: article
+permalink: "/articlesMeta/{{article.shortId}}/index.html"
+---
+
+{% extends '../layouts/base.njk' %}
+
+{% block debugstyle %}
+  <style>
+  main {
+  margin-top: 2em;
+  }
+    .value {}
+    .meta {
+      font-weight: 800;
+    }
+    .value:empty::after {
+      font-style: italic;
+      content: "this meta is empty";
+      font-weight: 300;
+    }
+    section {
+      border-top: 1px dashed grey;
+      padding-top: 0.5em;
+      margin-bottom: 3em;
+      display: grid;
+      grid-template-columns: 30% 70%;
+      max-height: 6em;
+      overflow: hidden;
+    }
+    .value {
+      text-overflow: ellipsis;
+    }
+  </style>
+{% endblock %}
+{% block content %}
+  <main>
+    <header><h1>Available metadata</h1></header>
+
+    
+    
+
+    {{article | showAvailableMeta | safe}}
+    {% for meta in article %}{% endfor %}
+  </main>
+
+{% endblock %}
