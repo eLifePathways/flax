@@ -12,21 +12,22 @@ const fg = require('fast-glob')
 const path = require('path')
 const jsdom = require('jsdom')
 const { JSDOM } = jsdom
+const https = require('node:https')
 
-module.exports = function(eleventyConfig) {
+module.exports = function (eleventyConfig) {
   // collection
 
-  eleventyConfig.addFilter('imagesHandler', function(value, id) {
-    if (fs.existsSync('public/images/articles')) {
-      return
+  eleventyConfig.addFilter('imagesHandler', function (value, id) {
+    if (!fs.existsSync('public/images/articles')) {
+      fs.mkdir(path.join(__dirname, 'public/images/articles'), (err) => {
+        if (err) {
+          return console.error(err)
+        }
+        console.log('Directory created successfully!')
+      })
     }
-    fs.mkdir(path.join(__dirname, 'public/images/articles'), (err) => {
-      if (err) {
-        return console.error(err)
-      }
-      console.log('Directory created successfully!')
-    })
     const article = new JSDOM(value)
+    // console.log(article)
     article.window.document.body.querySelectorAll('img').forEach((img) => {
       https
         .get(img.src, (res) => {
@@ -48,7 +49,7 @@ module.exports = function(eleventyConfig) {
     // return value
   })
 
-  eleventyConfig.addCollection('sortedByOrder', function(collectionApi) {
+  eleventyConfig.addCollection('sortedByOrder', function (collectionApi) {
     return collectionApi.getAll().sort((a, b) => {
       if (a.data.order > b.data.order) return 1
       else if (a.data.order < b.data.order) return -1
@@ -81,24 +82,24 @@ module.exports = function(eleventyConfig) {
   // })
 
   // useful to use the toc somewhere else
-  eleventyConfig.addFilter('prependLinks', function(value, prepend) {
+  eleventyConfig.addFilter('prependLinks', function (value, prepend) {
     return value.replace(/<a href="/g, `<a href="${prepend}`)
   })
   eleventyConfig.addFilter(
     'replaceWithRegex',
-    function(replaceThat, replaceWith) {
+    function (replaceThat, replaceWith) {
       let regex = new RegExp(replaceThat)
       return value.replace(regex, replaceWith)
     }
   )
 
-  eleventyConfig.addFilter('cleanLink', function(value) {
+  eleventyConfig.addFilter('cleanLink', function (value) {
     let regex = new RegExp('')
     return value.replace(/static\/outputs\/\d+?\//, '')
   })
 
   // add latin number plugin
-  eleventyConfig.addFilter('romanize', function(value) {
+  eleventyConfig.addFilter('romanize', function (value) {
     return romanize(value)
   })
 
@@ -110,7 +111,7 @@ module.exports = function(eleventyConfig) {
     '!**/public',
   ])
 
-  eleventyConfig.addCollection('supplementaryFiles', function(collection) {
+  eleventyConfig.addCollection('supplementaryFiles', function (collection) {
     return supplementary
   })
 
@@ -121,11 +122,11 @@ module.exports = function(eleventyConfig) {
   })
 
   // limit the amount of items
-  eleventyConfig.addFilter('limit', function(arr, limit) {
+  eleventyConfig.addFilter('limit', function (arr, limit) {
     return arr.slice(0, limit)
   })
 
-  eleventyConfig.addFilter('filterContent', function(value, el) {
+  eleventyConfig.addFilter('filterContent', function (value, el) {
     // console.log(value);
     const $ = cheerio.load(value)
     if ($.html(el)) {
@@ -135,11 +136,11 @@ module.exports = function(eleventyConfig) {
     }
   })
 
-  eleventyConfig.addFilter('addIDtoTitles', function(value) {
+  eleventyConfig.addFilter('addIDtoTitles', function (value) {
     // cheerio only accept string, no html buffer :shrug:
     const $ = cheerio.load(`${value}`)
 
-    $('h2,h3,h4,h5').each(function(i, elem) {
+    $('h2,h3,h4,h5').each(function (i, elem) {
       $(this).attr('id', $(this).text().toLowerCase().replace(/\s/g, ''))
     })
 
@@ -152,7 +153,7 @@ module.exports = function(eleventyConfig) {
     return $.html()
   })
 
-  eleventyConfig.addFilter('showAvailableMeta', function(value) {
+  eleventyConfig.addFilter('showAvailableMeta', function (value) {
     return propertiesToArray(value)
   })
 
@@ -233,8 +234,9 @@ function propertiesToArray(value) {
   let stuff = flatten(value, { maxDepth: 10 })
   let content = ''
   for (var key in stuff) {
-    content += `<section><div class="meta">${key}</div><div class="value">${stuff[key] != null ? stuff[key] : ''
-      }</div></section>`
+    content += `<section><div class="meta">${key}</div><div class="value">${
+      stuff[key] != null ? stuff[key] : ''
+    }</div></section>`
   }
   return content
 }
