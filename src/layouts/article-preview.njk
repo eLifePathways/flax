@@ -32,7 +32,7 @@
                 </ul>
             </section>
             <p class="metas">
-                {% for item in article.parsedSubmission.content %}<span class="meta">{{ item }}</span>{% endfor %}
+                {% for item in article.parsedSubmission.content | imagesHandler %}<span class="meta">{{ item }}</span>{% endfor %}
             </p>
             {# check if article has a downloadable file #}
             <div class="meta-dl">
