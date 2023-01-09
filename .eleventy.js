@@ -13,6 +13,18 @@ const path = require('path')
 const jsdom = require('jsdom')
 const { JSDOM } = jsdom
 const https = require('node:https')
+const { has } = require('markdown-it/lib/common/utils')
+
+const url = require('url').URL
+
+const stringIsAValidUrl = (s) => {
+  try {
+    new URL(s)
+    return true
+  } catch (err) {
+    return false
+  }
+}
 
 module.exports = function (eleventyConfig) {
   // collection
@@ -27,25 +39,36 @@ module.exports = function (eleventyConfig) {
       })
     }
     const article = new JSDOM(value)
-    // console.log(article)
-    article.window.document.body.querySelectorAll('img').forEach((img) => {
-      https
-        .get(img.src, (res) => {
-          const file = fs.createWriteStream(
-            `public/images/articles/art${id}-${img.alt}`
-          )
-          res.pipe(file)
-          file.on('finish', () => {
-            file.close()
-            console.log(`${img.src} has been downloaded!`)
+    let document = article.window.document
+    document.body.querySelectorAll('img').forEach((img) => {
+      //check url first
+
+      if (stringIsAValidUrl(img.src)) {
+        https
+          .get(img.src, (res) => {
+            const file = fs.createWriteStream(
+              `public/images/articles/art${id}-${img.alt}`
+            )
+            res.pipe(file)
+            file.on('finish', () => {
+              file.close()
+              console.log(`${img.src} has been downloaded!`)
+            })
           })
-        })
-        .on('error', (err) => {
-          console.log('Error: ', err.message)
-        })
-      img.src = `/images/articles/art${id}-${img.alt}`
+          .on('error', (err) => {
+            console.log(err, res)
+            // console.log('Error: ', err.message)
+          })
+        img.removeAttribute('data-low-def')
+        img.removeAttribute('data-standard-def')
+        img.removeAttribute('data-hi-def')
+        img.src = `/images/articles/art${id}-${img.alt}`
+      }
+      console.log('url →', img.src)
     })
-    return article.window.document.body.innerHTML
+
+    console.log(document.body.innerHTML)
+    return article.serialize()
     // return value
   })
 

@@ -32,7 +32,7 @@
                 </ul>
             </section>
             <p class="metas">
-                {% for item in article.parsedSubmission.content | imagesHandler(article.shortId) %}<span class="meta">{{ item }}</span>{% endfor %}
+                {% for item in article.parsedSubmission.content %}<span class="meta">{{ item }}</span>{% endfor %}
             </p>
             {# check if article has a downloadable file #}
             <div class="meta-dl">
@@ -42,6 +42,9 @@
                         <a href="{{ item | replace('static', '')}}" download>Download the PDF</a>
                     {% endif %}
                 {% endfor %}
+            </div>
+            <div class="licence">
+                <a href="https://creativecommons.org/licenses/by/4.0/legalcode"><span>{% include "_partials/ccbysa.njk" %}</span></a>
             </div>
         </header>
         <div class="meta-data">
@@ -55,7 +58,7 @@
                         <li class="main">
                             <a href="#article">Article</a>
                         </li>
-                        {{ article.meta.source | addIDtoTitles | imagesHandler(article.shortId) | toc({"tags":["h2","h3", "figure"]}) | safe }}
+                        {{ article.meta.source | addIDtoTitles |  toc({"tags":["h2","h3", "figure"]})   | safe }}
                         {% if collections.supplementaryFiles.length > 1 %}
                             <li class="main">
                                 <a href="#supplementary">Supplementary Files</a>
@@ -97,7 +100,7 @@
                     {% endif %}
                 </section>
                 <section id="article" class="article">
-                    {{article.meta.source | addIDtoTitles   | safe }}
+                    {{ article.meta.source |  addIDtoTitles |  imagesHandler(article.shortId)   | safe }}
                 </section>
                 {% if collections.supplementaryFiles.length > 1 %}
                     <section>
