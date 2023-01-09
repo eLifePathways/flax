@@ -68,7 +68,6 @@ const getData = async () => {
     })
     // This is being done because "submission" comes in as stringified JSON which needs to be unstringified to use in templates
     const parsedArticles = data.manuscriptsPublishedSinceDate.map((article) => {
-      // console.log(article)
       return { parsedSubmission: JSON.parse(article.submission), ...article }
     })
 
