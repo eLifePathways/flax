@@ -26,7 +26,86 @@ const stringIsAValidUrl = (s) => {
 }
 
 module.exports = function (eleventyConfig) {
+  eleventyConfig.addPassthroughCopy({ 'static/css': '/css' })
+  eleventyConfig.addPassthroughCopy({ 'static/fonts': '/fonts' })
+  eleventyConfig.addPassthroughCopy({ 'static/js': '/js' })
+  eleventyConfig.addPassthroughCopy({ 'static/images': '/images' })
+  eleventyConfig.addPassthroughCopy({ 'static/outputs': '/outputs' })
+  eleventyConfig.addPassthroughCopy({ 'static/admin': '/admin' })
+
+
   // collection
+  eleventyConfig.addCollection('sortedByOrder', function (collectionApi) {
+      return collectionApi.getAll().sort((a, b) => {
+        if (a.data.order > b.data.order) return 1
+        else if (a.data.order < b.data.order) return -1
+        else return 0
+      })
+  })
+  
+  eleventyConfig.addCollection('supplementaryFiles', function (collection) {
+      return supplementary
+  })
+
+    
+  // plugin TOC
+  eleventyConfig.addPlugin(pluginTOC)
+  eleventyConfig.setLibrary(
+    'md',
+    markdownIt({
+      html: true,
+      linkify: true,
+      typographer: true,
+    }).use(markdownItAnchor, {})
+  )
+
+  // add link to the diverses files
+  const supplementary = fg.sync([
+    '**/outputs/**',
+    '!**/node_modules/',
+    '!**/temp',
+    '!**/public',
+  ])
+
+  // get the date with luxon (for all date)
+  eleventyConfig.addFilter('postDate', (dateObj) => {
+    let date = new Date(dateObj)
+    return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED)
+  })
+
+  // limit the amount of items
+  eleventyConfig.addFilter('limit', function (arr, limit) {
+    return arr.slice(0, limit)
+  })
+
+  eleventyConfig.addFilter('filterContent', function (value, el) {
+    // console.log(value);
+    const $ = cheerio.load(value)
+    if ($.html(el)) {
+      return (value = $.html(el))
+    } else {
+      return value
+    }
+  })
+
+  eleventyConfig.addFilter('addIDtoTitles', function (value) {
+    const $ = cheerio.load(`${value}`)
+
+    $('h2,h3,h4,h5').each(function (i, elem) {
+      $(this).attr('id', $(this).text().toLowerCase().replace(/\s/g, ''))
+    })
+
+    return $.html()
+  })
+
+  eleventyConfig.addFilter('showAvailableMeta', function (value) {
+    return propertiesToArray(value)
+  })
+
+   // useful to use the toc somewhere else
+   eleventyConfig.addFilter('prependLinks', function (value, prepend) {
+    return value.replace(/<a href="/g, `<a href="${prepend}`)
+  })
 
   eleventyConfig.addFilter('imagesHandler', function (value, id) {
 
@@ -73,37 +152,6 @@ module.exports = function (eleventyConfig) {
     // return value
   })
 
-  eleventyConfig.addCollection('sortedByOrder', function (collectionApi) {
-    return collectionApi.getAll().sort((a, b) => {
-      if (a.data.order > b.data.order) return 1
-      else if (a.data.order < b.data.order) return -1
-      else return 0
-    })
-  })
-
-  eleventyConfig.addPassthroughCopy({ 'static/css': '/css' })
-  eleventyConfig.addPassthroughCopy({ 'static/fonts': '/fonts' })
-  eleventyConfig.addPassthroughCopy({ 'static/js': '/js' })
-  eleventyConfig.addPassthroughCopy({ 'static/images': '/images' })
-  eleventyConfig.addPassthroughCopy({ 'static/outputs': '/outputs' })
-  eleventyConfig.addPassthroughCopy({ 'static/admin': '/admin' })
-
-  // plugin TOC
-  eleventyConfig.addPlugin(pluginTOC)
-  eleventyConfig.setLibrary(
-    'md',
-    markdownIt({
-      html: true,
-      linkify: true,
-      typographer: true,
-    }).use(markdownItAnchor, {})
-  )
-
-  // useful to use the toc somewhere else
-  eleventyConfig.addFilter('prependLinks', function (value, prepend) {
-    return value.replace(/<a href="/g, `<a href="${prepend}`)
-  })
-
   eleventyConfig.addFilter(
     'replaceWithRegex',
     function (replaceThat, replaceWith) {
@@ -120,53 +168,6 @@ module.exports = function (eleventyConfig) {
   // add latin number plugin
   eleventyConfig.addFilter('romanize', function (value) {
     return romanize(value)
-  })
-
-  // add link to the diverses files
-  const supplementary = fg.sync([
-    '**/outputs/**',
-    '!**/node_modules/',
-    '!**/temp',
-    '!**/public',
-  ])
-
-  eleventyConfig.addCollection('supplementaryFiles', function (collection) {
-    return supplementary
-  })
-
-  // get the date with luxon (for all date)
-  eleventyConfig.addFilter('postDate', (dateObj) => {
-    let date = new Date(dateObj)
-    return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED)
-  })
-
-  // limit the amount of items
-  eleventyConfig.addFilter('limit', function (arr, limit) {
-    return arr.slice(0, limit)
-  })
-
-  eleventyConfig.addFilter('filterContent', function (value, el) {
-    // console.log(value);
-    const $ = cheerio.load(value)
-    if ($.html(el)) {
-      return (value = $.html(el))
-    } else {
-      return value
-    }
-  })
-
-  eleventyConfig.addFilter('addIDtoTitles', function (value) {
-    const $ = cheerio.load(`${value}`)
-
-    $('h2,h3,h4,h5').each(function (i, elem) {
-      $(this).attr('id', $(this).text().toLowerCase().replace(/\s/g, ''))
-    })
-
-    return $.html()
-  })
-
-  eleventyConfig.addFilter('showAvailableMeta', function (value) {
-    return propertiesToArray(value)
   })
 
   eleventyConfig.addPlugin(pluginTOC, {

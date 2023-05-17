@@ -39,10 +39,6 @@ permalink: "/articlesMeta/{{article.shortId}}/index.html"
 {% block content %}
   <main>
     <header><h1>Available metadata</h1></header>
-
-    
-    
-
     {{article | showAvailableMeta | safe}}
     {% for meta in article %}{% endfor %}
   </main>
