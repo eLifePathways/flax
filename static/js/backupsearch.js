@@ -38,11 +38,6 @@
         const el = document.createElement("li");
         resEl.appendChild(el);
         console.log(r.doc)
-        // const chapNumber = document.createElement("span"); 
-        // chapNumber.classList.add("chap-number");
-        // el.textContent = `chapter ${chapnum}`; 
-        // el.appendChild(chapNumber)
-
         const h3 = document.createElement("h3");
         el.appendChild(h3);
 
