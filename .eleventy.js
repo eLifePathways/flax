@@ -1,6 +1,5 @@
 // const cheerio = require("cheerio");
 
-const Cache = require('@11ty/eleventy-cache-assets')
 const pluginTOC = require('eleventy-plugin-nesting-toc')
 const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
@@ -12,7 +11,7 @@ const fg = require('fast-glob')
 const path = require('path')
 const jsdom = require('jsdom')
 const { JSDOM } = jsdom
-const https = require('node:https')
+const https = require('node-https')
 const { has } = require('markdown-it/lib/common/utils')
 
 const url = require('url').URL
@@ -30,6 +29,7 @@ module.exports = function (eleventyConfig) {
   // collection
 
   eleventyConfig.addFilter('imagesHandler', function (value, id) {
+
     if (!fs.existsSync('public/images/articles')) {
       fs.mkdir(path.join(__dirname, 'public/images/articles'), (err) => {
         if (err) {
@@ -38,31 +38,32 @@ module.exports = function (eleventyConfig) {
         console.log('Directory created successfully!')
       })
     }
+
     const article = new JSDOM(value)
     let document = article.window.document
     document.body.querySelectorAll('img').forEach((img) => {
       //check url first
 
       if (stringIsAValidUrl(img.src)) {
-        https
-          .get(img.src, (res) => {
-            const file = fs.createWriteStream(
-              `public/images/articles/art${id}-${img.alt}`
-            )
-            res.pipe(file)
-            file.on('finish', () => {
-              file.close()
-              console.log(`${img.src} has been downloaded!`)
-            })
-          })
-          .on('error', (err) => {
-            console.log(err, res)
-            // console.log('Error: ', err.message)
-          })
-        img.removeAttribute('data-low-def')
-        img.removeAttribute('data-standard-def')
-        img.removeAttribute('data-hi-def')
-        img.src = `/images/articles/art${id}-${img.alt}`
+        // https
+        //   .get(img.src, (res) => {
+        //     const file = fs.createWriteStream(
+        //       `public/images/articles/art${id}-${img.alt}`
+        //     )
+        //     res.pipe(file)
+        //     file.on('finish', () => {
+        //       file.close()
+        //       console.log(`${img.src} has been downloaded!`)
+        //     })
+        //   })
+        //   .on('error', (err) => {
+        //     console.log(err, res)
+        //     // console.log('Error: ', err.message)
+        //   })
+        // img.removeAttribute('data-low-def')
+        // img.removeAttribute('data-standard-def')
+        // img.removeAttribute('data-hi-def')
+        // img.src = `/images/articles/art${id}-${img.alt}`
       }
       console.log('url →', img.src)
     })
@@ -98,16 +99,11 @@ module.exports = function (eleventyConfig) {
     }).use(markdownItAnchor, {})
   )
 
-  // eleventyConfig.addFilter('getcontent', function(value) {
-  //   const article = new JSDOM(value)
-  //
-  //   return article.window.document.body.querySelectorAll('.content').innerHTML
-  // })
-
   // useful to use the toc somewhere else
   eleventyConfig.addFilter('prependLinks', function (value, prepend) {
     return value.replace(/<a href="/g, `<a href="${prepend}`)
   })
+
   eleventyConfig.addFilter(
     'replaceWithRegex',
     function (replaceThat, replaceWith) {
@@ -138,7 +134,7 @@ module.exports = function (eleventyConfig) {
     return supplementary
   })
 
-  // \get the date with luxon (for all date)
+  // get the date with luxon (for all date)
   eleventyConfig.addFilter('postDate', (dateObj) => {
     let date = new Date(dateObj)
     return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED)
@@ -160,19 +156,12 @@ module.exports = function (eleventyConfig) {
   })
 
   eleventyConfig.addFilter('addIDtoTitles', function (value) {
-    // cheerio only accept string, no html buffer :shrug:
     const $ = cheerio.load(`${value}`)
 
     $('h2,h3,h4,h5').each(function (i, elem) {
       $(this).attr('id', $(this).text().toLowerCase().replace(/\s/g, ''))
     })
 
-    // add it to figure, seems to break because of the base64
-
-    // doesnt work with base64 as the content is way too big
-    // $('figure').each(function (i, elem) {
-    //   $(this).attr('id', `fig-${i})`);
-    // })
     return $.html()
   })
 
