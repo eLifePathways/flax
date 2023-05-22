@@ -1,7 +1,11 @@
-<a class="logo" href="/">
+{# <a class="logo" href="/">
 {% if assets.logo %}
 {{assets.logo | safe}}    
 {% else  %}
     <p class="site-title">{{site.name | safe}}</p>
 {% endif %}
+</a> #}
+
+<a class="logo" href="/">
+    <p class="site-title">{{site.name | safe}}</p>
 </a>

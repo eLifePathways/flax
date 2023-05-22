@@ -1,11 +1,3 @@
-// nightmode
-
-// let address =
-//   window.location.origin +
-//   window.location.pathname +
-//   window.location.search +
-//   window.location.hash;
-
 document.addEventListener(
   "click",
   function (event) {

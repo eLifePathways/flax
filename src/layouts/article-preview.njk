@@ -5,7 +5,7 @@
     <main>
         <span class="runnin-title">{{ article.meta.title }}</span>
         <header>
-            <div class="logobis">{{ assets.logopreview | safe }}</div>
+            {# <div class="logobis">{{ assets.logopreview | safe }}</div> #}
             <p class="metanext">
                 <time datetime="article.publishedDate">{{ article.publishedDate | replace('Z','') | postDate }}</time>
                 {% if article.parsedSubmission.objectType %}
@@ -115,7 +115,7 @@
 {% endblock %}
 {% block footer %}
     <footer>
-        <div class="logobis">{{ assets.logopreview | safe }}</div>
+        {# <div class="logobis">{{ assets.logopreview | safe }}</div> #}
     </footer>
 {% endblock %}
 {% block side %}{# nothing  #}{% endblock %}
