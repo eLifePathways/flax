@@ -140,6 +140,7 @@ module.exports = function (eleventyConfig) {
     // return article.serialize()
     // // return value
 
+    console.log("handling content fine.")
     return value;
   })
 

@@ -1,8 +1,11 @@
-version: '5'
+version: '8'
 services:
-  eleventy:
+  eleventy_flax:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - 8080:8080
+
+    volumes:
+      - ./src:/app/src

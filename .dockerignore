@@ -1,0 +1,13 @@
+# docker
+Dockerfile*
+docker-compose*
+
+# git
+.git
+.gitignore
+
+# npm & yarn
+node_modules
+npm-debug.log
+package-lock.json
+yarn-error.log

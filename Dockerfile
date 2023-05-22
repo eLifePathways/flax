@@ -1,5 +1,5 @@
 # Use an official Node.js image as the base
-FROM node:14
+FROM node:14.17-alpine
 
 # Set the working directory in the container
 WORKDIR /app
@@ -14,10 +14,10 @@ RUN npm install
 COPY . .
 
 # Build the Eleventy site
-RUN npx eleventy
+RUN npx @11ty/eleventy
 
 # Expose the port that Eleventy uses (default is 8080)
 EXPOSE 8080
 
 # Set the command to run when the container starts
-CMD ["npx", "eleventy", "--serve"]
+CMD ["npx", "@11ty/eleventy", "--serve"]
