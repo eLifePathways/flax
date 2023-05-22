@@ -1,11 +1,13 @@
-version: '8'
+version: '3'
 services:
-  eleventy_flax:
+  eleventy-express:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - ./public:/app/public
+      - ./src:/app/src
     ports:
       - 8080:8080
-
-    volumes:
-      - ./src:/app/src
+    command: >
+      sh -c "node server.js"

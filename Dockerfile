@@ -19,5 +19,7 @@ RUN npx @11ty/eleventy
 # Expose the port that Eleventy uses (default is 8080)
 EXPOSE 8080
 
-# Set the command to run when the container starts
-CMD ["npx", "@11ty/eleventy", "--serve"]
+# # Set the command to run when the container starts
+# CMD ["node", "public/server.js"]
+
+# CMD ["npm", "start"]
