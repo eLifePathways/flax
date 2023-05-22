@@ -1,5 +1,3 @@
-// const cheerio = require("cheerio");
-
 const pluginTOC = require('eleventy-plugin-nesting-toc')
 const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
@@ -8,13 +6,6 @@ const cheerio = require('cheerio')
 const flatten = require('flat')
 const fs = require('fs')
 const fg = require('fast-glob')
-const path = require('path')
-const jsdom = require('jsdom')
-const { JSDOM } = jsdom
-const https = require('node-https')
-const { has } = require('markdown-it/lib/common/utils')
-
-const url = require('url').URL
 
 const stringIsAValidUrl = (s) => {
   try {
@@ -109,47 +100,47 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter('imagesHandler', function (value, id) {
 
-    if (!fs.existsSync('public/images/articles')) {
-      fs.mkdir(path.join(__dirname, 'public/images/articles'), (err) => {
-        if (err) {
-          return console.error(err)
-        }
-        console.log('Directory created successfully!')
-      })
-    }
+    // if (!fs.existsSync('public/images/articles')) {
+    //   fs.mkdir(path.join(__dirname, 'public/images/articles'), (err) => {
+    //     if (err) {
+    //       return console.error(err)
+    //     }
+    //     console.log('Directory created successfully!')
+    //   })
+    // }
 
-    const article = new JSDOM(value)
-    let document = article.window.document
-    document.body.querySelectorAll('img').forEach((img) => {
-      //check url first
+    // const article = new JSDOM(value)
+    // let document = article.window.document
+    // document.body.querySelectorAll('img').forEach((img) => {
+    //   //check url first
 
-      if (stringIsAValidUrl(img.src)) {
-        // https
-        //   .get(img.src, (res) => {
-        //     const file = fs.createWriteStream(
-        //       `public/images/articles/art${id}-${img.alt}`
-        //     )
-        //     res.pipe(file)
-        //     file.on('finish', () => {
-        //       file.close()
-        //       console.log(`${img.src} has been downloaded!`)
-        //     })
-        //   })
-        //   .on('error', (err) => {
-        //     console.log(err, res)
-        //     // console.log('Error: ', err.message)
-        //   })
-        // img.removeAttribute('data-low-def')
-        // img.removeAttribute('data-standard-def')
-        // img.removeAttribute('data-hi-def')
-        // img.src = `/images/articles/art${id}-${img.alt}`
-      }
-      console.log('url →', img.src)
-    })
+    //   if (stringIsAValidUrl(img.src)) {
+    //     // https
+    //     //   .get(img.src, (res) => {
+    //     //     const file = fs.createWriteStream(
+    //     //       `public/images/articles/art${id}-${img.alt}`
+    //     //     )
+    //     //     res.pipe(file)
+    //     //     file.on('finish', () => {
+    //     //       file.close()
+    //     //       console.log(`${img.src} has been downloaded!`)
+    //     //     })
+    //     //   })
+    //     //   .on('error', (err) => {
+    //     //     console.log(err, res)
+    //     //     // console.log('Error: ', err.message)
+    //     //   })
+    //     // img.removeAttribute('data-low-def')
+    //     // img.removeAttribute('data-standard-def')
+    //     // img.removeAttribute('data-hi-def')
+    //     // img.src = `/images/articles/art${id}-${img.alt}`
+    //   }
+    // })
 
-    console.log(document.body.innerHTML)
-    return article.serialize()
-    // return value
+    // return article.serialize()
+    // // return value
+
+    return value;
   })
 
   eleventyConfig.addFilter(

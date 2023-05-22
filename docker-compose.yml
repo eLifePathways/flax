@@ -1,11 +1,8 @@
-version: '3'
+version: '5'
 services:
-  flax:
+  eleventy:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - 8080:8080
-    volumes:
-      - .:/app
-    command: npx eleventy --serve
