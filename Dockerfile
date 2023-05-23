@@ -20,6 +20,6 @@ RUN npx @11ty/eleventy
 EXPOSE 8080
 
 # # Set the command to run when the container starts
-# CMD ["node", "public/server.js"]
+CMD ["node", "server.js"]
 
 # CMD ["npm", "start"]
