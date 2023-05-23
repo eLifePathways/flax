@@ -1,0 +1,21 @@
+{% extends "base.njk" %}
+
+{% block background %}
+    {% if assets.background %}
+        <div class="background">{{assets.background | safe}}</div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <main>
+        <header>
+            <h1>{{title}}</h1>
+            <section class="intro">{{content | safe}}</section>
+        </header>
+
+        <section class="section-latest">
+            {% include "_partials/list-articles.njk" %}
+        </section>
+
+    </main>
+{% endblock %}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+{# from https://www.matuzo.at/blog/html-boilerplate/ #}
+
+<html lang="{% if lang %}{{lang}}{% else %} {{site.lang}}{% endif %}" class="no-js">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+
+        <title>{{title}} — {{site.title}}</title>
+
+        <script type="module">
+            document
+                .documentElement
+                .classList
+                .remove('no-js');
+            document
+                .documentElement
+                .classList
+                .add('js');
+        </script>
+
+        <meta name="description" content="{{site.description}}">
+        <meta property="og:title" content="{{title}} — {{site.title}}">
+        <meta property="og:description" content="{% if description %}{{description}}{% else %}{{site.description}}{% endif %}">
+        <meta property="og:image" content="{{site.image}}">
+        <meta property="og:image:alt" content="{{site.imageAlt}}">
+        <meta property="og:locale" content="{{site.locale}}">
+        <meta property="og:type" content="website">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:url" content="site.url">
+        <link rel="canonical" href="https://www.mywebsite.com/page">
+
+        <link rel="icon" href="/favicon.ico">
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <link rel="manifest" href="/my.webmanifest">
+        <meta name="theme-color" content="{{browser-theme-color}}">
+
+        {# twitter: do not track #}
+        <meta name="twitter:dnt" content="on">
+        {% block styleLayout %}
+        {% endblock %}
+
+        {% block styles %}
+
+            {% if theme %}
+                <link rel="stylesheet" href="/css/{{theme}}/main.css?{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}">
+            {% elseif folder %}
+                {% for item in site.books %}
+                    {% if folder == item.folder %}
+                        <link rel="stylesheet" href="/css/{{item.theme}}/main.css?{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}">
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <link rel="stylesheet" href="/css/{{site.configuration.theme}}/main.css?{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}">
+            {% endif %}
+        {% endblock %}
+
+        <script>
+            if (localStorage.getItem('nightmode') == "true") {
+                document.documentElement.classList.add('nightmode')
+            }
+        </script>
+
+        {% block scriptHead %}
+
+            {% include "_partials/scripthead.njk" %}
+
+        {% endblock %}
+
+        {% block debugstyle %}{% endblock %}
+
+    </head>
+
+    <body  class="{{class}} {% block bodyclass %}{% endblock %}">
+
+        {% block background %}{% endblock %}
+
+        {% block topbar %}
+            {% include "_partials/menu.njk" %}
+        {% endblock %}
+
+        {% block side %}
+        {% endblock %}
+
+        {% block content %}
+            {{content | safe}}
+        {% endblock %}
+
+        {% block footer %}
+            <footer>
+                <p>{{site.configuration.footer | safe}}</p>
+            </footer>
+        {% endblock %}
+
+        {# check instant #}
+        <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+        {% block scripts %}
+            <script type="module" src="/js/read.js"></script>
+        {% endblock %}
+
+        {% block printpreview %}{% endblock %}
+
+    </body>
+</html>
