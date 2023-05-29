@@ -1,1 +1,5 @@
-{"url":"http://client:4000/graphql","webhook":"","cache":false}
+{
+    "url":"http://client:4000/graphql",
+    "webhook":"",
+    "cache":false
+}

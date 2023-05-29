@@ -31,11 +31,12 @@ const getData = async () => {
   try {
     let response = await axios.request(requestData)
     response = response.data.data;
-    console.log(response)
+    console.log("fetched flax page", response)
     return {
       about_us: response.flaxPage
     }
   }catch(err) {
+    console.log("Error while flax page", err)
     return {
       about_us: {}
     }
