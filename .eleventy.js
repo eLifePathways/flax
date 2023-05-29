@@ -23,8 +23,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ 'static/images': '/images' })
   eleventyConfig.addPassthroughCopy({ 'static/outputs': '/outputs' })
   eleventyConfig.addPassthroughCopy({ 'static/admin': '/admin' })
-  
-  eleventyConfig.addPassthroughCopy('server.js');
+
 
 
   // collection
