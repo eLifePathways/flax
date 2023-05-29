@@ -1,0 +1,13 @@
+version: '3'
+services:
+  eleventy_express_nginx:
+    container_name: kotahi_flax
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./src:/app/src
+      - ./server.js:/app/server.js
+    ports:
+      - ${EXPRESS_PORT:-3000}:${EXPRESS_PORT:-3000}
+      - ${FLAX_PORT:-8080}:${FLAX_PORT:-80}

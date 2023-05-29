@@ -1,13 +1,26 @@
 version: '3'
 services:
-  eleventy-express:
+  eleventy:
     build:
       context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ./public:/app/public
-      - ./src:/app/src
+      dockerfile: ./Dockerfile-development
     ports:
       - 8080:8080
-    command: >
-      sh -c "node server.js"
+    command: npx @11ty/eleventy --serve
+      
+    volumes:
+      - ./src:/app/src
+      - ./server.js:/app/server.js
+
+  
+  express:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-development
+    ports:
+      - 3001:3000
+    command: node server.js
+
+    volumes:
+      - ./server.js:/app/server.js
+      - ./src:/app/src

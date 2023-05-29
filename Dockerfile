@@ -1,25 +1,26 @@
-# Use an official Node.js image as the base
 FROM node:16.16.0-alpine3.16
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the container
-COPY package*.json ./
+# Install NGINX
+RUN apk update && apk add --no-cache nginx
 
-# Install project dependencies
+# Copy NGINX configuration
+COPY nginx.conf /etc/nginx/http.d/default.conf
+
+# Install dependencies for Eleventy and Express
+COPY package*.json ./
 RUN npm install
 
-# Copy the entire project to the container
+# Build Eleventy site
 COPY . .
+RUN npx eleventy
 
-# Build the Eleventy site
-RUN npx @11ty/eleventy
+# Copy Express server file
+COPY server.js .
 
-# Expose the port that Eleventy uses (default is 8080)
-EXPOSE 8080
+# Expose ports for Eleventy and Express
+EXPOSE 80 3000
 
-# # Set the command to run when the container starts
-CMD ["node", "server.js"]
-
-# CMD ["npm", "start"]
+# Start NGINX and Express server
+CMD nginx && node server.js
