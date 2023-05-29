@@ -3,10 +3,11 @@ const config = require('./config.json')
 
 const getData = async () => {
   let graphQLQuery = JSON.stringify({
-    query: `query flaxPage($id: ID) {
-      flaxPage(id: $id) {
+    query: `query flaxPageByShortcode($shortcode: String!) {
+      flaxPageByShortcode(shortcode: $shortcode) {
           id
           title
+          shortcode
           created
           content {
             header
@@ -15,7 +16,7 @@ const getData = async () => {
           }
       }
     }`,
-    variables: {"id":"18842150-b299-4e90-b0a5-6bddd03e7a1d"}
+    variables: {"shortcode":"about_us"}
   });
   
   let requestData = {
@@ -33,7 +34,7 @@ const getData = async () => {
     response = response.data.data;
     console.log("fetched flax page", response)
     return {
-      about_us: response.flaxPage
+      about_us: response.flaxPageByShortcode
     }
   }catch(err) {
     console.log("Error while flax page", err)
