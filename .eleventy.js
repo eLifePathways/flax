@@ -6,6 +6,7 @@ const cheerio = require('cheerio')
 const flatten = require('flat')
 const fs = require('fs')
 const fg = require('fast-glob')
+const rimraf = require("rimraf");
 
 const stringIsAValidUrl = (s) => {
   try {
@@ -16,6 +17,8 @@ const stringIsAValidUrl = (s) => {
   }
 }
 
+
+
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ 'static/css': '/css' })
   eleventyConfig.addPassthroughCopy({ 'static/fonts': '/fonts' })
@@ -24,7 +27,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ 'static/outputs': '/outputs' })
   eleventyConfig.addPassthroughCopy({ 'static/admin': '/admin' })
 
-
+  // Clean the output directory before each build
+  eleventyConfig.on("beforeBuild", () => {
+    rimraf.sync("public");
+  });
 
   // collection
   eleventyConfig.addCollection('sortedByOrder', function (collectionApi) {

@@ -2,7 +2,6 @@ const express = require('express');
 const { exec } = require('child_process');
 const fs = require("fs");
 const config = require('./src/data/config');
-const flaxPage = require('./src/data/flaxPage')
 
 const PORT = 3000;
 
@@ -64,5 +63,5 @@ app.listen(PORT, () => {
   // We can not rebuild the site until the client is up and running. 
   // So might fix this by putting entry point file and wait for the server to up.
   setTimeout(rebuildSite, 60000);
-  console.log(`Flax Express server running on port ${PORT}`);
+  console.log(`Flax and Express server running on port 8080 and ${PORT} respectively.`);
 });

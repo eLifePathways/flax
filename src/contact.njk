@@ -1,0 +1,22 @@
+---
+title: Contact us
+permalink: /contactus
+layout: cms-page.njk
+menu: true
+
+eleventyComputed:
+  menu: "{{ cmsPages.contact_us.meta.menu}}"
+  permalink: "{{ cmsPages.contact_us.meta.url}}"
+---
+
+{% block content %}
+    <main>
+        <br/>
+        {{ title }}
+        <br/>
+        <br/>
+        <div>
+            {{ cmsPages.contact_us.content | safe  }}
+        </div>
+    </main>
+{% endblock %}

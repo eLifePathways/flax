@@ -1,0 +1,24 @@
+---
+title: About us Page
+permalink: "/aboutus2"
+layout: cms-page.njk
+menu: true
+eleventyComputed:
+  menu: "{{ cmsPages.about_us.meta.menu}}"
+  permalink: "{{ cmsPages.about_us.meta.url}}"
+
+---
+
+{% block content %}
+    <main>
+        <br/>
+        {{ title }} {{ cmsPages.about_us.meta }} 
+ 
+        <br/>
+              menu data  {{ menu }}
+        <br/>
+        <div>
+            {{ cmsPages.about_us.content | safe  }}
+        </div>
+    </main>
+{% endblock %}

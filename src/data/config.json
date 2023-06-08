@@ -1,5 +1,5 @@
 {
-    "url":"http://client:4000/graphql",
+    "url":"https://a9bc-2409-4053-899-df84-ccd1-82be-5716-90.ngrok-free.app/graphql",
     "webhook":"",
     "cache":false
 }
