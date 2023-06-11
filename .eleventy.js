@@ -65,6 +65,14 @@ module.exports = function (eleventyConfig) {
     '!**/public',
   ])
 
+  eleventyConfig.addFilter('filterByOrder', function (pages) {
+    return pages.sort((a, b) => {
+      if (a.meta.order > b.meta.order) return 1
+      else if (a.meta.order < b.meta.order) return -1
+      else return 0
+    })
+  })
+
   // get the date with luxon (for all date)
   eleventyConfig.addFilter('postDate', (dateObj) => {
     let date = new Date(dateObj)

@@ -1,19 +1,20 @@
 const axios = require('axios');
 const config = require('./config.json')
 
-
-const cleanMeta = (pageMeta, cmsPage) => {
-  let meta = {};
+const cleanMeta = (cmsPage) => {
+  let pageMeta = cmsPage.meta;
+  let updatedMeta = {};
   if(!pageMeta) {
-    return meta;
+    return updatedMeta;
   }
   if(typeof pageMeta != "object") {
-    meta = JSON.parse(pageMeta)
+    updatedMeta = JSON.parse(pageMeta)
   }
 
-  meta.menu = meta.menu == undefined ? true : meta.menu
-  meta.url = meta.url ? meta.url : cmsPage.shortcode
-  return meta;
+  updatedMeta.menu = updatedMeta.menu == undefined ? true : updatedMeta.menu
+  updatedMeta.url = updatedMeta.url ? updatedMeta.url : cmsPage.shortcode
+  cmsPage.meta = updatedMeta;
+  return updatedMeta;
 }
 
 const getData = async () => {
@@ -43,21 +44,25 @@ const getData = async () => {
   
   try {
     let response = await axios.request(requestData)
-    let cmsPages = response.data.data.cmsPages;
-    let results = {};
-
-    for(let i in cmsPages) {
-      let cmsPage = cmsPages[i];
-      cmsPage.meta = cleanMeta(cmsPage.meta, cmsPage)
-      console.log({meta: cmsPage.meta})
-      results[cmsPage.shortcode] = cmsPage
+    let cmsPagesData = response.data.data.cmsPages;
+    let pageShortCodes = {};
+    let cmsPages = [];
+    for(let i in cmsPagesData) {
+      let cmsPage = cmsPagesData[i];
+      cleanMeta(cmsPage)
+      pageShortCodes[cmsPage.shortcode] = cmsPage
+      cmsPages.push(cmsPage)
     }
-    return results
+
+    return {
+      shortCodePages: pageShortCodes,
+      pages: cmsPages
+    }
 
   }catch(err) {
     console.log("Error while flax page", err)
     return {
-      about_us: {}
+      pages: []
     }
   }
 }

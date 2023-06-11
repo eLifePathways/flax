@@ -30,7 +30,7 @@ const getData = async () => {
 
     const data = await graphqlQuery({
       query: `{
-  manuscriptsPublishedSinceDate(startDate: 1684081117000, limit: null) {
+  manuscriptsPublishedSinceDate(limit: 10) {
   id
   shortId
   files {
@@ -71,7 +71,6 @@ const getData = async () => {
    }
 }`,
     })
-
 
     if(!data) {
       return {
