@@ -3,6 +3,7 @@
     {% for article in articleQuery.articles | reverse %}
         <article>
             <p><time datetime="article.publishedDate" class="published">{{article.publishedDate | replace('Z','') | postDate }}</time></p>
+            
             <h2 class="article-title">
                 <a href="/articles/{{article.shortId}}/index.html">{{article.meta.title}}</a>
             </h2>
@@ -19,11 +20,13 @@
                     <li class="author metadata">
                         <span class="author-name">{{author.lastName}}</span></li>
                 {% endfor %}
-            </ul> {% if article.parsedSubmission.objectType %}
-                    <span class="object-type metadata">
-                        <a href="#">{{article.parsedSubmission.objectType}}</a>
-                    </span>
-                {% endif %}
+            </ul> 
+            
+            {% if article.parsedSubmission.objectType %}
+                <span class="object-type metadata">
+                    <a href="#">{{article.parsedSubmission.objectType}}</a>
+                </span>
+            {% endif %}
 
             <p class="metas">
                 {% for item in article.parsedSubmission.content %}
@@ -32,7 +35,6 @@
                     </span>
                 {% endfor %}
             </p>
-        </a>
-    </article>
+        </article>
 {% endfor %}
 </section>

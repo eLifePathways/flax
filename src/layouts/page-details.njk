@@ -1,0 +1,19 @@
+{% extends '../layouts/base.njk' %}
+{% set currentPage = cmsPage %}
+{% set title = cmsPage.title %}
+{% block content %}
+    <main>
+        <br/>
+        {{ title }}
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div>
+            {{ cmsPage.content | safe  }}
+        </div>
+    </main>
+{% endblock %}
