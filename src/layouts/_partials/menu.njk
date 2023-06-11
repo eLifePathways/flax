@@ -6,6 +6,7 @@
                 {% if cmsPage.meta.menu == true or cmsPage.meta.menu == "true" %}
                     <li>
                         <a 
+                        class="{% if cmsPage.meta.url == page.url %}active{% endif %}" 
                         href="{{cmsPage.meta.url}}"
                         title="{{ cmsPage.title }}">
                         {{ cmsPage.title }}
