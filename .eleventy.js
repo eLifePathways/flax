@@ -67,11 +67,17 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter('reorderPages', function (pages) {
     return pages.sort((page1, page2) => {
-      console.log({page1, page2})
       if (page1.sequenceIndex > page2.sequenceIndex) return 1
       else if (page1.sequenceIndex < page2.sequenceIndex) return -1
       else return 0
     })
+  })
+
+  eleventyConfig.addFilter('valueOrDefault', function (value, defaultValue) {
+    if(!value) {
+      return defaultValue
+    }
+    return value
   })
 
   // get the date with luxon (for all date)

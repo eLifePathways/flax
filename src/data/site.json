@@ -5,12 +5,5 @@
     "image": "",
     "imageAlt": "",
     "locale": "en",
-    "url": "/",
-    "browser-theme-color": "#000",
-    "configuration": {
-        "theme": "theme-kotahi",
-        "logo": "Aperture Neuro",
-        "baseURL": "/",
-        "footer": ""
-    }
+    "url": "/"
 }
