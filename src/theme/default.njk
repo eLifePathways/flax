@@ -1,0 +1,17 @@
+---
+permalink: css/theme/default.css
+---
+
+:root {
+    --color-primary: {{ cmsLayout.primaryColor | valueOrDefault('#30ac66') | safe  }};
+    --color-secondary: {{ cmsLayout.secondaryColor | valueOrDefault('red') | safe  }};;
+    --color-background: #ecf2ee;
+    --color-grey: #999;
+    --color-grey-light: #ccc;
+    --color-highlight: #e6f2cd; 
+    --color-body: #3e3e3e;
+    --font-size: 1em;
+    --font-meta: "Inria Sans";
+    --font-interface: "Inria Sans";
+    --font-content: "Inria Serif";
+}
