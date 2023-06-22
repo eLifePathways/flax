@@ -122,11 +122,18 @@ h3 {
   font-weight: 300;
   letter-spacing: .2ch; /* background: var(--color-primary); */
   padding: 8px;
+  flex-direction: column;
 }
 
 
 .logo svg {
   height: 40px;
+}
+
+.logo img {
+  width: 100%;
+  height: 50px;
+  max-width: 130px;
 }
 
 .logo path {
