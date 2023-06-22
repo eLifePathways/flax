@@ -10,9 +10,6 @@ const cleanMeta = (cmsPage) => {
   if(typeof pageMeta != "object") {
     updatedMeta = JSON.parse(pageMeta)
   }
-
-  updatedMeta.menu = updatedMeta.menu == undefined ? true : updatedMeta.menu
-  updatedMeta.url = updatedMeta.url ? updatedMeta.url : cmsPage.shortcode
   cmsPage.meta = updatedMeta;
   return updatedMeta;
 }
@@ -27,6 +24,9 @@ const getData = async () => {
           created
           content
           meta
+          menu
+          url
+          sequenceIndex
       }
     }`,
     variables: {}
@@ -41,7 +41,6 @@ const getData = async () => {
       'Content-Type': 'application/json'
     }
   };
-  
   try {
     let response = await axios.request(requestData)
     let cmsPagesData = response.data.data.cmsPages;
@@ -58,7 +57,6 @@ const getData = async () => {
       shortCodePages: pageShortCodes,
       pages: cmsPages
     }
-
   }catch(err) {
     console.log("Error while flax page", err)
     return {

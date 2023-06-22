@@ -2,12 +2,12 @@
         {% include "_partials/logo.njk" %}
     <nav>
         <ul>
-            {% for cmsPage in cmsPages.pages | filterByOrder %}
-                {% if cmsPage.meta.menu == true or cmsPage.meta.menu == "true" %}
+            {% for cmsPage in (cmsPages.pages | reorderPages) %}
+                {% if cmsPage.menu == true or cmsPage.menu == "true" %}
                     <li>
                         <a 
-                        class="{% if cmsPage.meta.url == page.url %}active{% endif %}" 
-                        href="{{cmsPage.meta.url}}"
+                        class="{% if cmsPage.url == page.url %}active{% endif %}" 
+                        href="{{cmsPage.url}}"
                         title="{{ cmsPage.title }}">
                         {{ cmsPage.title }}
                         </a>

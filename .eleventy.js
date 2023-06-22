@@ -65,10 +65,11 @@ module.exports = function (eleventyConfig) {
     '!**/public',
   ])
 
-  eleventyConfig.addFilter('filterByOrder', function (pages) {
-    return pages.sort((a, b) => {
-      if (a.meta.order > b.meta.order) return 1
-      else if (a.meta.order < b.meta.order) return -1
+  eleventyConfig.addFilter('reorderPages', function (pages) {
+    return pages.sort((page1, page2) => {
+      console.log({page1, page2})
+      if (page1.sequenceIndex > page2.sequenceIndex) return 1
+      else if (page1.sequenceIndex < page2.sequenceIndex) return -1
       else return 0
     })
   })
