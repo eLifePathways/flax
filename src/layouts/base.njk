@@ -39,7 +39,7 @@
         {% block styleLayout %}
         {% endblock %}
         {% block styles %}
-            <link rel="stylesheet" href="/css/main.css?{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}">
+            <link rel="stylesheet" href="/assets/css/main.css?{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}">
         {% endblock %}
 
         <script>
@@ -82,7 +82,7 @@
         {# check instant #}
         <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
         {% block scripts %}
-            <script type="module" src="/js/read.js"></script>
+            <script type="module" src="/assets/js/read.js"></script>
         {% endblock %}
 
         {% block printpreview %}{% endblock %}

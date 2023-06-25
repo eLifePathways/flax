@@ -1,3 +1,5 @@
+
+const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 const pluginTOC = require('eleventy-plugin-nesting-toc')
 const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
@@ -7,6 +9,7 @@ const flatten = require('flat')
 const fs = require('fs')
 const fg = require('fast-glob')
 const rimraf = require("rimraf");
+const flaxHelpers = require("./11ty-plugins/flax-helpers.js");
 
 const stringIsAValidUrl = (s) => {
   try {
@@ -20,12 +23,32 @@ const stringIsAValidUrl = (s) => {
 
 
 module.exports = function (eleventyConfig) {
-  eleventyConfig.addPassthroughCopy({ 'static/css': '/css' })
-  eleventyConfig.addPassthroughCopy({ 'static/fonts': '/fonts' })
-  eleventyConfig.addPassthroughCopy({ 'static/js': '/js' })
-  eleventyConfig.addPassthroughCopy({ 'static/images': '/images' })
-  eleventyConfig.addPassthroughCopy({ 'static/outputs': '/outputs' })
-  eleventyConfig.addPassthroughCopy({ 'static/admin': '/admin' })
+  // eleventyConfig.addPassthroughCopy({ 'static/css': '/css' })
+  // eleventyConfig.addPassthroughCopy({ 'static/fonts': '/fonts' })
+  // eleventyConfig.addPassthroughCopy({ 'static/js': '/js' })
+  // eleventyConfig.addPassthroughCopy({ 'static/images': '/images' })
+  // eleventyConfig.addPassthroughCopy({ 'static/outputs': '/outputs' })
+  // eleventyConfig.addPassthroughCopy({ 'static/admin': '/admin' })
+
+  // passthrough file copy //
+  eleventyConfig.addPassthroughCopy(
+    { "static/": "assets/" },
+    {
+      expand: true,
+    }
+  );
+
+  eleventyConfig.setServerPassthroughCopyBehavior("passthrough");
+
+  eleventyConfig.setServerOptions({
+    // to auto reload when css change
+    watch: ["public/**/*.css", "static/**/*.css"],
+  });
+
+  eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
+
+  // flaxhelpers
+  eleventyConfig.addPlugin(flaxHelpers);
 
   // Clean the output directory before each build
   eleventyConfig.on("beforeBuild", () => {
@@ -191,6 +214,7 @@ module.exports = function (eleventyConfig) {
     ul: false, // if to use `ul` instead of `ol`
     flat: false,
   })
+  
 
   // folder structures
   // -----------------------------------------------------------------------------
@@ -198,6 +222,8 @@ module.exports = function (eleventyConfig) {
   // output goes to public (for gitlab ci/cd)
   // -----------------------------------------------------------------------------
   return {
+    markdownTemplateEngine: "njk",
+    
     dir: {
       input: 'src',
       output: 'public',

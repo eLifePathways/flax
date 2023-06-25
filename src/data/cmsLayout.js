@@ -27,7 +27,7 @@ const storeLogoFile = async (logo) => {
       return;
     }
     const file = fs.createWriteStream(
-      `public/images/logo.png`
+      `public/assets/images/logo.png`
     )
     res.pipe(file)
     file.on('finish', () => {
