@@ -1,5 +1,0 @@
-{
-  "layout": "elife/elife-about-single.njk",
-  "permalink": "about/{{- page.fileSlug -}}/",
-  "classes": "single about"
-}
