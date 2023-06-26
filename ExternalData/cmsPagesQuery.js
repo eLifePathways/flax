@@ -2,7 +2,7 @@ const axios = require('axios');
 const config = require('../src/data/config.json')
 const fs = require("fs");
 
-const dataFile = `src/data/cmsLayout.json`
+const dataFile = `src/data/cmsPages.json`
 
 const cleanMeta = (cmsPage) => {
   let pageMeta = cmsPage.meta;
