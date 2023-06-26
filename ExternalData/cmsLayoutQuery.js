@@ -17,12 +17,12 @@ const storeLogoFile = async (logo) => {
     return;
   }
 
-  let server = http;
-
+  let protocol = http;
+  
   if(originalImage.url.includes('https')) {
-    server = https;
+    protocol = https;
   }
-  server
+  protocol
   .get(originalImage.url, (res) => {
     let isValidUrl = res.statusCode >= 200 && res.statusCode <= 300;
     if(!isValidUrl) {
