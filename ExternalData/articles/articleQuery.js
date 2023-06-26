@@ -1,6 +1,6 @@
 const fs = require("fs");
 const axios = require('axios')
-const config = require('../src/data/config.json')
+const config = require('../../src/data/config.json')
 const { AssetCache } = require('@11ty/eleventy-cache-assets')
 // const GRAPHQL_URL = config.url
 const GRAPHQL_URL = 'https://kotahidev.cloud68.co/graphql/'

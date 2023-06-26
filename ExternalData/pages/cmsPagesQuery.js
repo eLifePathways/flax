@@ -1,5 +1,5 @@
 const axios = require('axios');
-const config = require('../src/data/config.json')
+const config = require('../../src/data/config.json')
 const fs = require("fs");
 
 const dataFile = `src/data/cmsPages.json`

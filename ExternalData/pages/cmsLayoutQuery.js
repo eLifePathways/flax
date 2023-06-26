@@ -1,5 +1,5 @@
 const axios = require('axios');
-const config = require('../src/data/config.json')
+const config = require('../../src/data/config.json')
 var https = require('https');
 var http = require('http');
 const fs = require('fs')
