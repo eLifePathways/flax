@@ -3,7 +3,8 @@ const axios = require('axios')
 const config = require('./config.json')
 const { AssetCache } = require('@11ty/eleventy-cache-assets')
 const path = require('path')
-const GRAPHQL_URL = config.url
+// const GRAPHQL_URL = config.url
+const GRAPHQL_URL = 'https://kotahidev.cloud68.co/graphql/'
 
 const getData = async () => {
   let cachedArticles = new AssetCache(`articles`)

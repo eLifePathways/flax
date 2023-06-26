@@ -1,5 +1,5 @@
 {
-  "name": "web-book-maker",
+  "name": "kotahi-flex",
   "version": "0.0.1",
   "description": "an eleventy template for book on screen",
   "main": ".eleventy.js",
@@ -32,6 +32,7 @@
     "flat": "^5.0.2",
     "flat-cache": "^3.0.4",
     "jsdom": "^22.0.0",
+    "katex": "^0.16.8",
     "luxon": "^2.5.2",
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^7.1.0",
