@@ -1,4 +1,3 @@
-
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 const pluginTOC = require('eleventy-plugin-nesting-toc')
 const markdownIt = require('markdown-it')
@@ -8,7 +7,9 @@ const cheerio = require('cheerio')
 
 const fg = require('fast-glob')
 const rimraf = require("rimraf");
-const flaxHelpers = require("./11ty-plugins/flax-helpers.js");
+const flaxPlugins = require("./11ty-plugins/flax-plugins.js");
+
+const deleteDirectories = require("./Helpers_2/deleteDirectories.js")
 
 module.exports = function (eleventyConfig) {
   // passthrough file copy //
@@ -28,12 +29,13 @@ module.exports = function (eleventyConfig) {
   });
 
   // flaxhelpers
-  eleventyConfig.addPlugin(flaxHelpers);
+  eleventyConfig.addPlugin(flaxPlugins);
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 
   // Clean the output directory before each build
   eleventyConfig.on("beforeBuild", () => {
-    rimraf.sync("public");
+    deleteDirectories("public", "assets")
+    // rimraf.sync("public");
   });
 
   

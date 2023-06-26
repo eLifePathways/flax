@@ -58,7 +58,7 @@ const getData = async () => {
       pages: cmsPages
     }
   }catch(err) {
-    console.log("Error while flax page", err)
+    console.log("Error while fetching flax pages", err.message)
     return {
       pages: []
     }

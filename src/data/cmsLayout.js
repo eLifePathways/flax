@@ -32,15 +32,11 @@ const storeLogoFile = async (logo) => {
     res.pipe(file)
     file.on('finish', () => {
       file.close()
-      console.log(`${originalImage.url} has been downloaded!`)
     })
   })
   .on('error', (err) => {
-    console.log(err)
-    // console.log('Error: ', err.message)
+    console.error(err)
   })
-
-  console.log({originalImage})
 }
 
 const getData = async () => {
@@ -83,7 +79,7 @@ const getData = async () => {
     storeLogoFile(cmsLayout.logo)
     return cmsLayout
   }catch(err) {
-    console.log("Error while fetching cms layout", err)
+    console.error("Error while fetching cms layout", err.message)
     return {}
   }
 }
