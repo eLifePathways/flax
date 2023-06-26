@@ -95,7 +95,7 @@
                     {% endif %}
                 </section>
                 <section id="article" class="article">
-                    {{ article.meta.source |  addIDtoTitles |  imagesHandler(article.shortId)   | safe }}
+                    {{ article.meta.source |  addIDtoTitles |  imagesHandler(article.shortId, 'articles')   | safe }}
                 </section>
                 {% if collections.supplementaryFiles.length > 1 %}
                     <section>

@@ -4,12 +4,11 @@ const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
 const { DateTime } = require('luxon')
 const cheerio = require('cheerio')
-
 const fg = require('fast-glob')
-const rimraf = require("rimraf");
 const flaxPlugins = require("./11ty-plugins/flax-plugins.js");
 
 const deleteDirectories = require("./SiteHelpers/deleteDirectories.js")
+const imagesHandler = require("./SiteHelpers/imagesHandler.js")
 
 module.exports = function (eleventyConfig) {
   // passthrough file copy //
@@ -82,6 +81,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter('postDate', (dateObj) => {
     let date = new Date(dateObj)
     return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED)
+  })
+
+  eleventyConfig.addFilter('imagesHandler', function (value, id, folderName) {
+    return imagesHandler(folderName, value, id)
   })
 
   eleventyConfig.addFilter('addIDtoTitles', function (value) {

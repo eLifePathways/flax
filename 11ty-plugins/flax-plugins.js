@@ -4,7 +4,6 @@ const markdownifying = require("./collections/markdownify.js");
 const reorderBlock = require("./collections/reorderBlock.js");
 const dejats = require("./collections/dejats.js");
 const groupby = require("./collections/groupby.js");
-const imagesHandler = require("./collections/imagesHandler.js");
 
 module.exports = function(eleventyConfig) {
   // filters
@@ -14,5 +13,4 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(reorderBlock);
   eleventyConfig.addPlugin(dejats);
   eleventyConfig.addPlugin(groupby);
-  eleventyConfig.addPlugin(imagesHandler);
 };
