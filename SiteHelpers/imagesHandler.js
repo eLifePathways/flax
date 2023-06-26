@@ -51,7 +51,7 @@ const downloadAndSetImagePath = (img, folderName, dirPath, imageId) => {
             })
           })
           .on('error', (err) => {
-            console.error(err, res)
+            console.error(err)
           })
 
         let ImageUrl = getLocalImageUrl(folderName, `${imageId}-${img.alt}`)
