@@ -32,10 +32,6 @@ const rebuildSite = () => {
   });
 }
 
-const runExternalMigrations = async () => {
-  await syncData()
-}
-
 const app = express();
 
 app.use(express.json());
@@ -54,7 +50,8 @@ app.post('/rebuild', async (req, res) => {
     updateConfigurations(updatedConfig)
   }
 
-  await runExternalMigrations()
+  let buildConfigs = req.body.buildConfigs ? req.body.buildConfigs : {}
+  await syncData(buildConfigs)
 
   exec('npx eleventy', (error, stdout, stderr) => {
     if (error) {

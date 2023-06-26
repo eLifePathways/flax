@@ -16,20 +16,20 @@ const getFilesFromDirectory = (dirPath)  =>{
     return files;
   }
 
-const syncAllData = async () => {
+const syncAllData = async (attrs = {}) => {
+  console.log({attrs})
     const promises = [];
-    const dirPath = './ExternalData';
+    const dirPath = attrs.path ? `./ExternalData/${attrs.path}` : './ExternalData';
     const jsFiles = getFilesFromDirectory(dirPath)
 
     for(let i in jsFiles) {
         const filePath = `./${jsFiles[i]}`;
         const scriptModule = require(filePath);
         promises.push(scriptModule.syncData())
+        console.log('Completed file: ' + filePath)
     }
     await Promise.all(promises);
     return true
 }
-
-syncAllData()
 
 module.exports = syncAllData
