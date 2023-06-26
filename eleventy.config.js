@@ -9,7 +9,7 @@ const fg = require('fast-glob')
 const rimraf = require("rimraf");
 const flaxPlugins = require("./11ty-plugins/flax-plugins.js");
 
-const deleteDirectories = require("./Helpers_2/deleteDirectories.js")
+const deleteDirectories = require("./SiteHelpers/deleteDirectories.js")
 
 module.exports = function (eleventyConfig) {
   // passthrough file copy //
