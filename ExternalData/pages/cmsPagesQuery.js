@@ -1,5 +1,8 @@
 const axios = require('axios');
-const config = require('./config.json')
+const config = require('../../src/data/config.json')
+const fs = require("fs");
+
+const dataFile = `src/data/cmsPages.json`
 
 const cleanMeta = (cmsPage) => {
   let pageMeta = cmsPage.meta;
@@ -14,7 +17,7 @@ const cleanMeta = (cmsPage) => {
   return updatedMeta;
 }
 
-const getData = async () => {
+const getPages = async () => {
   let graphQLQuery = JSON.stringify({
     query: `query cmsPages {
       cmsPages {
@@ -58,12 +61,16 @@ const getData = async () => {
       pages: cmsPages
     }
   }catch(err) {
-    console.log("Error while flax page", err)
+    console.log("Error while fetching flax pages", err.message)
     return {
       pages: []
     }
   }
 }
 
+const syncData = async () => {
+  let data = await getPages()
+  fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
+}
 
-module.exports = getData
+module.exports = {syncData}

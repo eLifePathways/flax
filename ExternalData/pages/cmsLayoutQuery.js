@@ -1,8 +1,10 @@
 const axios = require('axios');
-const config = require('./config.json')
+const config = require('../../src/data/config.json')
 var https = require('https');
 var http = require('http');
 const fs = require('fs')
+
+const dataFile = `src/data/cmsLayout.json`
 
 const storeLogoFile = async (logo) => {
   if(!logo || !logo.storedObjects) {
@@ -15,12 +17,12 @@ const storeLogoFile = async (logo) => {
     return;
   }
 
-  let server = http;
-
+  let protocol = http;
+  
   if(originalImage.url.includes('https')) {
-    server = https;
+    protocol = https;
   }
-  server
+  protocol
   .get(originalImage.url, (res) => {
     let isValidUrl = res.statusCode >= 200 && res.statusCode <= 300;
     if(!isValidUrl) {
@@ -32,18 +34,14 @@ const storeLogoFile = async (logo) => {
     res.pipe(file)
     file.on('finish', () => {
       file.close()
-      console.log(`${originalImage.url} has been downloaded!`)
     })
   })
   .on('error', (err) => {
-    console.log(err)
-    // console.log('Error: ', err.message)
+    console.error(err)
   })
-
-  console.log({originalImage})
 }
 
-const getData = async () => {
+const getLayoutInfo = async () => {
   let graphQLQuery = JSON.stringify({
     query: `query cmsLayout {
       cmsLayout {
@@ -83,11 +81,14 @@ const getData = async () => {
     storeLogoFile(cmsLayout.logo)
     return cmsLayout
   }catch(err) {
-    console.log("Error while fetching cms layout", err)
+    console.error("Error while fetching cms layout", err.message)
     return {}
   }
 }
 
+const syncData = async () => {
+  let data = await getLayoutInfo()
+  fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
+}
 
-
-module.exports = getData
+module.exports = {syncData}

@@ -1,12 +1,14 @@
-// required packages
+const fs = require("fs");
 const axios = require('axios')
-const config = require('./config.json')
+const config = require('../../src/data/config.json')
 const { AssetCache } = require('@11ty/eleventy-cache-assets')
-const path = require('path')
 // const GRAPHQL_URL = config.url
 const GRAPHQL_URL = 'https://kotahidev.cloud68.co/graphql/'
 
-const getData = async () => {
+const dataFile = `src/data/articleQuery.json`
+
+
+const getAllTheArticles = async () => {
   let cachedArticles = new AssetCache(`articles`)
   // let data = await cachedArticles.getCachedValue()
   // return { articles: data }
@@ -91,6 +93,9 @@ const getData = async () => {
   }
 }
 
-getData()
+const syncData = async () => {
+    let data = await getAllTheArticles()
+    fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
+}
 
-module.exports = getData
+module.exports = { syncData}
