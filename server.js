@@ -4,7 +4,7 @@ const fs = require("fs");
 const config = require('./src/data/config');
 const syncData = require('./syncData');
 
-const PORT = 3009;
+const PORT = 3000;
 
 const updateConfigurations = (updatedConfig) => {
   let currentConfig = config
