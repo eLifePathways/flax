@@ -7,6 +7,9 @@ services:
     ports:
       - 8080:8080
     command: npx @11ty/eleventy --serve
+
+    env_file:
+      - .env
       
     volumes:
       - ./src:/app/src
@@ -20,6 +23,9 @@ services:
     ports:
       - 3001:3000
     command: node server.js
+
+    env_file:
+      - .env
 
     volumes:
       - ./server.js:/app/server.js

@@ -12,6 +12,9 @@ COPY nginx.conf /etc/nginx/http.d/default.conf
 COPY package*.json ./
 RUN npm install
 
+ENV ELEVENTY_ENV=development
+ENV API_URL=http://docker.com/api
+
 # Build Eleventy site
 COPY . .
 RUN npx eleventy
