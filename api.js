@@ -2,8 +2,6 @@ const axios = require("axios");
 const { getConfig } = require("./serverConfig");
 
 const makeAPICall = async ({ graphQLQuery, updatedRequestData }) => {
-	console.log({ API: graphQLQuery });
-
 	let requestData = {
 		data: graphQLQuery,
 		headers: { "Content-Type": "application/json" },
