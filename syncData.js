@@ -17,7 +17,6 @@ const getFilesFromDirectory = (dirPath) => {
 };
 
 const syncAllData = async (attrs = {}) => {
-	console.log({ attrs });
 	const promises = [];
 	const dirPath = attrs.path
 		? `./ExternalData/${attrs.path}`
@@ -28,7 +27,7 @@ const syncAllData = async (attrs = {}) => {
 		const filePath = `./${jsFiles[i]}`;
 		const scriptModule = require(filePath);
 		promises.push(scriptModule.syncData());
-		console.log("Completed file: " + filePath);
+		console.log("Sync completed for file: " + filePath);
 	}
 	await Promise.all(promises);
 	return true;
