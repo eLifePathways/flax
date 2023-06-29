@@ -1,25 +1,24 @@
-const axios = require('axios');
-const config = require('../../src/data/config.json')
+const { makeAPICall } = require("../../api");
 const fs = require("fs");
 
-const dataFile = `src/data/cmsPages.json`
+const dataFile = `src/data/cmsPages.json`;
 
 const cleanMeta = (cmsPage) => {
-  let pageMeta = cmsPage.meta;
-  let updatedMeta = {};
-  if(!pageMeta) {
-    return updatedMeta;
-  }
-  if(typeof pageMeta != "object") {
-    updatedMeta = JSON.parse(pageMeta)
-  }
-  cmsPage.meta = updatedMeta;
-  return updatedMeta;
-}
+	let pageMeta = cmsPage.meta;
+	let updatedMeta = {};
+	if (!pageMeta) {
+		return updatedMeta;
+	}
+	if (typeof pageMeta != "object") {
+		updatedMeta = JSON.parse(pageMeta);
+	}
+	cmsPage.meta = updatedMeta;
+	return updatedMeta;
+};
 
 const getPages = async () => {
-  let graphQLQuery = JSON.stringify({
-    query: `query cmsPages {
+	let graphQLQuery = JSON.stringify({
+		query: `query cmsPages {
       cmsPages {
           id
           title
@@ -32,45 +31,35 @@ const getPages = async () => {
           sequenceIndex
       }
     }`,
-    variables: {}
-  });
-  
-  let requestData = {
-    url: config.url,
-    method: 'post',
-    data : graphQLQuery,
-    maxBodyLength: Infinity,
-    headers: { 
-      'Content-Type': 'application/json'
-    }
-  };
-  try {
-    let response = await axios.request(requestData)
-    let cmsPagesData = response.data.data.cmsPages;
-    let pageShortCodes = {};
-    let cmsPages = [];
-    for(let i in cmsPagesData) {
-      let cmsPage = cmsPagesData[i];
-      cleanMeta(cmsPage)
-      pageShortCodes[cmsPage.shortcode] = cmsPage
-      cmsPages.push(cmsPage)
-    }
+		variables: {},
+	});
 
-    return {
-      shortCodePages: pageShortCodes,
-      pages: cmsPages
-    }
-  }catch(err) {
-    console.log("Error while fetching flax pages", err.message)
-    return {
-      pages: []
-    }
-  }
-}
+	let response = await makeAPICall({ graphQLQuery });
+	if (!response) {
+		return false;
+	}
+
+	let cmsPagesData = response.cmsPages;
+	let pageShortCodes = {};
+	let cmsPages = [];
+	for (let i in cmsPagesData) {
+		let cmsPage = cmsPagesData[i];
+		cleanMeta(cmsPage);
+		pageShortCodes[cmsPage.shortcode] = cmsPage;
+		cmsPages.push(cmsPage);
+	}
+
+	return {
+		shortCodePages: pageShortCodes,
+		pages: cmsPages,
+	};
+};
 
 const syncData = async () => {
-  let data = await getPages()
-  fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
-}
+	let data = await getPages();
+	if (data) {
+		fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
+	}
+};
 
-module.exports = {syncData}
+module.exports = { syncData };

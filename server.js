@@ -4,19 +4,19 @@ const fs = require("fs");
 const config = require('./src/data/config');
 const syncData = require('./syncData');
 
-const PORT = 3000;
+const PORT = process.env.FLAX_EXPRESS_PORT ? process.env.FLAX_EXPRESS_PORT : 3000;
 
 const updateConfigurations = (updatedConfig) => {
   let currentConfig = config
   console.log({currentConfig})
   let newConfig = {...currentConfig, ...updatedConfig};
-  fs.writeFile("./src/data/config.json", JSON.stringify(newConfig), 'utf8',
+    fs.writeFile("./src/data/config.json", JSON.stringify(newConfig), 'utf8',
     (err) => {
       if (err) {
         console.error(err);
         return;
       }
-      console.log("Data written to file neuroscience.json!");
+      console.log("Data written to config file!");
     }
   );
 }
