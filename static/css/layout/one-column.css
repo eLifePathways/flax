@@ -184,7 +184,7 @@ html {
 
 footer {
   bottom: 0;
-  margin-top: 10em;
+  margin-top: 2em;
   margin-top: 10em;
   bottom: 0;
   /* width: 80%; */
@@ -198,9 +198,15 @@ footer .partnersFileContainer {
 }
 
 footer .partnerFileItem {
-  width: 8em; 
-  margin-right: 1em;
-  margin-top: 1em
+  display: flex;
+  align-items: center;
+  width: 8em;
+  margin-right: 4em;
+  justify-content: center;
+  margin-top: 1em;
+  border: 1px solid #dedede;
+  border-radius: 6px;
+  padding: 1em;
 }
 
 footer .footerInfoContainer {
@@ -219,7 +225,7 @@ footer .pageListing {
 }
 
 footer .pageListItem {
-  padding: 1em
+  padding: 1em;
 }
 
 footer .footerText {

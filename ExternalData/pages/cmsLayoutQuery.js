@@ -6,37 +6,51 @@ const dataFile = `src/data/cmsLayout.json`;
 const partnerDirectoryPath = "public/assets/images/partners/";
 const partnerFilePath = "/assets/images/partners/";
 
+const isValidFile = (file) => {
+	if (!file || !file.storedObjects) {
+		return false;
+	}
+
+	let originalImage = file.storedObjects.find(
+		(storedObject) => storedObject.type === "original"
+	);
+
+	if (!originalImage) {
+		return false;
+	}
+
+	return true;
+};
+
+const downloadFile = (url, localPath) => {
+	let protocol = url.includes("https") ? https : http;
+
+	protocol
+		.get(url, (res) => {
+			let isValidUrl = res.statusCode >= 200 && res.statusCode <= 300;
+			if (!isValidUrl) {
+				return;
+			}
+			const file = fs.createWriteStream(localPath);
+			res.pipe(file);
+			file.on("finish", () => file.close());
+		})
+		.on("error", (err) => console.error(err));
+};
+
 const storePartnerImage = (partnerFile) => {
-	if (!partnerFile || !partnerFile.storedObjects) {
+	if (!isValidFile(partnerFile)) {
 		return "";
 	}
 
 	let originalImage = partnerFile.storedObjects.find(
 		(storedObject) => storedObject.type === "original"
 	);
-
-	if (!originalImage) {
-		return "";
-	}
-
-	let protocol = http;
 	let imageFullPath = `${partnerDirectoryPath}${originalImage.key}`;
 	let imageLocalUrl = `${partnerFilePath}${originalImage.key}`;
 
-	if (originalImage.url.includes("https")) {
-		protocol = https;
-	}
-	protocol
-		.get(originalImage.url, (res) => {
-			let isValidUrl = res.statusCode >= 200 && res.statusCode <= 300;
-			if (!isValidUrl) {
-				return;
-			}
-			const file = fs.createWriteStream(imageFullPath);
-			res.pipe(file);
-			file.on("finish", () => file.close());
-		})
-		.on("error", (err) => console.error(err));
+	downloadFile(originalImage.url, imageFullPath);
+
 	return {
 		imageFullPath,
 		imageLocalUrl,
@@ -66,34 +80,15 @@ const storePartners = async (partners) => {
 };
 
 const storeLogoFile = async (logo) => {
-	if (!logo || !logo.storedObjects) {
-		return;
+	if (!isValidFile(logo)) {
+		return "";
 	}
 
 	let originalImage = logo.storedObjects.find(
 		(storedObject) => storedObject.type === "original"
 	);
 
-	if (!originalImage) {
-		return;
-	}
-
-	let protocol = http;
-
-	if (originalImage.url.includes("https")) {
-		protocol = https;
-	}
-	protocol
-		.get(originalImage.url, (res) => {
-			let isValidUrl = res.statusCode >= 200 && res.statusCode <= 300;
-			if (!isValidUrl) {
-				return;
-			}
-			const file = fs.createWriteStream(`public/assets/images/logo.png`);
-			res.pipe(file);
-			file.on("finish", () => file.close());
-		})
-		.on("error", (err) => console.error(err));
+	downloadFile(originalImage.url, `public/assets/images/logo.png`);
 };
 
 const getLayoutInfo = async () => {
