@@ -8,13 +8,9 @@ const getPages = async () => {
       cmsPages {
           id
           title
-          shortcode
           created
           content
-          meta
-          menu
           url
-          sequenceIndex
       }
     }`,
 		variables: {},
@@ -25,15 +21,8 @@ const getPages = async () => {
 		return false;
 	}
 
-	let cmsPagesData = response.cmsPages;
-	let cmsPages = [];
-	for (let i in cmsPagesData) {
-		let cmsPage = cmsPagesData[i];
-		cmsPages.push(cmsPage);
-	}
-
 	return {
-		pages: cmsPages,
+		pages: response.cmsPages,
 	};
 };
 
