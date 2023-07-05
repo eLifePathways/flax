@@ -25,17 +25,6 @@ const updateConfigurations = (updatedConfig) => {
 	);
 };
 
-const rebuildSite = () => {
-	exec("npx eleventy", (error, stdout, stderr) => {
-		if (error) {
-			console.error(`Error rebuilding Eleventy app: ${error.message}`);
-			return false;
-		}
-		console.log("Flax site has been rebuild successfully.");
-		return true;
-	});
-};
-
 const app = express();
 
 app.use(express.json());
@@ -67,9 +56,6 @@ app.post("/rebuild", async (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-	// We can not rebuild the site until the client is up and running.
-	// So might fix this by putting entry point file and wait for the server to up.
-	setTimeout(rebuildSite, 60000);
 	console.log(
 		`Flax and Express server running on port 8080 and ${PORT} respectively.`
 	);
