@@ -184,20 +184,49 @@ html {
 
 footer {
   bottom: 0;
-  display: flex;
-  align-content: center;
+  margin-top: 10em;
   margin-top: 10em;
   bottom: 0;
   /* width: 80%; */
   margin: 0 auto;
-  justify-content: center;
   padding: 2em;
 }
 
-footer a {
+footer .partnersFileContainer {
+  display: flex; 
+  flex-flow: row wrap;
 }
 
+footer .partnerFileItem {
+  width: 8em; 
+  margin-right: 1em;
+  margin-top: 1em
+}
 
+footer .footerInfoContainer {
+  display:flex;
+  justify-content: space-between;
+  margin-top: 2em
+}
+
+footer .pageInfoContainer {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+footer .pageListing {
+  display: flex;
+}
+
+footer .pageListItem {
+  padding: 1em
+}
+
+footer .footerText {
+  padding: 1em; 
+  flex-basis: 0;
+  flex-grow: 1;
+}
 
 /* responsive and interaction for menus */
 
