@@ -61,5 +61,4 @@ const syncData = async () => {
 		fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
 	}
 };
-
 module.exports = { syncData };

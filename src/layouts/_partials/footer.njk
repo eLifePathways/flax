@@ -1,0 +1,36 @@
+<footer>
+    <div class="partnersTopContainer">
+        <h1> Our Partners </h1>
+        <div class="partnersFileContainer">
+            {% for partner in (cmsLayout.partners | reorderPages) %}
+                <div class="partnerFileItem">
+                    <a href="{{ partner.url }}" target="_blank"> 
+                        <img src={{partner.image.imageLocalUrl}} />
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="footerInfoContainer">
+        <div class="pageInfoContainer">
+            <div class="pageListing">
+                {% for cmsFooterPage in (cmsLayout.flaxFooterConfig | reorderPages) %}
+                    {% if cmsFooterPage.menu == true or cmsFooterPage.menu == "true" %}
+                        <div class="pageListItem">
+                            <a 
+                            class="{% if cmsFooterPage.url == page.url %}active{% endif %}" 
+                            href="{{cmsFooterPage.url}}"
+                            title="{{ cmsFooterPage.title }}">
+                            {{ cmsFooterPage.title }}
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="footerText">
+            {{ cmsLayout.footerText | safe }}
+        </div>
+    </div>
+</footer>
