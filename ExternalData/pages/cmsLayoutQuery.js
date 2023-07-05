@@ -30,36 +30,55 @@ const storeLogoFile = async (logo) => {
 			}
 			const file = fs.createWriteStream(`public/assets/images/logo.png`);
 			res.pipe(file);
-			file.on("finish", () => {
-				file.close();
-			});
+			file.on("finish", () => file.close());
 		})
-		.on("error", (err) => {
-			console.error(err);
-		});
+		.on("error", (err) => console.error(err));
 };
 
 const getLayoutInfo = async () => {
 	let graphQLQuery = JSON.stringify({
-		query: `query cmsLayout {
-      cmsLayout {
-        id
-        created
-        updated
-        primaryColor
-        secondaryColor
-        logo {
-          id
-          name
-          tags
-          storedObjects {
-            mimetype
-            key
-            url
-            type
-          }
-        }
-      }
+		query: `
+		query cmsLayout {
+      		cmsLayout {
+				primaryColor
+				secondaryColor
+				footerText
+				flaxHeaderConfig {
+					title
+					sequenceIndex
+					menu
+					url
+				}
+				flaxFooterConfig {
+					title
+					sequenceIndex
+					menu
+					url
+				}
+				partners {
+					url
+					sequenceIndex
+					file {
+						name
+						storedObjects {
+							mimetype
+							key
+							url
+							type
+						}
+					}
+				}
+				logo {
+					id
+					name
+					storedObjects {
+						mimetype
+						key
+						url
+						type
+					}
+				}
+      	}
     }`,
 		variables: {},
 	});
@@ -80,4 +99,5 @@ const syncData = async () => {
 	}
 };
 
+syncData();
 module.exports = { syncData };

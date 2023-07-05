@@ -5,6 +5,8 @@ const getConfig = () => {
 
 	baseUrl = baseUrl.replace(/\/+$/, "");
 
+	baseUrl = "http://localhost:4000";
+
 	return {
 		baseUrl: baseUrl,
 		apiUrl: `${baseUrl}/graphql`,
