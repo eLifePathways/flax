@@ -156,5 +156,4 @@ const syncData = async () => {
 	}
 };
 
-syncData();
 module.exports = { syncData };
