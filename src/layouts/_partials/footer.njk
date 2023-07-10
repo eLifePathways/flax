@@ -16,7 +16,7 @@
         <div class="pageInfoContainer">
             <div class="pageListing">
                 {% for cmsFooterPage in (cmsLayout.flaxFooterConfig | reorderPages) %}
-                    {% if cmsFooterPage.menu == true or cmsFooterPage.menu == "true" %}
+                    {% if cmsFooterPage.shownInMenu == true or cmsFooterPage.shownInMenu == "true" %}
                         <div class="pageListItem">
                             <a 
                             class="{% if cmsFooterPage.url == page.url %}active{% endif %}" 

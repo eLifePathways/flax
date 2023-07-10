@@ -3,7 +3,7 @@
     <nav>
         <ul>
             {% for cmsHeaderPage in (cmsLayout.flaxHeaderConfig | reorderPages) %}
-                {% if cmsHeaderPage.menu == true or cmsHeaderPage.menu == "true" %}
+                {% if cmsHeaderPage.shownInMenu == true or cmsHeaderPage.shownInMenu == "true" %}
                     <li>
                         <a 
                         class="{% if cmsHeaderPage.url == page.url %}active{% endif %}" 

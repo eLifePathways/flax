@@ -102,13 +102,13 @@ const getLayoutInfo = async () => {
 				flaxHeaderConfig {
 					title
 					sequenceIndex
-					menu
+					shownInMenu
 					url
 				}
 				flaxFooterConfig {
 					title
 					sequenceIndex
-					menu
+					shownInMenu
 					url
 				}
 				partners {
