@@ -1,8 +1,11 @@
 const express = require("express");
 const { exec } = require("child_process");
+const RequestIp = require("@supercharge/request-ip");
 const fs = require("fs");
 const config = require("./src/data/config");
 const syncData = require("./syncData");
+const dns = require("dns");
+const util = require("util");
 
 const PORT = process.env.FLAX_EXPRESS_PORT
 	? process.env.FLAX_EXPRESS_PORT
@@ -25,6 +28,42 @@ const updateConfigurations = (updatedConfig) => {
 	);
 };
 
+const isAddressAllowed = async (extractedIpAddress) => {
+	const allowedHosts = process.env.FLAX_ALLOWED_IPS.split(",");
+	const lookupPromise = util.promisify(dns.lookup);
+	let resolvedAddress;
+	let finalIPAddress;
+	let isAllowed = false;
+
+	if (allowedHosts.includes("*")) {
+		return true;
+	}
+
+	for (const hostname of allowedHosts) {
+		try {
+			resolvedAddress = await lookupPromise(hostname);
+			finalIPAddress = resolvedAddress?.address?.substring(
+				0,
+				resolvedAddress?.address?.lastIndexOf(".")
+			);
+			if (extractedIpAddress.startsWith(finalIPAddress)) {
+				isAllowed = true;
+				break;
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	}
+	return isAllowed;
+};
+
+const isAuthenticated = async (req) => {
+	const extractedIpAddress = RequestIp.getClientIp(req).split(":").pop();
+	const checkAllowed = await isAddressAllowed(extractedIpAddress);
+
+	return checkAllowed;
+};
+
 const app = express();
 
 app.use(express.json());
@@ -37,6 +76,10 @@ app.get("/healthcheck", (req, res) => {
 });
 
 app.post("/rebuild", async (req, res) => {
+	if (!(await isAuthenticated(req))) {
+		return res.status(500).json({ error: "IP didn't match... !" });
+	}
+
 	let updatedConfig = req.body.updatedConfig;
 	if (updatedConfig) {
 		updateConfigurations(updatedConfig);
