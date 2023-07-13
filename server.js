@@ -27,6 +27,10 @@ const updateConfigurations = (updatedConfig) => {
 };
 
 const isAuthenticated = async (req) => {
+	if (!clientId || !clientSecret) {
+		return true;
+	}
+
 	const basic = req.headers.authorization.split(" ");
 	const decodedToken = Buffer.from(basic[1], "base64").toString();
 	const tokenParams = decodedToken.split(":");
