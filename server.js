@@ -1,12 +1,10 @@
 const express = require("express");
 const { exec } = require("child_process");
-const RequestIp = require("@supercharge/request-ip");
 const fs = require("fs");
 const config = require("./src/data/config");
 const syncData = require("./syncData");
-const dns = require("dns");
-const util = require("util");
-
+const clientId = process.env.SERVICE_FLAX_SITE_CLIENT_ID;
+const clientSecret = process.env.SERVICE_FLAX_SITE_SECRET;
 const PORT = process.env.FLAX_EXPRESS_PORT
 	? process.env.FLAX_EXPRESS_PORT
 	: 3000;
@@ -28,46 +26,18 @@ const updateConfigurations = (updatedConfig) => {
 	);
 };
 
-const isAddressAllowed = async (extractedIpAddress) => {
-	const allowedHosts = process.env.FLAX_ALLOWED_IPS.split(",");
-	const lookupPromise = util.promisify(dns.lookup);
-	let resolvedAddress;
-	let finalIPAddress;
-	let isAllowed = false;
-
-	if (allowedHosts.includes("*")) {
-		return true;
-	}
-
-	for (const hostname of allowedHosts) {
-		try {
-			resolvedAddress = await lookupPromise(hostname);
-			finalIPAddress = resolvedAddress?.address?.substring(
-				0,
-				resolvedAddress?.address?.lastIndexOf(".")
-			);
-			if (extractedIpAddress.startsWith(finalIPAddress)) {
-				isAllowed = true;
-				break;
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	}
-	return isAllowed;
-};
-
 const isAuthenticated = async (req) => {
-	const extractedIpAddress = RequestIp.getClientIp(req).split(":").pop();
-	const checkAllowed = await isAddressAllowed(extractedIpAddress);
+	const basic = req.headers.authorization.split(" ");
+	const decodedToken = Buffer.from(basic[1], "base64").toString();
+	const tokenParams = decodedToken.split(":");
+	const reqClientId = tokenParams[0];
+	const reqClientSecret = tokenParams[1];
 
-	return checkAllowed;
+	return reqClientId === clientId && reqClientSecret === clientSecret;
 };
 
 const app = express();
-
 app.use(express.json());
-
 app.get("/healthcheck", (req, res) => {
 	return res.status(200).json({
 		message: "Looking good",
@@ -77,7 +47,7 @@ app.get("/healthcheck", (req, res) => {
 
 app.post("/rebuild", async (req, res) => {
 	if (!(await isAuthenticated(req))) {
-		return res.status(500).json({ error: "IP didn't match... !" });
+		return res.status(500).json({ error: "Not Authorized...!" });
 	}
 
 	let updatedConfig = req.body.updatedConfig;
