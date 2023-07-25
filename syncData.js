@@ -16,7 +16,12 @@ const getFilesFromDirectory = (dirPath) => {
 	return files;
 };
 
-const syncAllData = async (attrs = {}) => {
+const syncAllData = async (attrs = {}, group) => {
+	if (!group) {
+		console.warn("No group found");
+		return false;
+	}
+
 	const promises = [];
 	const dirPath = attrs.path
 		? `./ExternalData/${attrs.path}`
@@ -26,10 +31,12 @@ const syncAllData = async (attrs = {}) => {
 	for (let i in jsFiles) {
 		const filePath = `./${jsFiles[i]}`;
 		const scriptModule = require(filePath);
-		promises.push(scriptModule.syncData());
-		console.log("Sync completed for file: " + filePath);
+		promises.push(scriptModule.syncData(group));
+		console.log("Sync started for file: " + filePath);
 	}
-	await Promise.all(promises);
+	let results = await Promise.all(promises);
+	console.log("Sync completed for files ", results);
+
 	return true;
 };
 

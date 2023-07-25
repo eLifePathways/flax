@@ -1,9 +1,9 @@
 const fs = require("fs");
 const { makeAPICall } = require("../../api");
+const { getGroupDataDir } = require("../../helpers");
 const GRAPHQL_URL = "https://kotahidev.cloud68.co/graphql/";
-const dataFile = `src/data/articleQuery.json`;
 
-const getAllTheArticles = async () => {
+const getAllTheArticles = async (group) => {
 	const graphQLQuery = JSON.stringify({
 		query: `query {
       manuscriptsPublishedSinceDate(limit: 10) {
@@ -53,9 +53,11 @@ const getAllTheArticles = async () => {
 	let response = await makeAPICall({
 		graphQLQuery,
 		updatedRequestData: { url: GRAPHQL_URL },
+		group,
 	});
 
-	console.log({ response });
+	console.log("Article query responded.");
+
 	if (!response) {
 		return false;
 	}
@@ -71,8 +73,10 @@ const getAllTheArticles = async () => {
 	};
 };
 
-const syncData = async () => {
-	let data = await getAllTheArticles();
+const syncData = async (group) => {
+	const dataFile = `${getGroupDataDir(group)}/articleQuery.json`;
+	let data = await getAllTheArticles(group);
+
 	if (data) {
 		fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
 	}

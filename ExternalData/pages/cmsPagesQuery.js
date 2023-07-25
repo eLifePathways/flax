@@ -1,35 +1,41 @@
 const { makeAPICall } = require("../../api");
 const fs = require("fs");
-const dataFile = `src/data/cmsPages.json`;
+const { getGroupDataDir } = require("../../helpers");
 
-const getPages = async () => {
-	let graphQLQuery = JSON.stringify({
-		query: `query cmsPages {
+const getPages = async group => {
+  let graphQLQuery = JSON.stringify({
+    query: `query cmsPages {
       cmsPages {
-          id
-          title
-          created
-          content
-          url
+				id
+				title
+				created
+				content
+				url
       }
     }`,
-		variables: {},
+  });
+
+  let response = await makeAPICall({ 
+		graphQLQuery, 
+		group
 	});
 
-	let response = await makeAPICall({ graphQLQuery });
-	if (!response) {
-		return false;
-	}
+  if (!response) {
+    return false;
+  }
 
-	return {
-		pages: response.cmsPages,
-	};
+  return {
+    pages: response.cmsPages,
+  };
 };
 
-const syncData = async () => {
-	let data = await getPages();
-	if (data) {
-		fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
-	}
+const syncData = async (group) => {
+
+  const dataFile = getGroupDataDir(group)+'/cmsPages.json';
+  let data = await getPages(group);
+
+  if (data) {
+    fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
+  }
 };
 module.exports = { syncData };

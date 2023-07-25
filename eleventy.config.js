@@ -31,8 +31,9 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 
 	// Clean the output directory before each build
-	eleventyConfig.on("beforeBuild", () => {
-		deleteDirectories("public", "assets");
+	eleventyConfig.on("beforeBuild", (options) => {
+		const outputDir = options.inputDir.replace("src", "public");
+		deleteDirectories(outputDir, "assets");
 	});
 
 	eleventyConfig.addCollection("supplementaryFiles", function (collection) {
@@ -81,7 +82,8 @@ module.exports = function (eleventyConfig) {
 	});
 
 	eleventyConfig.addFilter("imagesHandler", function (value, id, folderName) {
-		return imagesHandler(folderName, value, id);
+		// return imagesHandler(folderName, value, id);
+		return value;
 	});
 
 	eleventyConfig.addFilter("addIDtoTitles", function (value) {
@@ -116,8 +118,8 @@ module.exports = function (eleventyConfig) {
 		markdownTemplateEngine: "njk",
 
 		dir: {
-			input: "src",
-			output: "public",
+			input: "src/kotahi",
+			output: "public/kotahi",
 			includes: "layouts",
 			data: "data",
 		},

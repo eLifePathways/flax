@@ -1,10 +1,15 @@
 const axios = require("axios");
 const { getConfig } = require("./serverConfig");
 
-const makeAPICall = async ({ graphQLQuery, updatedRequestData }) => {
+const makeAPICall = async ({ graphQLQuery, updatedRequestData, group }) => {
+	const dafaultHeaders = { 
+		"Content-Type": "application/json",
+		"group-id": group.id 
+	};
+	
 	let requestData = {
 		data: graphQLQuery,
-		headers: { "Content-Type": "application/json" },
+		headers: dafaultHeaders,
 		method: "post",
 		maxBodyLength: Infinity,
 		url: getConfig().apiUrl,
