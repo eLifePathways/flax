@@ -1,9 +1,9 @@
 var https = require("https");
 var http = require("http");
 const fs = require("fs");
+const { getGroupAssetDir, getGroupDataDir } = require("../../helpers");
+const abc = require("../../src/kotahi/data/cmsPages.json");
 const { makeAPICall } = require("../../api");
-const dataFile = `src/data/cmsLayout.json`;
-const partnerDirectoryPath = "public/assets/images/partners/";
 const partnerFilePath = "/assets/images/partners/";
 
 const isValidFile = (file) => {
@@ -23,22 +23,26 @@ const isValidFile = (file) => {
 };
 
 const downloadFile = (url, localPath) => {
-	let protocol = url.includes("https") ? https : http;
+	try {
+		let protocol = url.includes("https") ? https : http;
 
-	protocol
-		.get(url, (res) => {
-			let isValidUrl = res.statusCode >= 200 && res.statusCode <= 300;
-			if (!isValidUrl) {
-				return;
-			}
-			const file = fs.createWriteStream(localPath);
-			res.pipe(file);
-			file.on("finish", () => file.close());
-		})
-		.on("error", (err) => console.error(err));
+		protocol
+			.get(url, (res) => {
+				let isValidUrl = res.statusCode >= 200 && res.statusCode <= 300;
+				if (!isValidUrl) {
+					return;
+				}
+				const file = fs.createWriteStream(localPath);
+				res.pipe(file);
+				file.on("finish", () => file.close());
+			})
+			.on("error", (err) => console.error(err));
+	} catch (err) {
+		console.log(err);
+	}
 };
 
-const storePartnerImage = (partnerFile) => {
+const storePartnerImage = (partnerFile, partnersDir) => {
 	if (!isValidFile(partnerFile)) {
 		return "";
 	}
@@ -46,8 +50,8 @@ const storePartnerImage = (partnerFile) => {
 	let originalImage = partnerFile.storedObjects.find(
 		(storedObject) => storedObject.type === "original"
 	);
-	let imageFullPath = `${partnerDirectoryPath}${originalImage.key}`;
-	let imageLocalUrl = `${partnerFilePath}${originalImage.key}`;
+	let imageFullPath = `${partnersDir}${originalImage.key}`;
+	let imageLocalUrl = `${partnersDir}${originalImage.key}`;
 
 	downloadFile(originalImage.url, imageFullPath);
 
@@ -57,10 +61,10 @@ const storePartnerImage = (partnerFile) => {
 	};
 };
 
-const storePartners = async (partners) => {
+const storePartners = async (partners, partnersDir) => {
 	let updatedPartnersData = [];
-	if (!fs.existsSync(partnerDirectoryPath)) {
-		fs.mkdir(partnerDirectoryPath, (err) => {
+	if (!fs.existsSync(partnersDir)) {
+		fs.mkdir(partnersDir, (err) => {
 			if (err) {
 				return console.error(err);
 			}
@@ -69,7 +73,7 @@ const storePartners = async (partners) => {
 	}
 	for (let i in partners) {
 		let partner = partners[i];
-		let image = storePartnerImage(partner.file);
+		let image = storePartnerImage(partner.file, partnersDir);
 		partner.file = "";
 		updatedPartnersData.push({
 			...partner,
@@ -79,7 +83,7 @@ const storePartners = async (partners) => {
 	return updatedPartnersData;
 };
 
-const storeLogoFile = async (logo) => {
+const storeLogoFile = async (logo, groupAssetDir) => {
 	if (!isValidFile(logo)) {
 		return "";
 	}
@@ -88,10 +92,10 @@ const storeLogoFile = async (logo) => {
 		(storedObject) => storedObject.type === "original"
 	);
 
-	downloadFile(originalImage.url, `public/assets/images/logo.png`);
+	downloadFile(originalImage.url, groupAssetDir + "/images/logo.png");
 };
 
-const getLayoutInfo = async () => {
+const getLayoutInfo = async (group) => {
 	let graphQLQuery = JSON.stringify({
 		query: `
 		query cmsLayout {
@@ -139,21 +143,31 @@ const getLayoutInfo = async () => {
 		variables: {},
 	});
 
-	let response = await makeAPICall({ graphQLQuery });
+	let response = await makeAPICall({
+		graphQLQuery,
+		group,
+	});
 	if (!response) {
 		return false;
 	}
+
 	let cmsLayout = response.cmsLayout;
-	storeLogoFile(cmsLayout.logo);
-	cmsLayout.partners = await storePartners(cmsLayout.partners);
+	cmsLayout.group = group;
+	const groupAssetDir = getGroupAssetDir(group);
+	const partnersDir = groupAssetDir + "/images/partners/";
+
+	storeLogoFile(cmsLayout.logo, groupAssetDir);
+	cmsLayout.partners = await storePartners(cmsLayout.partners, partnersDir);
+
 	return cmsLayout;
 };
 
-const syncData = async () => {
-	let data = await getLayoutInfo();
+const syncData = async (group) => {
+	const dataFile = getGroupDataDir(group) + "/cmsLayout.json";
+
+	let data = await getLayoutInfo(group);
 	if (data) {
 		fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
 	}
 };
-
 module.exports = { syncData };

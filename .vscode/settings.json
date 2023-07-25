@@ -1,4 +1,5 @@
 {
-    "prettier.requireConfig": false,
-    "prettier.useTabs": true
+	"prettier.requireConfig": false,
+	"prettier.useTabs": true,
+	"cSpell.ignoreWords": ["healthcheck"]
 }
