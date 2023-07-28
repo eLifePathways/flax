@@ -1,12 +1,30 @@
 const rimraf = require("rimraf");
 const fs = require("fs");
-const path = require('path');
+const path = require("path");
+var https = require("https");
+var http = require("http");
 
-const getGroupAssetDir = group => `public/${group.name}/assets`; 
+const getGroupAssetDir = (group, appendStr) => {
+	const dataFolderPath = path.join(__dirname, `public/${group.name}/assets`);
+	return appendStr ? `${dataFolderPath}/${appendStr}` : dataFolderPath;
+};
 
-const getGroupDataDir = group => {
+const getGroupDataDir = (group, appendStr) => {
 	const dataFolderPath = path.join(__dirname, `src/${group.name}/data`);
-	return dataFolderPath;
+	return appendStr ? `${dataFolderPath}/${appendStr}` : dataFolderPath;
+};
+
+const getGroupSrcDir = (group) => {
+	return path.join(__dirname, `src/${group.name}`);
+};
+
+const getGroupPublicDir = (group) => {
+	return path.join(__dirname, `public/${group.name}`);
+};
+
+const imageFileLocalUrl = (appendStr) => {
+	const baseImagesUrl = "/assets/images";
+	return appendStr ? `${baseImagesUrl}/${appendStr}` : dataFolderPath;
 };
 
 const deleteAllSubDirectories = async (directoryPath) => {
@@ -32,22 +50,54 @@ const copyFolder = async (sourceDir, destinationDir) => {
 	}
 };
 
-const rebuildSite = (group, callback) => {
-  const { exec } = require("child_process");
-  let command = `npx eleventy --pathprefix=${group.name} --input=src/${group.name} --output=public/${group.name}`;
-  console.log({ command, status: "rebuilding site" });
-  exec(command, callback);
+const downloadFile = (url, localPath) => {
+	try {
+		let protocol = url.includes("https") ? https : http;
+
+		protocol
+			.get(url, (res) => {
+				let isValidUrl = res.statusCode >= 200 && res.statusCode <= 300;
+				if (!isValidUrl) {
+					return;
+				}
+				const file = fs.createWriteStream(localPath);
+				res.pipe(file);
+				file.on("finish", () => file.close());
+			})
+			.on("error", (err) => console.error(err));
+	} catch (err) {
+		console.log(err);
+	}
 };
 
+const rebuildSite = (group) => {
+	const { exec } = require("child_process");
+	let command = `npx eleventy --pathprefix=${group.name} --input=src/${group.name} --output=public/${group.name}`;
+	console.log({ command, status: "rebuilding site" });
+	return new Promise((resolve, reject) => {
+		exec(command, (error, output) => (error ? reject(error) : resolve(output)));
+	});
+};
 
-const rebuildSiteCallback = (error, res, group) => {
-  if (error) {
-    console.error(`Error rebuilding Eleventy app: ${error.message}`);
-    return res
-      .status(500)
-      .json({ error: `Failed to rebuild the app for ${group.name}` });
-  }
-  return res.status(200).json({ message: "Flax site rebuilt successfully." });
+const getSubDirectories = async (parentDir) => {
+	return new Promise((resolve, reject) => {
+		fs.readdir(parentDir, async (err, files) => {
+			if (err) {
+				reject(err);
+				return;
+			}
+
+			resolve(files);
+			return;
+		});
+	});
+};
+
+const updateFlaxSiteConfigFile = (group, updatedConfig) => {
+	const configFilePath = getGroupDataDir(group, "config.json");
+	const config = require(configFilePath);
+	let newConfig = { ...config, ...updatedConfig };
+	fs.writeFileSync(configFilePath, JSON.stringify(newConfig), "utf8");
 };
 
 const authenticate = async (req, res, next) => {
@@ -78,6 +128,11 @@ module.exports = {
 	getGroupDataDir,
 	getGroupAssetDir,
 	rebuildSite,
-	rebuildSiteCallback,
 	authenticate,
+	getSubDirectories,
+	updateFlaxSiteConfigFile,
+	getGroupSrcDir,
+	getGroupPublicDir,
+	downloadFile,
+	imageFileLocalUrl,
 };

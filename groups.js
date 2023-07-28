@@ -19,15 +19,13 @@ const getGroups = async () => {
     return false;
   }
   
-  return {
-    groups: response.groups,
-  };
+  return response.groups
 };
 
 const getGroupById = async (groupId) => {
   const groups = await getGroups();
-  const group = groups.groups.find(group => group.id === groupId);
+  const group = groups.find(group => group.id === groupId);
   return group;
 };
 
-module.exports = { getGroupById };
+module.exports = { getGroupById, getGroups };
