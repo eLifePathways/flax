@@ -1,4 +1,4 @@
-const { setupForAllGroups, setupGroup } = require("../setup");
+const { setupAllGroups, setupGroup } = require("../setup");
 const { getGroupById } = require("../groups");
 const { deleteAllSubDirectories } = require("../helpers");
 
@@ -40,7 +40,7 @@ const deleteGroup = async (req, res) => {
 };
 
 const setupSiteForGroups = async () => {
-	await setupForAllGroups({ shouldBuild: true });
+	await setupAllGroups({ shouldBuild: true });
 };
 
 module.exports = {
