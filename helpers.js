@@ -100,6 +100,14 @@ const updateFlaxSiteConfigFile = (group, updatedConfig) => {
 	fs.writeFileSync(configFilePath, JSON.stringify(newConfig), "utf8");
 };
 
+const updateFlaxSiteFile = group => { 
+	const siteFilePath = getGroupDataDir(group, "site.json");
+	const site = require(siteFilePath);
+	site.name = `${group.name}`;
+	const updatedSite = {...site}
+	fs.writeFileSync(siteFilePath, JSON.stringify(updatedSite), "utf8");
+};
+
 const authenticate = async (req, res, next) => {
 	const clientId = process.env.SERVICE_FLAX_SITE_CLIENT_ID;
 	const clientSecret = process.env.SERVICE_FLAX_SITE_SECRET;
@@ -134,5 +142,6 @@ module.exports = {
 	getGroupSrcDir,
 	getGroupPublicDir,
 	downloadFile,
+	updateFlaxSiteFile,
 	imageFileLocalUrl,
 };

@@ -6,6 +6,7 @@ const {
 	getGroupSrcDir,
 	updateFlaxSiteConfigFile,
 	getGroupPublicDir,
+	updateFlaxSiteFile,
 } = require("./helpers");
 
 const syncAllData = require("./syncData");
@@ -22,6 +23,7 @@ const setupGroupDirectory = async (group) => {
 	await deleteAllSubDirectories(currentGroupDir);
 	await copyFolder(defaultGroupDir, currentGroupDir);
 	await updateFlaxSiteConfigFile(group, { group });
+	await setupSiteFlag(group);
 	return true;
 };
 
@@ -47,7 +49,11 @@ const setupGroup = async (currentGroup, buildConfig) => {
 	}
 };
 
-const setupForAllGroups = async () => {
+const setupSiteFlag = group => {
+	return updateFlaxSiteFile(group);
+}
+
+const setupAllGroups = async () => {
 	const groups = await getGroups();
 	if (!groups) {
 		console.warn("No groups found.");
@@ -62,6 +68,6 @@ const setupForAllGroups = async () => {
 };
 
 module.exports = {
-	setupForAllGroups,
+	setupAllGroups,
 	setupGroup,
 };
