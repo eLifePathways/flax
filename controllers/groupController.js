@@ -1,74 +1,31 @@
-const { setupGroupSite } = require("../setup");
-const fs = require("fs");
-const config = require("../src/kotahi/data/config");
+const { setupForAllGroups, setupGroup } = require("../setup");
 const { getGroupById } = require("../groups");
-const {
-	rebuildSite,
-	rebuildSiteCallback,
-	deleteAllSubDirectories,
-} = require("../helpers");
-const syncAllData = require("../syncData");
-
-const updateConfigurations = (updatedConfig, group) => {
-	let currentConfig = config;
-	let newConfig = { ...currentConfig, ...updatedConfig };
-	fs.writeFile(
-		`./src/${group}/data/config`,
-		JSON.stringify(newConfig),
-		"utf8",
-		(err) => {
-			if (err) {
-				console.error(err);
-				return;
-			}
-		}
-	);
-};
+const { deleteAllSubDirectories } = require("../helpers");
 
 const rebuild = async (req, res) => {
-	let updatedConfig = req.body.updatedConfig;
 	let groupId = req.body.groupId;
 	let buildConfigs = req.body.buildConfigs ? req.body.buildConfigs : {};
+	let updatedConfig = req.body.updatedConfig;
+	buildConfigs.updatedConfig = updatedConfig ? updatedConfig : false;
 	let group = await getGroupById(groupId);
-
-	await setupGroupSite(group);
-	if (updatedConfig) {
-		updateConfigurations(updatedConfig, group.name);
-	}
-
-	rebuildSite(group, async (error) => {
-		await syncAllData(buildConfigs, group);
-		rebuildSite(group, (error) => rebuildSiteCallback(error, res, group));
-	});
+	await setupGroup(group, buildConfigs);
+	return res.status(200).json({ message: "Flax site rebuilt successfully." });
 };
 
 const createGroup = async (req, res) => {
 	const group = req.body.group;
-	await setupGroupSite(group);
+	await setupGroup(group, { force: true, build: true });
 	return res
 		.status(200)
 		.json({ message: `${group.name} created successfully. !!` });
 };
 
-const syncDataForGroup = async (req, res) => {
+const rebuildGroup = async (req, res) => {
 	const group = req.body.group;
-	let updatedConfig = req.body.updatedConfig;
-	let buildConfigs = req.body.buildConfigs ? req.body.buildConfigs : {};
-
-	if (updatedConfig) {
-		updateConfigurations(updatedConfig, groupName);
-	}
-
-	await syncAllData(buildConfigs, group);
-
+	await setupGroup(group, { build: true });
 	return res
 		.status(200)
-		.json({ message: `Data synced for group ${group.name}` });
-};
-
-const rebuildGroup = (req, res) => {
-	const group = req.body.group;
-	rebuildSite(group, (error) => rebuildSiteCallback(error, res, group));
+		.json({ message: `${group.name} rebuild successfully. !!` });
 };
 
 const deleteGroup = async (req, res) => {
@@ -82,10 +39,14 @@ const deleteGroup = async (req, res) => {
 		.json({ message: `Group ${groupName} deleted successfully.` });
 };
 
+const setupSiteForGroups = async () => {
+	await setupForAllGroups({ shouldBuild: true });
+};
+
 module.exports = {
 	rebuild,
 	createGroup,
-	syncDataForGroup,
 	rebuildGroup,
 	deleteGroup,
+	setupSiteForGroups,
 };

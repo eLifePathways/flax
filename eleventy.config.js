@@ -34,6 +34,7 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.on("beforeBuild", (options) => {
 		const outputDir = options.inputDir.replace("src", "public");
 		deleteDirectories(outputDir, "assets");
+		globalOptions = options;
 	});
 
 	eleventyConfig.addCollection("supplementaryFiles", function (collection) {
@@ -81,10 +82,12 @@ module.exports = function (eleventyConfig) {
 		return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED);
 	});
 
-	eleventyConfig.addFilter("imagesHandler", function (value, id, folderName) {
-		// return imagesHandler(folderName, value, id);
-		return value;
-	});
+	eleventyConfig.addFilter(
+		"imagesHandler",
+		function (content, id, folderName, group) {
+			return imagesHandler(group, folderName, content, id);
+		}
+	);
 
 	eleventyConfig.addFilter("addIDtoTitles", function (value) {
 		const $ = cheerio.load(`${value}`);

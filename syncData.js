@@ -16,7 +16,7 @@ const getFilesFromDirectory = (dirPath) => {
 	return files;
 };
 
-const syncAllData = async (attrs = {}, group) => {
+const syncAllData = async (group, attrs = {}) => {
 	if (!group) {
 		console.warn("No group found");
 		return false;

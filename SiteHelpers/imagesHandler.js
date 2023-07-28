@@ -1,13 +1,12 @@
 const fs = require("fs");
-const path = require("path");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-var https = require("https");
-var http = require("http");
 
-const protocol = (url) => {
-	return url.includes("https") ? https : http;
-};
+const {
+	getGroupAssetDir,
+	imageFileLocalUrl,
+	downloadFile,
+} = require("../helpers");
 
 const stringIsAValidUrl = (s) => {
 	try {
@@ -18,16 +17,8 @@ const stringIsAValidUrl = (s) => {
 	}
 };
 
-const getDirPathToSaveTheFile = (folderName) => {
-	let basePath = "./../public/assets/images";
-	let pathWithFolder = `${basePath}/${folderName}`;
-	return path.join(__dirname, pathWithFolder);
-};
-
-const getLocalImageUrl = (folderName, fileName) => {
-	let basePath = "/assets/images";
-	let localImageUrl = `${basePath}/${folderName}/${fileName}`;
-	return localImageUrl;
+const getDirPathToSaveTheFile = (group, folderName) => {
+	return getGroupAssetDir(group, `/images/${folderName}`);
 };
 
 const setImageAttrs = (img, imgSrc) => {
@@ -38,26 +29,15 @@ const setImageAttrs = (img, imgSrc) => {
 	return img;
 };
 
-const downloadAndSetImagePath = (img, folderName, dirPath, imageId) => {
-	protocol(img.src)
-		.get(img.src, (res) => {
-			const file = fs.createWriteStream(`${dirPath}/${imageId}-${img.alt}`);
-			res.pipe(file);
-			file.on("finish", () => {
-				file.close();
-				console.log(`${img.src} has been downloaded!`);
-			});
-		})
-		.on("error", (err) => {
-			console.error(err);
-		});
-
-	let ImageUrl = getLocalImageUrl(folderName, `${imageId}-${img.alt}`);
+const downloadAndSetImagePath = (img, imageId, dirPath, folderName) => {
+	let fileName = `${imageId}-${img.alt}`;
+	downloadFile(img.src, `${dirPath}/${fileName}`);
+	let ImageUrl = imageFileLocalUrl(`/${folderName}/${fileName}`);
 	setImageAttrs(img, ImageUrl);
 };
 
-module.exports = (folderName, value, id) => {
-	let dirPath = getDirPathToSaveTheFile(folderName);
+module.exports = (group, folderName, content, id) => {
+	let dirPath = getDirPathToSaveTheFile(group, folderName);
 	let imageId = id ? id : (Math.random() + 1).toString(36).substring(5);
 	if (!fs.existsSync(dirPath)) {
 		fs.mkdir(dirPath, (err) => {
@@ -68,12 +48,12 @@ module.exports = (folderName, value, id) => {
 		});
 	}
 
-	const article = new JSDOM(value);
-	let document = article.window.document;
+	const contentDom = new JSDOM(content);
+	let document = contentDom.window.document;
 	document.body.querySelectorAll("img").forEach((img) => {
 		if (stringIsAValidUrl(img.src)) {
-			downloadAndSetImagePath(img, folderName, dirPath, imageId);
+			downloadAndSetImagePath(img, imageId, dirPath, folderName);
 		}
 	});
-	return article.serialize();
+	return contentDom.serialize();
 };

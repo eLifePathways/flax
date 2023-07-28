@@ -1,4 +1,8 @@
 {
     "webhook":"",
-    "cache":true
+    "cache":true,
+    "group": {
+        "id": "",
+        "name": "kotahi"
+      }
 }

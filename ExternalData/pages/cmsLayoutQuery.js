@@ -1,10 +1,11 @@
-var https = require("https");
-var http = require("http");
 const fs = require("fs");
-const { getGroupAssetDir, getGroupDataDir } = require("../../helpers");
-const abc = require("../../src/kotahi/data/cmsPages.json");
+const {
+	getGroupAssetDir,
+	getGroupDataDir,
+	downloadFile,
+	imageFileLocalUrl,
+} = require("../../helpers");
 const { makeAPICall } = require("../../api");
-const partnerFilePath = "/assets/images/partners/";
 
 const isValidFile = (file) => {
 	if (!file || !file.storedObjects) {
@@ -22,26 +23,6 @@ const isValidFile = (file) => {
 	return true;
 };
 
-const downloadFile = (url, localPath) => {
-	try {
-		let protocol = url.includes("https") ? https : http;
-
-		protocol
-			.get(url, (res) => {
-				let isValidUrl = res.statusCode >= 200 && res.statusCode <= 300;
-				if (!isValidUrl) {
-					return;
-				}
-				const file = fs.createWriteStream(localPath);
-				res.pipe(file);
-				file.on("finish", () => file.close());
-			})
-			.on("error", (err) => console.error(err));
-	} catch (err) {
-		console.log(err);
-	}
-};
-
 const storePartnerImage = (partnerFile, partnersDir) => {
 	if (!isValidFile(partnerFile)) {
 		return "";
@@ -51,7 +32,7 @@ const storePartnerImage = (partnerFile, partnersDir) => {
 		(storedObject) => storedObject.type === "original"
 	);
 	let imageFullPath = `${partnersDir}${originalImage.key}`;
-	let imageLocalUrl = `${partnersDir}${originalImage.key}`;
+	let imageLocalUrl = imageFileLocalUrl(`/partners/${originalImage.key}`);
 
 	downloadFile(originalImage.url, imageFullPath);
 
@@ -61,8 +42,10 @@ const storePartnerImage = (partnerFile, partnersDir) => {
 	};
 };
 
-const storePartners = async (partners, partnersDir) => {
+const storePartners = async (group, partners) => {
+	const partnersDir = getGroupAssetDir(group, "/images/partners/");
 	let updatedPartnersData = [];
+
 	if (!fs.existsSync(partnersDir)) {
 		fs.mkdir(partnersDir, (err) => {
 			if (err) {
@@ -71,6 +54,7 @@ const storePartners = async (partners, partnersDir) => {
 			console.log("Directory created successfully!");
 		});
 	}
+
 	for (let i in partners) {
 		let partner = partners[i];
 		let image = storePartnerImage(partner.file, partnersDir);
@@ -92,7 +76,23 @@ const storeLogoFile = async (logo, groupAssetDir) => {
 		(storedObject) => storedObject.type === "original"
 	);
 
-	downloadFile(originalImage.url, groupAssetDir + "/images/logo.png");
+	downloadFile(originalImage.url, groupAssetDir + "logo.png");
+};
+
+const editHeaderUrl = (flaxHeaderConfigs) => {
+	updatedHeaderConfig = [];
+	for (let i in flaxHeaderConfigs) {
+		let flaxHeaderConfig = flaxHeaderConfigs[i];
+		let url = flaxHeaderConfig.url.startsWith("/")
+			? flaxHeaderConfig.url
+			: "/" + flaxHeaderConfig.url;
+		updatedHeaderConfig.push({
+			...flaxHeaderConfig,
+			url,
+		});
+	}
+
+	return updatedHeaderConfig;
 };
 
 const getLayoutInfo = async (group) => {
@@ -143,28 +143,21 @@ const getLayoutInfo = async (group) => {
 		variables: {},
 	});
 
-	let response = await makeAPICall({
-		graphQLQuery,
-		group,
-	});
+	let response = await makeAPICall({ graphQLQuery, group });
 	if (!response) {
 		return false;
 	}
 
 	let cmsLayout = response.cmsLayout;
-	cmsLayout.group = group;
-	const groupAssetDir = getGroupAssetDir(group);
-	const partnersDir = groupAssetDir + "/images/partners/";
+	cmsLayout.flaxHeaderConfig = editHeaderUrl(cmsLayout.flaxHeaderConfig);
 
-	storeLogoFile(cmsLayout.logo, groupAssetDir);
-	cmsLayout.partners = await storePartners(cmsLayout.partners, partnersDir);
-
+	storeLogoFile(cmsLayout.logo, getGroupAssetDir(group, "/images/"));
+	cmsLayout.partners = await storePartners(group, cmsLayout.partners);
 	return cmsLayout;
 };
 
 const syncData = async (group) => {
 	const dataFile = getGroupDataDir(group) + "/cmsLayout.json";
-
 	let data = await getLayoutInfo(group);
 	if (data) {
 		fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
