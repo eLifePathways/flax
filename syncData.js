@@ -23,9 +23,7 @@ const syncAllData = async (group, attrs = {}) => {
 	}
 
 	const promises = [];
-	const dirPath = attrs.path
-		? `./ExternalData/${attrs.path}`
-		: "./ExternalData";
+	const dirPath = "./ExternalData";
 	const jsFiles = getFilesFromDirectory(dirPath);
 
 	for (let i in jsFiles) {

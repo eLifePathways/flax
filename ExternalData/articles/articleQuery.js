@@ -1,7 +1,6 @@
 const fs = require("fs");
 const { makeAPICall } = require("../../api");
 const { getGroupDataDir } = require("../../helpers");
-const GRAPHQL_URL = "https://kotahidev.cloud68.co/graphql/";
 
 const getAllTheArticles = async (group) => {
 	const graphQLQuery = JSON.stringify({
@@ -52,7 +51,6 @@ const getAllTheArticles = async (group) => {
 
 	let response = await makeAPICall({
 		graphQLQuery,
-		updatedRequestData: { url: GRAPHQL_URL },
 		group,
 	});
 
