@@ -554,7 +554,7 @@ a
 }
 
 .articles-list article .topics {
-  color: #087acc;
+  color: var(--color-secondary);
   font-size: 14px;
   font-weight: 700;
 }
