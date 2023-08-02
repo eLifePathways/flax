@@ -3,7 +3,6 @@
 {% set title = article.meta.title %}
 {% block content %}
     <main>
-        <span class="runnin-title">{{ article.meta.title }}</span>
         <header>
             <p class="metanext">
                 <time datetime="article.publishedDate">{{ article.publishedDate | replace('Z','') | postDate }}</time>

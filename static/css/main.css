@@ -99,13 +99,11 @@ main {
 
 main p,
 main li {
-  max-width: 60ch;
   font-family: var(--font-content);
 }
 
 main li {
   margin-left: 1.3ch;
-  max-width: 60ch;
 }
 
 article ul li::marker {
@@ -200,7 +198,6 @@ main > header p {
 .home .intro {
   display: none;
   font-size: 1.4em;
-  max-width: 40ch;
   margin-top: 1.2em;
   margin-bottom: 1.2em;
   color: var(--color-primary);
@@ -444,6 +441,13 @@ aside li {
   margin-top: 1em;
 }
 
+.articles-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .articles-list h2 {
   margin-top: 0;
   color: var(--color-body);
@@ -530,7 +534,6 @@ a
 }
 
 .articles-list .abstract {
-  max-width: 80ch;
   font-family: var(--font-content);
   font-size: 1em;
   margin: .3em 0 1em 0;
@@ -539,13 +542,13 @@ a
 
 .articles-list article {
   margin-bottom: 2em;
+  width: 80%;
 }
 
 .articles-list h2 {
   font-size: 2em;
   margin-top: .3em;
   font-weight: 300;
-  max-width: 40ch;
   line-height: 1.1;
 }
 
@@ -573,7 +576,6 @@ h3 a {
 
 .articles-list article::after {
   content: "";
-  width: 70%;
   margin-top: 2em;
   height: 2px;
   background: var(--color-grey-light);
@@ -686,7 +688,6 @@ article .article-preview .authors {
 
 .article-preview .manuscript p {
   font-weight: 300;
-  max-width: 60ch;   /* font-size: 1.2em; */
   line-height: 1.5;
 }
 
@@ -798,7 +799,6 @@ article .article-preview .authors {
 
 .article-preview .manuscript p {
   font-weight: 300;
-  max-width: 60ch;   /* font-size: 1.2em; */
   line-height: 1.5;
 }
 
@@ -1011,7 +1011,6 @@ article .article-preview .authors {
 }
 
 .article-preview header h1 {
-  max-width: 80%;
   margin: .8em auto .5em;
 }
 
