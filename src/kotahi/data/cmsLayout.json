@@ -21,13 +21,13 @@
 			"title": "Kotahi aboutus",
 			"sequenceIndex": null,
 			"shownInMenu": true,
-			"url": "/kotahi-aboutus/"
+			"url": "kotahi-aboutus/"
 		},
 		{
 			"title": "Kotahi contact us",
 			"sequenceIndex": null,
 			"shownInMenu": true,
-			"url": "/kotahi-contact-us/"
+			"url": "kotahi-contact-us/"
 		}
 	],
 	"partners": [],
