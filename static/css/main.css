@@ -4,10 +4,6 @@
 
 /* menu  */
 
-body {
-  scroll-behavior: smooth;
-}
-
 * {
   scroll-margin: 4.5em;
   scroll-behavior: smooth;
@@ -19,42 +15,67 @@ body {
   }
 }
 
-.topbar nav ul {
-  justify-content: start;
-  font-size: 1.2em;
-}
-
-.topbar {
-}
-
-@media screen and (min-width: 800px) {
-  .topbar nav ul {
-    width: max-content;
-    border-bottom: 2px solid var(--color-primary);
-    margin-top: 1.2em;
-    padding-bottom: .6em;
-  }
-}
-
-.topbar a {
-  text-decoration: none;
-}
-
-
-
-::selection {
-  background: var(--color-highlight);
+body {
+  font-family: var(--font-interface);
+  background: var(--color-background);
+  scroll-behavior: smooth;
+  margin-left: 160px;
+  margin-right: 160px;
+  margin-top: 45px
 }
 
 .topbar {
   margin: 0;
   padding: 0;
   background: var(--color-background);
+  margin-bottom: 90px;
 }
 
-body {
-  font-family: var(--font-interface);
-  background: var(--color-background);
+.topbar nav ul {
+  justify-content: start;
+  font-size: 1.2em;
+  border: none;
+}
+
+.topbar a {
+  font-style: normal;
+  letter-spacing: 0;
+  position: relative;
+  text-decoration: none;
+  font-size: calc(14/var(--base-font-size)*1rem);
+  font-weight: 600;
+}
+
+
+.topbar a:hover {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+.topbar a.active {
+  border-bottom: 1px solid var(--color-secondary);
+}
+
+.topbar a.active::after {
+  content: " ";
+  width: 100%;
+  height: 6px;
+  background: var(--color-secondary);
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+}
+
+@media screen and (min-width: 800px) {
+  .topbar nav ul {
+    width: max-content;
+    padding-bottom: .6em;
+  }
+}
+
+::selection {
+  background: var(--color-highlight);
 }
 
 main > header > h1 {
@@ -73,6 +94,7 @@ a {
 
 main {
   margin-bottom: 5em;
+  min-height: 400px;
 }
 
 main p,
@@ -440,10 +462,12 @@ aside li {
   margin-bottom: 0em;
 }
 
-.author-affiliation { /* display: block; */ /* font-style: italic; */
+.author-affiliation { 
+  /* display: block; */ /* font-style: italic; */
 }
 
-.icon-name { /* display: none; */
+.icon-name { 
+  /* display: none; */
 }
 
 .toc a {
@@ -451,15 +475,10 @@ aside li {
 }
 
 a
-
-
-
 .article-singe main > section {
   grid-column: 2 / 2;
 }
 
-.topbar { /* position: unset; */
-}
 
 .metadata {
   font-family: var(--font-meta);
@@ -565,46 +584,6 @@ h3 a {
   color: var(--color-primary);
 }
 
-.topbar {
-  text-transform: uppercase;
-}
-
-.topbar a {
-  font-style: normal;
-  letter-spacing: 0;
-  font-variant: all-small-caps;
-  position: relative;
-}
-
-.topbar nav ul {
-  border: none;
-}
-
-.topbar a:hover {
-  text-decoration: none;
-  color: var(--color-primary);
-}
-
-.topbar a.active {
-  border-bottom: 1px solid var(--color-secondary);
-}
-
-.topbar a.active::after {
-  content: " ";
-  width: 100%;
-  height: 6px;
-  background: var(--color-secondary);
-  display: block;
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-}
-
-
-
-
-
-
 
 .metas {
   font-size: .9em;
@@ -613,11 +592,6 @@ h3 a {
 
 
 /* coming from not clean content */
-
-
-
-
-
 
 .single-page main {
   font-size: 1.2em;
@@ -1076,7 +1050,6 @@ article .article-preview .authors {
 }
 
 li.main {
-  text-transform: uppercase;
   margin-top: 1em;
 }
 
@@ -1150,12 +1123,6 @@ a:hover {
   color: var(--color-primary);
 }
 
-.article-preview article h1 {
-}
-
-.article-preview article h2 {
-}
-
 .article-preview article h3 {
   font-size: 1.7em;
 }
@@ -1214,29 +1181,23 @@ table td {
 
 
 @media screen and (max-width: 1100px) {
-  .article-preview main {
-    display: block;
-  }
+    .article-preview main {
+      display: block;
+    }
 
-.logobis {
-  max-width: 80%;
-  margin: 2em auto;
-}
+    .logobis {
+      max-width: 80%;
+      margin: 2em auto;
+    }
 
-.article-preview .manuscript {
-font-size: 1em;
-}
-header {
-  font-size: .90em;
-}
+    .article-preview .manuscript {
+    font-size: 1em;
+    }
+    header {
+      font-size: .90em;
+    }
 
-.runnin-title {
-  display: none;
-}
-}
-
-@media screen and (max-width: 700px) {
-  .article-preview main {
-    
-  }
+    .runnin-title {
+      display: none;
+    }
 }

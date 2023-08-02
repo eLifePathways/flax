@@ -1,1 +1,59 @@
-{"primaryColor":"#f0380a","secondaryColor":"#9e9e9e","footerText":"<p class=\"paragraph\">This is kotahi footer text.</p>","flaxHeaderConfig":[{"title":"Kotahi contact us","sequenceIndex":1,"shownInMenu":true,"url":"kotahi-contact-us/"},{"title":"Kotahi aboutus","sequenceIndex":2,"shownInMenu":true,"url":"kotahi-aboutus/"}],"flaxFooterConfig":[{"title":"Kotahi aboutus","sequenceIndex":null,"shownInMenu":true,"url":"kotahi-aboutus/"},{"title":"Kotahi contact us","sequenceIndex":null,"shownInMenu":true,"url":"kotahi-contact-us/"}],"partners":[],"logo":{"id":"b06fe499-c4db-4bf6-96df-d7b93dde5966","name":"logo_2.avif","storedObjects":[{"mimetype":"image/avif","key":"176c2f5db1c0.avif","url":"http://filehosting:9000/uploads/176c2f5db1c0.avif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nonRootUser%2F20230723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230723T125925Z&X-Amz-Expires=86400&X-Amz-Signature=994244368efea7c27f65b523cd809f9a1ec80276bffed3d0db70dcfb702efb22&X-Amz-SignedHeaders=host","type":"original"},{"mimetype":"image/jpeg","key":"176c2f5db1c0_medium.jpeg","url":"http://filehosting:9000/uploads/176c2f5db1c0_medium.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nonRootUser%2F20230723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230723T125925Z&X-Amz-Expires=86400&X-Amz-Signature=6d6492f9beb868d62f324ec900deca29050ec92b97b6b37631edc8211d3a976e&X-Amz-SignedHeaders=host","type":"medium"},{"mimetype":"image/jpeg","key":"176c2f5db1c0_small.jpeg","url":"http://filehosting:9000/uploads/176c2f5db1c0_small.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nonRootUser%2F20230723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230723T125925Z&X-Amz-Expires=86400&X-Amz-Signature=3db1f74c5f468a0742018954f2bc1e3667ceda10df395c63d1d3a459d30951fb&X-Amz-SignedHeaders=host","type":"small"}]},"group":{"id":"f5f4e600-f234-43c9-85fd-fa321441a504","name":"kotahi"}}
+{
+	"primaryColor": "#f0380a",
+	"secondaryColor": "#9e9e9e",
+	"footerText": "<p class=\"paragraph\">This is kotahi footer text.</p>",
+	"flaxHeaderConfig": [
+		{
+			"title": "Kotahi contact us",
+			"sequenceIndex": 1,
+			"shownInMenu": true,
+			"url": "/kotahi-contact-us/"
+		},
+		{
+			"title": "Kotahi aboutus",
+			"sequenceIndex": 2,
+			"shownInMenu": true,
+			"url": "/kotahi-aboutus/"
+		}
+	],
+	"flaxFooterConfig": [
+		{
+			"title": "Kotahi aboutus",
+			"sequenceIndex": null,
+			"shownInMenu": true,
+			"url": "/kotahi-aboutus/"
+		},
+		{
+			"title": "Kotahi contact us",
+			"sequenceIndex": null,
+			"shownInMenu": true,
+			"url": "/kotahi-contact-us/"
+		}
+	],
+	"partners": [],
+	"logo": {
+		"id": "b06fe499-c4db-4bf6-96df-d7b93dde5966",
+		"name": "logo_2.avif",
+		"storedObjects": [
+			{
+				"mimetype": "image/avif",
+				"key": "176c2f5db1c0.avif",
+				"url": "http://filehosting:9000/uploads/176c2f5db1c0.avif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nonRootUser%2F20230723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230723T125925Z&X-Amz-Expires=86400&X-Amz-Signature=994244368efea7c27f65b523cd809f9a1ec80276bffed3d0db70dcfb702efb22&X-Amz-SignedHeaders=host",
+				"type": "original"
+			},
+			{
+				"mimetype": "image/jpeg",
+				"key": "176c2f5db1c0_medium.jpeg",
+				"url": "http://filehosting:9000/uploads/176c2f5db1c0_medium.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nonRootUser%2F20230723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230723T125925Z&X-Amz-Expires=86400&X-Amz-Signature=6d6492f9beb868d62f324ec900deca29050ec92b97b6b37631edc8211d3a976e&X-Amz-SignedHeaders=host",
+				"type": "medium"
+			},
+			{
+				"mimetype": "image/jpeg",
+				"key": "176c2f5db1c0_small.jpeg",
+				"url": "http://filehosting:9000/uploads/176c2f5db1c0_small.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nonRootUser%2F20230723%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230723T125925Z&X-Amz-Expires=86400&X-Amz-Signature=3db1f74c5f468a0742018954f2bc1e3667ceda10df395c63d1d3a459d30951fb&X-Amz-SignedHeaders=host",
+				"type": "small"
+			}
+		]
+	},
+	"group": { "id": "f5f4e600-f234-43c9-85fd-fa321441a504", "name": "kotahi" }
+}
