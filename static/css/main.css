@@ -446,12 +446,13 @@ aside li {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: var(--font-interface);
 }
 
 .articles-list h2 {
   margin-top: 0;
   color: var(--color-body);
-  font-family: var(--font-content);
+  font-family: var(--font-interface);
 }
 
 .articles-list h2:hover a {
@@ -514,6 +515,13 @@ a
   margin-left: 0;
 }
 
+.articles-list .published-date {
+  line-height: 17px;
+  font-size: 14px;
+  color: var(--color-grey);
+  margin-top: 16px;
+}
+
 .articles-list .meta {
   margin-right: 4ch;
   display: inline-block;
@@ -543,6 +551,12 @@ a
 .articles-list article {
   margin-bottom: 2em;
   width: 80%;
+}
+
+.articles-list article .topics {
+  color: #087acc;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .articles-list h2 {
@@ -586,6 +600,11 @@ h3 a {
   color: var(--color-primary);
 }
 
+.articles-list .article-title {
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 10px;
+}
 
 .metas {
   font-size: .9em;
