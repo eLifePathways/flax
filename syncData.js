@@ -17,17 +17,13 @@ const getFilesFromDirectory = (dirPath) => {
 };
 
 const syncAllData = async (group, attrs = {}) => {
-	group = {
-		name: "kotahi",
-		id: "f5f4e600-f234-43c9-85fd-fa321441a504",
-	};
 	if (!group) {
 		console.warn("No group found");
 		return false;
 	}
 
 	const promises = [];
-	const dirPath = "./ExternalData/pages/";
+	const dirPath = "./ExternalData";
 	const jsFiles = getFilesFromDirectory(dirPath);
 
 	for (let i in jsFiles) {
@@ -42,5 +38,4 @@ const syncAllData = async (group, attrs = {}) => {
 	return true;
 };
 
-syncAllData();
 module.exports = syncAllData;
