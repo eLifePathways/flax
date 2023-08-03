@@ -19,8 +19,6 @@ body {
   font-family: var(--font-interface);
   background: var(--color-background);
   scroll-behavior: smooth;
-  margin-left: 160px;
-  margin-right: 160px;
   margin-top: 45px
 }
 
@@ -29,6 +27,8 @@ body {
   padding: 0;
   background: var(--color-background);
   margin-bottom: 90px;
+  margin-left: 160px;
+  margin-right: 160px;
 }
 
 .topbar nav ul {
@@ -89,12 +89,14 @@ a {
   color: inherit;
   text-underline-offset: 0.2em;
   text-decoration-color: var(--color-primary);
-  font-style: italic;
+  text-decoration: none;
 }
 
 main {
-  margin-bottom: 5em;
   min-height: 400px;
+  margin-bottom: 5em;
+  margin-left: 160px;
+  margin-right: 160px;
 }
 
 main p,
@@ -1192,10 +1194,82 @@ table td {
   padding: .4ch .4ch;
 }
 
+
+/* partners */
+.partners-file-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.partner-file-item {
+  width: calc(100% / 4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid var(--color-grey-light);
+  border-right: 0px;
+  padding: 10px;
+  
+}
+
+.partner-file-item:last-child {
+  border-right: 1px solid var(--color-grey-light);
+}
+
+.partner-file {
+  width: 140px;
+}
+
+
 .manuscript li {
   margin-left: 3ch;
 }
 
+
+footer {
+  width: clamp(16rem, 90vw, 70rem);
+  margin-left: 160px;
+  margin-right: 160px;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  margin-top: 5em;
+  bottom: 0;
+}
+
+footer .footer-info-container {
+  display:flex;
+  justify-content: space-between;
+  margin-top: 2em;
+  padding-left: 8%;
+}
+
+footer .footer-cms-page-info-container{
+  flex-grow: 1;
+}
+
+
+footer .pageListItem {
+  padding: 1em;
+  padding-top: 0px;
+  padding-right: 1em;
+  font-style: normal;
+  letter-spacing: 0;
+  position: relative;
+  text-decoration: none;
+  font-size: calc(14/var(--base-font-size)*1rem);
+  font-weight: 600;
+}
+
+footer .footerText {
+  padding: 1em; 
+  padding-top: 0px;
+  flex-basis: 0;
+  flex-grow: 1;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 2.18182;
+}
 
 
 @media screen and (max-width: 1100px) {

@@ -79,7 +79,7 @@ const storeLogoFile = async (logo, groupAssetDir) => {
 	downloadFile(originalImage.url, groupAssetDir + "logo.png");
 };
 
-const editHeaderUrl = (flaxHeaderConfigs) => {
+const fixUrlsForHeaderAndFooter = (flaxHeaderConfigs) => {
 	updatedHeaderConfig = [];
 	for (let i in flaxHeaderConfigs) {
 		let flaxHeaderConfig = flaxHeaderConfigs[i];
@@ -149,7 +149,13 @@ const getLayoutInfo = async (group) => {
 	}
 
 	let cmsLayout = response.cmsLayout;
-	cmsLayout.flaxHeaderConfig = editHeaderUrl(cmsLayout.flaxHeaderConfig);
+	cmsLayout.flaxHeaderConfig = fixUrlsForHeaderAndFooter(
+		cmsLayout.flaxHeaderConfig
+	);
+
+	cmsLayout.flaxFooterConfig = fixUrlsForHeaderAndFooter(
+		cmsLayout.flaxFooterConfig
+	);
 
 	storeLogoFile(cmsLayout.logo, getGroupAssetDir(group, "/images/"));
 	cmsLayout.partners = await storePartners(group, cmsLayout.partners);

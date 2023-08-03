@@ -53,6 +53,10 @@
             {{content | safe}}
         {% endblock %}
 
+        {% block partners %}
+            {% include "_partials/partners.njk" %}
+        {% endblock %}
+
         {% block footer %}
             {% include "_partials/footer.njk" %}
         {% endblock %}
