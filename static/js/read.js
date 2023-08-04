@@ -29,8 +29,28 @@ if(document.querySelector('nav.toc li')) {
     setupAndHandleTocItemClicks(event)
   });
 
-  console.log("Item found.")
+  window.addEventListener("scroll", function () {
+    console.log('scroll')
+    var scrollPosition = window.scrollY;
+    var tocLinks = document.querySelectorAll("nav.toc li a");
+    tocLinks.forEach(function (link) {
+      var target = document.querySelector(link.hash);
+      if (target) {
+        var targetTop = target.getBoundingClientRect().top + scrollPosition - 20;
+        var targetBottom = targetTop + target.offsetHeight;
+        
+        if (targetTop <= scrollPosition && targetBottom > scrollPosition) {
+          tocLinks.forEach(function (link) {
+            link.closest("li").classList.remove("active")
+          });
+          link.closest("li").classList.add("active");
+        }
+      }
+    });
+  });
 }
+
+
 
 function nightModeToggle() {
   if (document.documentElement.classList.contains("nightmode")) {
