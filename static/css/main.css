@@ -939,11 +939,10 @@ article .article-preview .authors {
 
 .article-preview main .toc {
   grid-column: 1 / 1;
+  border-left: 1px solid;
+  padding-left: 10px;
 }
 
-.article-preview > .meta-data {
-  grid-columns: 1 / 1;
-}
 
 .article-preview .meta-data h3 {
   margin-top: 3em;
