@@ -1,8 +1,6 @@
-document.addEventListener(
-  "click",
+document.addEventListener("click",
   function (event) {
     // If user either clicks X button OR clicks outside the modal window, then close modal by calling closeModal()
-
     if (
       document.querySelector("#showtoc") &&
       document.querySelector("#showtoc").classList.contains("show")
@@ -23,6 +21,15 @@ if (document.querySelector("#showtoc")) {
   document.querySelector("#showtoc").addEventListener("click", function () {
     toggleTOC();
   });
+}
+
+
+if(document.querySelector('nav.toc li')) {
+  document.querySelector("nav.toc").addEventListener("click", function (event) {
+    setupAndHandleTocItemClicks(event)
+  });
+
+  console.log("Item found.")
 }
 
 function nightModeToggle() {
@@ -157,4 +164,17 @@ function dragElement(elmnt) {
   }
 }
 
+
+function setupAndHandleTocItemClicks(event) {
+  let targetClass = 'active';
+  const liElements = document.querySelectorAll('nav.toc li');
+    liElements.forEach(li => {
+      li.classList.remove(targetClass);
+  });
+  
+  let element = event.target.closest("li");
+  if(element) {
+    element.classList.add(targetClass)
+  }
+}
 // ondragover="onDragOver(event);"

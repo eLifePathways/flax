@@ -23,7 +23,50 @@
                     </li>
                 {% endfor %}
             </ul>
+
+            <span class="header-doi-and-licenses">
+                <a href="{{ article.parsedSubmission.DOI}}"> {{article.parsedSubmission.DOI}} </a>
+                <div class="licence">
+                    <a href="https://creativecommons.org/licenses/by/4.0/legalcode"><span>{% include "_partials/ccbysa.njk" %}</span></a>
+                </div>
+            </span> 
+
+            <p class="published-date">
+                Published on <time datetime="article.publishedDate">{{ article.publishedDate | replace('Z','') | postDate }}</time>
+            </p>
+        </div>
+
+        <div class="horizontal-line"> <hr/> </div>
+        
+        <div class="article-content">
+            <div class="meta-data">
+                <aside class="toc-wrapper">
+                    <h3>Table of contents</h3>
+                        {{ article.meta.source | addIDtoTitles |  toc({"tags":["h2","h3", "figure"]})   | safe }}
+                        {% if collections.supplementaryFiles.length > 1 %}
+                            <li class="main">
+                                <a href="#supplementary">Supplementary Files</a>
+                            </li>
+                        {% endif %}
+                </aside>
+            </div>
+            <article>
+                <section class="manuscript">
+                    <section id="article" class="article">
+                        {{ article.meta.source |  addIDtoTitles |  imagesHandler(article.shortId, 'articles', config.group)   | safe }}
+                    </section>
+                    {% if collections.supplementaryFiles.length > 1 %}
+                        <section>
+                            <h2 id="supplementary">Supplementary Files</h2>
+                            {% for item in collections.supplementaryFiles %}
+                                {% if article.shortID in item %}
+                                    <a href="{{ item | replace('static', '')}}" download>{{ item | cleanLink }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </section>
+                    {% endif %}
+                </section>
+            </article>
         </div>
     </main>
 {% endblock %}
-{% block side %}{# nothing  #}{% endblock %}
