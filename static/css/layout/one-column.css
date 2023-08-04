@@ -182,57 +182,6 @@ html {
   color: var(--color-primary);
 }
 
-footer {
-  bottom: 0;
-  margin-top: 2em;
-  margin-top: 10em;
-  bottom: 0;
-  /* width: 80%; */
-  margin: 0 auto;
-  padding: 2em;
-}
-
-footer .partnersFileContainer {
-  display: flex; 
-  flex-flow: row wrap;
-}
-
-footer .partnerFileItem {
-  display: flex;
-  align-items: center;
-  width: 8em;
-  margin-right: 4em;
-  justify-content: center;
-  margin-top: 1em;
-  border: 1px solid #dedede;
-  border-radius: 6px;
-  padding: 1em;
-}
-
-footer .footerInfoContainer {
-  display:flex;
-  justify-content: space-between;
-  margin-top: 2em
-}
-
-footer .pageInfoContainer {
-  flex-basis: 0;
-  flex-grow: 1;
-}
-
-footer .pageListing {
-  display: flex;
-}
-
-footer .pageListItem {
-  padding: 1em;
-}
-
-footer .footerText {
-  padding: 1em; 
-  flex-basis: 0;
-  flex-grow: 1;
-}
 
 /* responsive and interaction for menus */
 

@@ -20,13 +20,11 @@ module.exports = function (eleventyConfig) {
 		}
 	);
 
-	// eleventyConfig.setServerPassthroughCopyBehavior("passthrough");
-
 	eleventyConfig.setServerOptions({
 		watch: ["public/**/*.css", "static/**/*.css"],
 	});
 
-	// flaxhelpers
+	// flaxHelpers
 	eleventyConfig.addPlugin(flaxPlugins);
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 
@@ -34,7 +32,6 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.on("beforeBuild", (options) => {
 		const outputDir = options.inputDir.replace("src", "public");
 		deleteDirectories(outputDir, "assets");
-		globalOptions = options;
 	});
 
 	eleventyConfig.addCollection("supplementaryFiles", function (collection) {
@@ -82,8 +79,7 @@ module.exports = function (eleventyConfig) {
 		return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED);
 	});
 
-	eleventyConfig.addFilter(
-		"imagesHandler",
+	eleventyConfig.addFilter("imagesHandler",
 		function (content, id, folderName, group) {
 			return imagesHandler(group, folderName, content, id);
 		}

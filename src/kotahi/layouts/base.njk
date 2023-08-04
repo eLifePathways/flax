@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 
-{# from https://www.matuzo.at/blog/html-boilerplate/ #}
-
 <html lang="{% if lang %}{{lang}}{% else %} {{site.lang}}{% endif %}" class="no-js">
 
     <head>
@@ -34,33 +32,15 @@
         <link rel="icon" href="/favicon.ico">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-        {# twitter: do not track #}
         <meta name="twitter:dnt" content="on">
-        {% block styleLayout %}
-        {% endblock %}
+ 
         {% block styles %}
             <link rel="stylesheet" href="/assets/css/main.css?{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}">
         {% endblock %}
 
-        <script>
-            if (localStorage.getItem('nightmode') == "true") {
-                document.documentElement.classList.add('nightmode')
-            }
-        </script>
-
-        {% block scriptHead %}
-
-            {% include "_partials/scripthead.njk" %}
-
-        {% endblock %}
-
-        {% block debugstyle %}{% endblock %}
-
     </head>
 
-    <body  class="{{class}} {% block bodyclass %}{% endblock %}">
-
-        {% block background %}{% endblock %}
+    <body class="{{class}} {% block bodyclass %}{% endblock %}">
 
         {% block topbar %}
             {% include "_partials/menu.njk" %}
@@ -71,6 +51,10 @@
 
         {% block content %}
             {{content | safe}}
+        {% endblock %}
+
+        {% block partners %}
+            {% include "_partials/partners.njk" %}
         {% endblock %}
 
         {% block footer %}

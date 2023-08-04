@@ -1,8 +1,6 @@
-document.addEventListener(
-  "click",
+document.addEventListener("click",
   function (event) {
     // If user either clicks X button OR clicks outside the modal window, then close modal by calling closeModal()
-
     if (
       document.querySelector("#showtoc") &&
       document.querySelector("#showtoc").classList.contains("show")
@@ -24,6 +22,35 @@ if (document.querySelector("#showtoc")) {
     toggleTOC();
   });
 }
+
+
+if(document.querySelector('nav.toc li')) {
+  document.querySelector("nav.toc").addEventListener("click", function (event) {
+    //setupAndHandleTocItemClicks(event)
+  });
+
+  window.addEventListener("scroll", function () {
+    console.log('scroll')
+    var scrollPosition = window.scrollY;
+    var tocLinks = document.querySelectorAll("nav.toc li a");
+    tocLinks.forEach(function (link) {
+      var target = document.querySelector(link.hash);
+      if (target) {
+        var targetTop = target.getBoundingClientRect().top + scrollPosition - 150;
+        var targetBottom = targetTop + target.offsetHeight;
+        
+        if (targetTop <= scrollPosition && targetBottom > scrollPosition) {
+          tocLinks.forEach(function (link) {
+            link.closest("li").classList.remove("active")
+          });
+          link.closest("li").classList.add("active");
+        }
+      }
+    });
+  });
+}
+
+
 
 function nightModeToggle() {
   if (document.documentElement.classList.contains("nightmode")) {
@@ -157,4 +184,17 @@ function dragElement(elmnt) {
   }
 }
 
+
+function setupAndHandleTocItemClicks(event) {
+  let targetClass = 'active';
+  const liElements = document.querySelectorAll('nav.toc li');
+    liElements.forEach(li => {
+      li.classList.remove(targetClass);
+  });
+  
+  let element = event.target.closest("li");
+  if(element) {
+    element.classList.add(targetClass)
+  }
+}
 // ondragover="onDragOver(event);"
