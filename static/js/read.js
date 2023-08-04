@@ -26,7 +26,7 @@ if (document.querySelector("#showtoc")) {
 
 if(document.querySelector('nav.toc li')) {
   document.querySelector("nav.toc").addEventListener("click", function (event) {
-    setupAndHandleTocItemClicks(event)
+    //setupAndHandleTocItemClicks(event)
   });
 
   window.addEventListener("scroll", function () {
@@ -36,7 +36,7 @@ if(document.querySelector('nav.toc li')) {
     tocLinks.forEach(function (link) {
       var target = document.querySelector(link.hash);
       if (target) {
-        var targetTop = target.getBoundingClientRect().top + scrollPosition - 20;
+        var targetTop = target.getBoundingClientRect().top + scrollPosition - 150;
         var targetBottom = targetTop + target.offsetHeight;
         
         if (targetTop <= scrollPosition && targetBottom > scrollPosition) {
