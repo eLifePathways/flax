@@ -40,7 +40,7 @@ const deleteGroup = async (req, res) => {
 };
 
 const setupSiteForGroups = async () => {
-	await setupAllGroups({ shouldBuild: true });
+	await setupAllGroups({ shouldBuild: true, force: true });
 };
 
 module.exports = {
