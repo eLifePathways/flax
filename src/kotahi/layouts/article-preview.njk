@@ -48,6 +48,21 @@
                                 <a href="#supplementary">Supplementary Files</a>
                             </li>
                         {% endif %}
+                        {% if article.editors.length > 0 %}
+                        <li class= "">
+                            <a href="#editors">Editors</a>
+                        </li>
+                        {% endif %}
+                        {% if article.reviews.length > 0 %}
+                        <li class= "">
+                            <a href="#reviews">Reviews</a>
+                        </li>
+                        {% endif %}
+                        {% if article.decisions.length > 0 %}
+                            <li class= "">
+                                <a href="#decisions">Summary</a>
+                            </li>
+                        {% endif %}
                 </aside>
             </div>
             <article>
@@ -64,6 +79,34 @@
                                 {% endif %}
                             {% endfor %}
                         </section>
+                    {% endif %}
+                      {% if article.editors.length > 0 %}
+                        <h2 id="editors">Editors</h2>
+                        {%for editor in article.editors %}
+                            <section class="editor">
+                                <p class="editor-role">{{ editor.role }}</p>
+                                <p class="user-name">{{ editor.editor }}</p>
+                            </section>
+                        {% endfor %}
+                    {% endif %}
+                    {% if article.reviews.length > 0 %}
+                        <h2 id="reviews">Reviews</h2>
+                        {%for review in article.reviews %}
+                            <section>
+                                <p class="user-name">{{ review.user.username }}</p>
+                                {{ review.jsonData.comment | safe}}
+                            </section>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% if article.decisions.length > 0 %}
+                        <h2 id="decisions">Summary</h2>
+                        {%for decision in article.decisions %}
+                            <section>
+                                <p class="user-name">{{ decision.user.username }}</p>
+                                {{ decision.jsonData.comment | safe}}
+                            </section>
+                        {% endfor %}
                     {% endif %}
                 </section>
             </article>

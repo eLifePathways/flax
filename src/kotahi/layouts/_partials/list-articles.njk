@@ -1,5 +1,9 @@
 <section class="articles-list">
 
+    {% if articleQuery.articles.length == 0 %}
+        No articles published yet.
+    {% endif %}
+
     {% for article in articleQuery.articles | reverse %}
         <article>
             <span class="topics"> {{article.parsedSubmission.topics | arrayToString}}  </span>

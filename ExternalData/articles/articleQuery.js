@@ -32,6 +32,26 @@ const getAllTheArticles = async (group) => {
           uploadStatus
           inUse
         }
+        reviews {
+          id
+          jsonData
+          user{
+            id
+            username
+          }
+        }
+        decisions {
+          id
+          jsonData
+          user{
+            id
+            username
+          }
+        }
+      editors {
+        editor
+        role
+      }
         status
         meta {
           title
@@ -61,10 +81,22 @@ const getAllTheArticles = async (group) => {
 	}
 
 	const parsedArticles = response.manuscriptsPublishedSinceDate.map(
-		(article) => {
-			return { parsedSubmission: JSON.parse(article.submission), ...article };
-		}
-	);
+    (article) => {
+      const parsedSubmission = JSON.parse(article.submission);
+
+      const reviews = article.reviews?.map((review) => ({
+        ...review,
+        jsonData: JSON.parse(review.jsonData),
+      })) || [];
+
+      const decisions = article.decisions?.map((decision) => ({
+        ...decision,
+        jsonData: JSON.parse(decision.jsonData),
+      })) || [];
+
+      return { parsedSubmission, ...article, reviews, decisions };
+    }    
+  );
 
 	return {
 		articles: parsedArticles,

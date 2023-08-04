@@ -751,6 +751,23 @@ article .article-preview .authors {
 .article-preview .manuscript {
   counter-reset: figCount;
   font-family: var(--font-content);
+  padding: 0 0 0 2em;
+}
+
+.article-preview .manuscript .editor-role {
+  opacity: 50%;
+  margin-bottom: 0em;
+}
+
+.article-preview .manuscript .editor {
+  margin: 0 0 0.5em 0;
+  padding: 0;
+}
+
+.article-preview .manuscript .user-name {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 1em;
 }
 
 .article-preview .manuscript figure::before {
@@ -939,10 +956,11 @@ article .article-preview .authors {
 
 .article-preview main .toc {
   grid-column: 1 / 1;
-  border-left: 1px solid;
-  padding-left: 10px;
 }
 
+.article-preview > .meta-data {
+  grid-columns: 1 / 1;
+}
 
 .article-preview .meta-data h3 {
   margin-top: 3em;
@@ -979,6 +997,7 @@ article .article-preview .authors {
   top: 200px;
   position: sticky;
   align-self: start;
+  overflow: scroll;
 }
 
 .article-preview .toc h3 {
