@@ -49,7 +49,7 @@ const getAllTheArticles = async (group) => {
           }
         }
       editors {
-        editor
+        name
         role
       }
         status

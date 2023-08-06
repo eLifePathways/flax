@@ -4,7 +4,7 @@
             <div class="partner-file-item">
                 <div class="partner-file">
                     <a href="{{ partner.url }}" target="_blank"> 
-                        <img src={{partner.image.imageLocalUrl}} />
+                        <img src={{partner.image.imageLocalUrl}} onerror="this.onerror=null; this.src='/assets/images/placeholders/partners.png'"/>
                     </a>
                 </div>
                 
