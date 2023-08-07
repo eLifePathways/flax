@@ -7,7 +7,7 @@
                         <div class="pageListItem">
                             <a 
                             class="{% if cmsFooterPage.url == page.url %}active{% endif %}" 
-                            href="{{"/" + cmsFooterPage.url}}"
+                            href="{{ cmsFooterPage.url }}"
                             title="{{ cmsFooterPage.title }}">
                             {{ cmsFooterPage.title }}
                             </a>
