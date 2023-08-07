@@ -35,9 +35,7 @@
                 Published on <time datetime="article.publishedDate">{{ article.publishedDate | replace('Z','') | postDate }}</time>
             </p>
         </div>
-
         <div class="horizontal-line"> <hr/> </div>
-        
         <div class="article-content">
             <div class="meta-data">
                 <aside class="toc-wrapper">
@@ -83,26 +81,25 @@
                       {% if article.editors.length > 0 %}
                         <h2 id="editors">Editors</h2>
                         {%for editor in article.editors %}
-                            <section class="editor">
-                                <p class="editor-role">{{ editor.role }}</p>
-                                <p class="user-name">{{ editor.editor }}</p>
+                            <section class="content">
+                                {# <p class="editor-role">{{ editor.role }}</p> #}
+                                <p class="user-name">{{ editor.name }}</p>
                             </section>
                         {% endfor %}
                     {% endif %}
                     {% if article.reviews.length > 0 %}
                         <h2 id="reviews">Reviews</h2>
                         {%for review in article.reviews %}
-                            <section>
+                            <section class="content">
                                 <p class="user-name">{{ review.user.username }}</p>
                                 {{ review.jsonData.comment | safe}}
                             </section>
                         {% endfor %}
                     {% endif %}
-                    
                     {% if article.decisions.length > 0 %}
                         <h2 id="decisions">Summary</h2>
                         {%for decision in article.decisions %}
-                            <section>
+                            <section class="content">
                                 <p class="user-name">{{ decision.user.username }}</p>
                                 {{ decision.jsonData.comment | safe}}
                             </section>
