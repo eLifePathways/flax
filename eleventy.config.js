@@ -89,7 +89,8 @@ module.exports = function (eleventyConfig) {
 		const $ = cheerio.load(`${value}`);
 
 		$("h2,h3,h4,h5").each(function (i, elem) {
-			$(this).attr("id", $(this).text().toLowerCase().replace(/\s/g, ""));
+			let selector = $(this).text().toLowerCase().replace(/[\s\.\/\W\d]+/g, "");
+			$(this).attr("id", selector);
 		});
 
 		return $.html();

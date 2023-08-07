@@ -41,20 +41,21 @@
                 <aside class="toc-wrapper">
                     <h3>Table of contents</h3>
                         {{ article.meta.source | addIDtoTitles |  toc({"tags":["h2","h3", "figure"]})   | safe }}
+                      
                         {% if collections.supplementaryFiles.length > 1 %}
                             <li class="main">
                                 <a href="#supplementary">Supplementary Files</a>
                             </li>
                         {% endif %}
                         {% if article.editors.length > 0 %}
-                        <li class= "">
-                            <a href="#editors">Editors</a>
-                        </li>
+                            <li>
+                                <a href="#editors">Editors</a>
+                            </li>
                         {% endif %}
                         {% if article.reviews.length > 0 %}
-                        <li class= "">
-                            <a href="#reviews">Reviews</a>
-                        </li>
+                            <li>
+                                <a href="#reviews">Reviews</a>
+                            </li>
                         {% endif %}
                         {% if article.decisions.length > 0 %}
                             <li class= "">
@@ -79,7 +80,7 @@
                         </section>
                     {% endif %}
                       {% if article.editors.length > 0 %}
-                        <h2 id="editors">Editors</h2>
+                        <h3 id="editors">Editors</h3>
                         {%for editor in article.editors %}
                             <section class="content">
                                 {# <p class="editor-role">{{ editor.role }}</p> #}
@@ -88,7 +89,7 @@
                         {% endfor %}
                     {% endif %}
                     {% if article.reviews.length > 0 %}
-                        <h2 id="reviews">Reviews</h2>
+                        <h3 id="reviews">Reviews</h3>
                         {%for review in article.reviews %}
                             <section class="content">
                                 <p class="user-name">{{ review.user.username }}</p>
@@ -97,7 +98,7 @@
                         {% endfor %}
                     {% endif %}
                     {% if article.decisions.length > 0 %}
-                        <h2 id="decisions">Summary</h2>
+                        <h3 id="decisions">Summary</h3>
                         {%for decision in article.decisions %}
                             <section class="content">
                                 <p class="user-name">{{ decision.user.username }}</p>
