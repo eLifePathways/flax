@@ -27,8 +27,8 @@ body {
   padding: 0;
   background: var(--color-background);
   margin-bottom: 90px;
-  margin-left: 160px;
-  margin-right: 160px;
+  padding-left: 160px;
+  padding-right: 160px;
 }
 
 .topbar nav ul {
