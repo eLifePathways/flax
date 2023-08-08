@@ -1328,6 +1328,33 @@ footer .footerText {
   line-height: 2.18182;
 }
 
+/* Article pagination */
+
+.pagination-page {
+  display: flex;
+  justify-content: end;
+  margin-right: 85px;
+}
+
+.pagination {
+  display: inline;
+  margin-right: 10px;
+}
+
+.pagination a {
+  color: var(--color-grey-light);
+  float: left;
+  padding: 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.pagination a.active {
+  color: var(--color-secondary);
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
 
 @media screen and (max-width: 1100px) {
     .article-preview main {

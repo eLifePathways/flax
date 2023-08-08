@@ -1,6 +1,6 @@
 ---
 title: Kotahi Flex
-permalink: /index.html
+permalink: /index_old.html
 layout: home.njk
 class: home
 ---
