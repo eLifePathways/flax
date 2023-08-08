@@ -1,10 +1,9 @@
 <section class="articles-list">
-
     {% if articleQuery.articles.length == 0 %}
         No articles published yet.
     {% endif %}
 
-    {% for article in articleQuery.articles | reverse %}
+    {% for article in pagination.items %}
         <article>
             <span class="topics"> {{article.parsedSubmission.topics | arrayToString}}  </span>
             <h2 class="article-title">
@@ -19,3 +18,10 @@
         </article>
 {% endfor %}
 </section>
+
+{% if pagination.pages.length > 1 %}
+    <div class="pagination-page">
+        {% include "_partials/article-page-links.njk" %}
+    </div>
+{% endif %}
+

@@ -97,8 +97,13 @@ module.exports = function (eleventyConfig) {
 	});
 
 	eleventyConfig.addFilter("cleanLink", function (value) {
-		let regex = new RegExp("");
 		return value.replace(/static\/outputs\/\d+?\//, "");
+	});
+
+	eleventyConfig.addFilter("dumpObject", function (value) {
+		console.log({value})
+		return "items";
+		return JSON.stringify(value)
 	});
 
 	eleventyConfig.addPlugin(pluginTOC, {
