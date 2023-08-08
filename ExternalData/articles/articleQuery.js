@@ -5,7 +5,7 @@ const { getGroupDataDir } = require("../../helpers");
 const getAllTheArticles = async (group) => {
 	const graphQLQuery = JSON.stringify({
 		query: `query {
-      manuscriptsPublishedSinceDate(limit: 10) {
+      manuscriptsPublishedSinceDate {
         id
         shortId
         files {
