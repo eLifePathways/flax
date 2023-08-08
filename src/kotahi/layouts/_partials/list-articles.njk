@@ -7,7 +7,7 @@
         <article>
             <span class="topics"> {{article.parsedSubmission.topics | arrayToString}}  </span>
             <h2 class="article-title">
-                <a href="/articles/{{article.id}}/index.html">{{article.meta.title}}</a>
+                <a href="/articles/{{article.shortId}}/index.html">{{article.meta.title}}</a>
             </h2>
 
             <span class="author-name">{{article.parsedSubmission.authorNames | arrayToString('lastName')}}</span>
