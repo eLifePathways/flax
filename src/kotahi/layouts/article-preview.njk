@@ -26,9 +26,11 @@
 
             <span class="header-doi-and-licenses">
                 <a href="{{ article.parsedSubmission.DOI}}"> {{article.parsedSubmission.DOI}} </a>
-                <div class="licence">
-                    <a href="https://creativecommons.org/licenses/by/4.0/legalcode"><span>{% include "_partials/ccbysa.njk" %}</span></a>
-                </div>
+                {% if cmsLayout.publishConfig.licenseUrl %}
+                        <a href="{{cmsLayout.publishConfig.licenseUrl}}">
+                        {{cmsLayout.publishConfig.licenseUrl}}
+                        </a>
+                {% endif %}
             </span> 
 
             <p class="published-date">

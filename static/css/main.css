@@ -646,11 +646,12 @@ h3 a {
 
 .article-preview-header .header-doi-and-licenses {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 .article-preview-header .header-doi-and-licenses a {
   margin-right: 10px;
+  padding-bottom: 10px;
   color: var(--color-grey);
 }
 

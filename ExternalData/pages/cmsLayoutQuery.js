@@ -103,6 +103,7 @@ const getLayoutInfo = async (group) => {
 				primaryColor
 				secondaryColor
 				footerText
+				publishConfig
 				flaxHeaderConfig {
 					title
 					sequenceIndex
@@ -157,12 +158,18 @@ const getLayoutInfo = async (group) => {
 		cmsLayout.flaxFooterConfig
 	);
 
+	cmsLayout.publishConfig = cmsLayout.publishConfig ? JSON.parse(cmsLayout.publishConfig) : {}
+
 	storeLogoFile(cmsLayout.logo, getGroupAssetDir(group, "/images/"));
 	cmsLayout.partners = await storePartners(group, cmsLayout.partners);
 	return cmsLayout;
 };
 
 const syncData = async (group) => {
+	group = {
+		id: '97808a4b-7dbb-4d74-94b6-17de5eff1ffc',
+		name: 'kotahi'
+	}
 	const dataFile = getGroupDataDir(group) + "/cmsLayout.json";
 	let data = await getLayoutInfo(group);
 	if (data) {
