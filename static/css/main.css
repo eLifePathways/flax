@@ -1356,6 +1356,10 @@ footer .footerText {
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
 
+.review-field p {
+  padding-bottom: 4px;
+  margin-bottom: 2px !important;
+}
 
 @media screen and (max-width: 1100px) {
     .article-preview main {

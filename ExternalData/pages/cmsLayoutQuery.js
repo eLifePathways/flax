@@ -166,10 +166,6 @@ const getLayoutInfo = async (group) => {
 };
 
 const syncData = async (group) => {
-	group = {
-		id: '97808a4b-7dbb-4d74-94b6-17de5eff1ffc',
-		name: 'kotahi'
-	}
 	const dataFile = getGroupDataDir(group) + "/cmsLayout.json";
 	let data = await getLayoutInfo(group);
 	if (data) {

@@ -95,11 +95,11 @@
                         {%for review in article.reviews %}
                             <section class="content">
                                 <p class="user-name">{{ review.user.username }}</p>
-                                {% for key, value in review.jsonData %}
-                                    <ol>
-                                        {{ value | safe}}
-                                    </ol>
-                                {% endfor %}
+                                {% for reviewData in review.jsonData%}
+                                    <div class="review-field">
+                                        {{ reviewData.text |safe }}
+                                    </div>
+                                {% endfor%}
                             </section>
                         {% endfor %}
                     {% endif %}
@@ -108,7 +108,11 @@
                         {%for decision in article.decisions %}
                             <section class="content">
                                 <p class="user-name">{{ decision.user.username }}</p>
-                                {{ decision.jsonData.comment | safe}}
+                                {% for decisionData in decision.jsonData%}
+                                    <div class="review-field">
+                                        {{ decisionData.text |safe }}
+                                    </div>
+                                {% endfor%}
                             </section>
                         {% endfor %}
                     {% endif %}
