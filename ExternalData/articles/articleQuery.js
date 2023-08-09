@@ -2,12 +2,13 @@ const fs = require("fs");
 const { makeAPICall } = require("../../api");
 const { getGroupDataDir } = require("../../helpers");
 
-const getAllTheArticles = async (group) => {
+const getAllTheArticles = async (group, limit, offset) => {
 	const graphQLQuery = JSON.stringify({
 		query: `query {
-      manuscriptsPublishedSinceDate(limit: 100) {
+      manuscriptsPublishedSinceDate(limit: ${limit}, offset: ${offset}) {
         id
         shortId
+        totalCount
         files {
           id
           name
@@ -77,11 +78,13 @@ const getAllTheArticles = async (group) => {
 	console.log("Article query responded.");
 
 	if (!response) {
-		return false;
+		return [];
 	}
+
 
 	const parsedArticles = response.manuscriptsPublishedSinceDate.map(
     (article) => {
+
       const parsedSubmission = JSON.parse(article.submission);
 
       const reviews = article.reviews?.map((review) => ({
@@ -98,18 +101,56 @@ const getAllTheArticles = async (group) => {
     }    
   );
 
-	return {
-		articles: parsedArticles,
-	};
+	return parsedArticles
+};
+
+const getTotalRecords = async (group) => {
+  try {
+    const initData = await getAllTheArticles(group, 1, 0);
+    if (!initData || initData.length < 1) {
+      return 0;
+    }
+    return initData[0].totalCount;
+  } catch (error) {
+    console.error("Error getting total records:", error);
+    return 0;
+  }
+};
+
+const getAllTheQueryPromises = async (group, limit) => {
+  try {
+    const totalRecords = await getTotalRecords(group);
+    const offsetLimit = Math.floor(totalRecords / limit);
+    const promises = [];
+    
+    for (let i = 0; i <= offsetLimit; i++) {
+      promises.push(getAllTheArticles(group, limit, i * limit));
+    }
+    
+    return promises;
+  } catch (error) {
+    console.error("Error getting query promises:", error);
+    return [];
+  }
 };
 
 const syncData = async (group) => {
-	const dataFile = `${getGroupDataDir(group)}/articleQuery.json`;
-	let data = await getAllTheArticles(group);
 
-	if (data) {
-		fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
-	}
+  try {
+    const limit = 10;
+    const promises = await getAllTheQueryPromises(group, limit);
+
+    console.log("Triggered all the queries.");
+    const results = await Promise.all(promises);
+    console.log("Processed all the queries.");
+    
+    const allArticles = results.flat(); // Use flat() to merge nested arrays
+    
+    const dataFile = `${getGroupDataDir(group)}/articleQuery.json`;
+    fs.writeFileSync(dataFile, JSON.stringify({ articles: allArticles }), "utf8");
+  } catch (error) {
+    console.error("Error syncing data:", error);
+  }
 };
 
 module.exports = { syncData };
