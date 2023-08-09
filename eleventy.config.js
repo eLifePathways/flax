@@ -106,6 +106,22 @@ module.exports = function (eleventyConfig) {
 		return JSON.stringify(value)
 	});
 
+	eleventyConfig.addFilter("shouldShowEllipses", (pagination, position) => {
+		if ( pagination.links.length <= 5) {
+			return;
+		}
+
+		if (position == "start" && pagination.pageNumber + 1 <= 4) {
+			return;
+		}
+
+		if (position == "end" &&  pagination.pageNumber + 5 > pagination.links.length) {
+			return;
+		}
+
+		return "...";
+	});
+
 	eleventyConfig.addPlugin(pluginTOC, {
 		tags: ["h2", "h3", "h4"], // which heading tags are selected headings must each have an ID attribute
 		wrapper: "nav", // element to put around the root `ol`/`ul`
