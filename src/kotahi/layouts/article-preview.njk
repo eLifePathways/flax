@@ -93,7 +93,11 @@
                         {%for review in article.reviews %}
                             <section class="content">
                                 <p class="user-name">{{ review.user.username }}</p>
-                                {{ review.jsonData.comment | safe}}
+                                {% for key, value in review.jsonData %}
+                                    <ol>
+                                        {{ value | safe}}
+                                    </ol>
+                                {% endfor %}
                             </section>
                         {% endfor %}
                     {% endif %}
