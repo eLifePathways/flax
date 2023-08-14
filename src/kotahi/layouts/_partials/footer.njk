@@ -6,7 +6,6 @@
                     {% if cmsFooterPage.shownInMenu == true or cmsFooterPage.shownInMenu == "true" %}
                         <div class="pageListItem">
                             <a 
-                            class="{% if cmsFooterPage.url == page.url %}active{% endif %}" 
                             href="{{ cmsFooterPage.url }}"
                             title="{{ cmsFooterPage.title }}">
                             {{ cmsFooterPage.title }}

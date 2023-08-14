@@ -1,6 +1,6 @@
 <div class="pagination">
   {% if page.url != pagination.href.first %}
-    <a href="{{ pagination.href.first }}">1 {{ pagination | shouldShowEllipses( "start")}}</a>
+    <a href="{{ pagination.href.first }}">1{{ pagination | shouldShowEllipses( "start")}}</a>
   {% endif %}
 
   {%- for pageEntry in pagination.pages %}
@@ -39,6 +39,6 @@
   {%- endfor %}
 
   {% if page.url != pagination.href.last %}
-    <a href="{{ pagination.href.last }}">{{ pagination | shouldShowEllipses( "end")}} {{pagination.pages.length }}</a>
+    <a href="{{ pagination.href.last }}">{{ pagination | shouldShowEllipses( "end")}}{{pagination.pages.length }}</a>
   {% endif %}
 </div>

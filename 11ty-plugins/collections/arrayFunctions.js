@@ -1,5 +1,5 @@
 module.exports = function (eleventyConfig) {
-	eleventyConfig.addFilter("arrayToString", function (array, key) {
+	eleventyConfig.addFilter("arrayToString", function (array, key, trim) {
 		if (!array) {
 			return "";
 		}
@@ -10,6 +10,24 @@ module.exports = function (eleventyConfig) {
 			return (newItem + "").trim();
 		});
 
-		return results.join(", ");
+		if (!trim) {
+			return results.join(", ");
+		}
+
+		let trimmedResults = [];
+		let uniqueSet = new Set();
+
+		for (let item of results) {
+			if (item !== "" && !uniqueSet.has(item)) {
+				uniqueSet.add(item);
+				trimmedResults.push(item);
+			}
+		}
+
+		if (!trimmedResults.length > 1) {
+			return trimmedResults[0]
+		}
+
+		return trimmedResults.join(" - ");
 	});
 };

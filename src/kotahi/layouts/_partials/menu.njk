@@ -6,7 +6,6 @@
 				{% if cmsHeaderPage.shownInMenu == true or cmsHeaderPage.shownInMenu == "true" %}
 					<li>
 							<a 
-							class="{% if cmsHeaderPage.url == page.url %}active{% endif %}" 
 							href="{{ cmsHeaderPage.url }}"
 							title="{{ cmsHeaderPage.title }}">
 							{{ cmsHeaderPage.title }}

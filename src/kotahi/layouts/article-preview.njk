@@ -17,15 +17,13 @@
                 {% endfor %}
             </ul>
             <ul class="authors">
-                {% for author in article.parsedSubmission.authorNames %}
-                    <li class="author metadata">
-                        <span class="author-affiliation">{{article.parsedSubmission.authorNames | arrayToString('affiliation')}}</span>
-                    </li>
-                {% endfor %}
+                <li class="author metadata">
+                    <span class="author-affiliation">{{- article.parsedSubmission.authorNames | arrayToString('affiliation', 'trim') -}}</span>
+                </li>
             </ul>
 
             <span class="header-doi-and-licenses">
-                <a href="{{ article.parsedSubmission.DOI}}"> {{article.parsedSubmission.DOI}} </a>
+                <a href="{{ article.parsedSubmission.doi}}"> {{article.parsedSubmission.doi}} </a>
                 {% if cmsLayout.publishConfig.licenseUrl %}
                         <a href="{{cmsLayout.publishConfig.licenseUrl}}">
                         {{cmsLayout.publishConfig.licenseUrl}}
@@ -68,9 +66,11 @@
             </div>
             <article>
                 <section class="manuscript">
-                    <section id="article" class="article">
-                        {{ article.meta.source |  addIDtoTitles |  imagesHandler(article.shortId, 'articles', config.group)   | safe }}
-                    </section>
+                    {% if  article.meta.source %}
+                        <section id="article" class="article">
+                            {{ article.meta.source |  addIDtoTitles |  imagesHandler(article.shortId, 'articles', config.group)   | safe }}
+                        </section>
+                    {% endif %}
                     {% if collections.supplementaryFiles.length > 1 %}
                         <section>
                             <h2 id="supplementary">Supplementary Files</h2>

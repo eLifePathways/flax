@@ -83,3 +83,10 @@
   font-weight: 700;
   font-style: italic;
 }
+
+@font-face {
+  font-family: "Noto Serif";
+  src: url("./../fonts/Noto Serif.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}

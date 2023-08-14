@@ -52,21 +52,6 @@ body {
   color: var(--color-primary);
 }
 
-.topbar a.active {
-  border-bottom: 1px solid var(--color-secondary);
-}
-
-.topbar a.active::after {
-  content: " ";
-  width: 100%;
-  height: 6px;
-  background: var(--color-secondary);
-  display: block;
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-}
-
 @media screen and (min-width: 800px) {
   .topbar nav ul {
     width: max-content;
@@ -734,7 +719,7 @@ article .article-preview .authors {
 
 .article-preview .manuscript {
   font-family: var(--font-content);
-  font-size: 1.2em;
+  font-size: 18px;
 }
 
 .article-preview main h1 {
@@ -776,6 +761,7 @@ article .article-preview .authors {
 .article-preview .manuscript .user-name {
   font-weight: bold;
   font-size: 1.2em;
+  font-family: var(--font-interface);
   margin-bottom: 1em;
 }
 
@@ -862,7 +848,7 @@ article .article-preview .authors {
 
 .article-preview .manuscript {
   font-family: var(--font-content);
-  font-size: 1.2em;
+  font-size: 16px;
 }
 
 .article-preview main h1 {
@@ -987,7 +973,7 @@ article .article-preview .authors {
 
 .article-preview article h3 {
   margin-top: 1.2em;
-  font-size: 1.2em;
+  font-size: 26px;
 }
 
 .article-preview .author .email {
@@ -1006,7 +992,7 @@ article .article-preview .authors {
   top: 200px;
   position: sticky;
   align-self: start;
-  overflow: scroll;
+  overflow: auto;
   padding-bottom: 4em;
 }
 
@@ -1051,12 +1037,12 @@ article .article-preview .authors {
 
 .article-preview article h1 {
   margin-top: 2em;
-  font-size: 1.2em;
+  font-size: 26px;
 }
 
 .article-preview article h3 {
   margin-top: 1.2em;
-  font-size: 1.2em;
+  font-size: 26px;
 }
 
 .article-preview header {
@@ -1117,7 +1103,7 @@ article .article-preview .authors {
 
 .toc-wrapper a {
   margin: 0;
-  font-size: 14.4px;
+  font-size: 14px;
   font-style: normal;
 }
 
@@ -1201,7 +1187,7 @@ a:hover {
 }
 
 .article-preview article h3 {
-  font-size: 1.7em;
+  font-size: 26px;
 }
 
 .article-preview article h3 strong {
@@ -1260,6 +1246,7 @@ nav.toc li.active {
 .partners-file-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .partner-file-item {
@@ -1354,10 +1341,11 @@ footer .footerText {
   color: var(--color-secondary);
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {color: var(--color-grey)}
 
 .review-field p {
   padding-bottom: 4px;
+  font-family: var(--font-content);
   margin-bottom: 2px !important;
 }
 
