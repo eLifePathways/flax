@@ -5,12 +5,12 @@
 
     {% for article in pagination.items %}
         <article>
-            <span class="topics"> {{article.parsedSubmission.topics | arrayToString}}  </span>
+            <span class="topics"> {{article.parsedSubmission.topics | getTopics}}  </span>
             <h2 class="article-title">
                 <a href="/articles/{{article.shortId}}/index.html">{{article.meta.title}}</a>
             </h2>
 
-            <span class="author-name">{{article.parsedSubmission.authorNames | arrayToString('lastName')}}</span>
+            <span class="author-name">{{article.parsedSubmission.authorNames.value | arrayToString('lastName')}}</span>
             <p class="published-date">
                 Published on <time datetime="article.publishedDate">{{ article.publishedDate | replace('Z','') | postDate }}</time>
             </p>
@@ -24,4 +24,3 @@
         {% include "_partials/article-page-links.njk" %}
     </div>
 {% endif %}
-

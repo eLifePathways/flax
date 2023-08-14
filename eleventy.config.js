@@ -101,13 +101,13 @@ module.exports = function (eleventyConfig) {
 	});
 
 	eleventyConfig.addFilter("dumpObject", function (value) {
-		console.log({value})
+		console.log({ value })
 		return "items";
 		return JSON.stringify(value)
 	});
 
 	eleventyConfig.addFilter("shouldShowEllipses", (pagination, position) => {
-		if ( pagination.links.length <= 5) {
+		if (pagination.links.length <= 5) {
 			return;
 		}
 
@@ -115,7 +115,7 @@ module.exports = function (eleventyConfig) {
 			return;
 		}
 
-		if (position == "end" &&  pagination.pageNumber + 5 > pagination.links.length) {
+		if (position == "end" && pagination.pageNumber + 5 > pagination.links.length) {
 			return;
 		}
 

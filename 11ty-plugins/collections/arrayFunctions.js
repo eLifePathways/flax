@@ -30,4 +30,23 @@ module.exports = function (eleventyConfig) {
 
 		return trimmedResults.join(" - ");
 	});
+
+	eleventyConfig.addFilter('getTopics', function (topics) {
+
+		let labels = [];
+		if (!(topics && topics.value)) {
+			return;
+		}
+
+		for (const value of topics.value) {
+			const option = topics.structure.options.find(option => option.value === value);
+			if (option) {
+				labels.push(option.label);
+			} else {
+				labels.push(value);
+			}
+		}
+
+		return labels.join(', ')
+	});
 };
