@@ -111,10 +111,10 @@ const getHeaderInfo = (submissionWithFields, article) => {
   const parsedSubmissionWithFields =  JSON.parse(submissionWithFields)
   let headerInfo = {}
   headerInfo.topics = parsedSubmissionWithFields.topics
-  headerInfo.DOI = parsedSubmissionWithFields.DOI.value
-  headerInfo.authorNames = parsedSubmissionWithFields.authorNames.value
+  headerInfo.DOI = parsedSubmissionWithFields.doi?.value
+  headerInfo.authorNames = parsedSubmissionWithFields.authorNames?.value
   headerInfo.publishedOn = article.publishedDate
-  headerInfo.title = article.meta.title
+  headerInfo.title = article.meta?.title
 
   return headerInfo;
 }
