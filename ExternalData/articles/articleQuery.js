@@ -49,22 +49,23 @@ const getAllTheArticles = async (group, limit, offset) => {
             username
           }
         }
-      editors {
-        name
-        role
-      }
+        editors {
+          name
+          role
+        }
         status
         meta {
           title
           source
           abstract
         }
+        submissionWithFields
         submission
         publishedDate
         printReadyPdfUrl
         styledHtml
         css
-         }
+        }
       }
     `,
 		variables: {},
@@ -97,12 +98,26 @@ const getAllTheArticles = async (group, limit, offset) => {
         jsonData: JSON.parse(decision.jsonData),
       })) || [];
 
-      return { parsedSubmission, ...article, reviews, decisions };
+      const headerInfo = getHeaderInfo(article.submissionWithFields, article);
+
+      return { parsedSubmission, ...article, reviews, decisions, headerInfo };
     }    
   );
 
 	return parsedArticles
 };
+
+const getHeaderInfo = (submissionWithFields, article) => {
+  const parsedSubmissionWithFields =  JSON.parse(submissionWithFields)
+  let headerInfo = {}
+  headerInfo.topics = parsedSubmissionWithFields.topics
+  headerInfo.DOI = parsedSubmissionWithFields.DOI.value
+  headerInfo.authorNames = parsedSubmissionWithFields.authorNames.value
+  headerInfo.publishedOn = article.publishedDate
+  headerInfo.title = article.meta.title
+
+  return headerInfo;
+}
 
 const getTotalRecords = async (group) => {
   try {

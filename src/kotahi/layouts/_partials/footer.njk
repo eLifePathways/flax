@@ -5,7 +5,7 @@
                 {% for cmsFooterPage in (cmsLayout.flaxFooterConfig | reorderPages) %}
                     {% if cmsFooterPage.shownInMenu == true or cmsFooterPage.shownInMenu == "true" %}
                         <div class="pageListItem">
-                            <a 
+                            <a
                             href="{{ cmsFooterPage.url }}"
                             title="{{ cmsFooterPage.title }}">
                             {{ cmsFooterPage.title }}

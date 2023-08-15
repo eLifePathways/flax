@@ -41,10 +41,8 @@ module.exports = function (eleventyConfig) {
 		for (const value of topics.value) {
 			const option = topics.structure.options.find(option => option.value === value);
 			if (option) {
-				labels.push(option.label);
-			} else {
-				labels.push(value);
-			}
+				labels.push(option.label.trim());
+			} 
 		}
 
 		return labels.join(', ')

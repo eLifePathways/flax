@@ -4,10 +4,10 @@
 {% block content %}
     <main>
         <div class="article-preview-header">
-            <span class="topics"> {{article.parsedSubmission.topics | getTopics}}  </span>
-            <span class="article-title"> {{article.meta.title}}</span>
+            <span class="topics"> {{ article.headerInfo.topics | getTopics }}  </span>
+            <span class="article-title"> {{ article.headerInfo.title }}</span>
              <ul class="authors metadata">
-                {% for author in article.parsedSubmission.authorNames.value %}
+                {% for author in article.headerInfo.authorNames %}
                     <li class="author metadata">
                         <span class="author-name">{{- author.firstName -}}&nbsp;{{- author.lastName -}}</span>
                         {% if author.email %}
@@ -18,12 +18,12 @@
             </ul>
             <ul class="authors">
                 <li class="author metadata">
-                    <span class="author-affiliation">{{- article.parsedSubmission.authorNames.value | arrayToString('affiliation', 'trim') -}}</span>
+                    <span class="author-affiliation">{{- article.headerInfo.authorNames | arrayToString('affiliation', 'trim') -}}</span>
                 </li>
             </ul>
 
             <span class="header-doi-and-licenses">
-                <a href="{{ article.parsedSubmission.doi.value}}"> {{article.parsedSubmission.doi.value}} </a>
+                <a href="{{ article.headerInfo.DOI }}"> {{ article.headerInfo.DOI }} </a>
                 {% if cmsLayout.publishConfig.licenseUrl %}
                         <a href="{{cmsLayout.publishConfig.licenseUrl}}">
                         {{cmsLayout.publishConfig.licenseUrl}}
@@ -32,7 +32,7 @@
             </span> 
 
             <p class="published-date">
-                Published on <time datetime="article.publishedDate">{{ article.publishedDate | replace('Z','') | postDate }}</time>
+                Published on <time datetime="article.headerInfo.publishedOn">{{ article.headerInfo.publishedOn | replace('Z','') | postDate }}</time>
             </p>
         </div>
         <div class="horizontal-line"> <hr/> </div>
