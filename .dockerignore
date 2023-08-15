@@ -11,3 +11,10 @@ node_modules
 npm-debug.log
 package-lock.json
 yarn-error.log
+
+
+# Exclude everything in src directory
+src/*
+
+# Include the kotahi directory
+!src/kotahi
