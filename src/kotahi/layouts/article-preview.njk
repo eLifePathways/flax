@@ -93,7 +93,7 @@
                     {% if article.reviews.length > 0 %}
                         <h3 id="reviews">Reviews</h3>
                         {%for review in article.reviews %}
-                            <section class="content">
+                            <section class="reviews">
                                 <p class="user-name">{{ review.user.username }}</p>
                                 {% for reviewData in review.jsonData%}
                                     <div class="review-field">
@@ -106,7 +106,7 @@
                     {% if article.decisions.length > 0 %}
                         <h3 id="decisions">Summary</h3>
                         {%for decision in article.decisions %}
-                            <section class="content">
+                            <section class="reviews">
                                 <p class="user-name">{{ decision.user.username }}</p>
                                 {% for decisionData in decision.jsonData%}
                                     <div class="review-field">
