@@ -1353,6 +1353,10 @@ footer .footerText {
   margin-bottom: 2px !important;
 }
 
+.review-field li {
+  font-weight: 300;
+}
+
 @media screen and (max-width: 1100px) {
     .article-preview main {
       display: block;
