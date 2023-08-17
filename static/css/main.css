@@ -1173,6 +1173,10 @@ a:hover {
   margin: 0;
 }
 
+.reviews li {
+  font-weight: 300;
+}
+
 .article-preview section {
   margin-bottom: 4em;
 }
