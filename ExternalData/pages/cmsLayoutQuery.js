@@ -57,12 +57,14 @@ const storePartners = async (group, partners) => {
 
 	for (let i in partners) {
 		let partner = partners[i];
-		let image = storePartnerImage(partner.file, partnersDir);
-		partner.file = "";
-		updatedPartnersData.push({
-			...partner,
-			image,
-		});
+		if(partner.file) {
+			let image = storePartnerImage(partner.file, partnersDir);
+			partner.file = "";
+			updatedPartnersData.push({
+				...partner,
+				image,
+			});
+		}
 	}
 	return updatedPartnersData;
 };
