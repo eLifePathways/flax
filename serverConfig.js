@@ -1,7 +1,7 @@
 const getConfig = () => {
 	let baseUrl = process.env.FLAX_CLIENT_API_URL
 		? process.env.FLAX_CLIENT_API_URL
-		: "https://kotahi.kotahidev.cloud68.co";
+		: "http://localhost:4000";
 
 	baseUrl = baseUrl.replace(/\/+$/, "");
 

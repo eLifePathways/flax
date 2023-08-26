@@ -748,14 +748,10 @@ article .article-preview .authors {
   padding: 0 0 0 2em;
 }
 
-.article-preview .manuscript .editor-role {
-  opacity: 50%;
-  margin-bottom: 0em;
-}
-
 .article-preview .manuscript .content {
   margin: 0 0 0.5em 0;
   padding: 0;
+  font-weight: 300;
 }
 
 .article-preview .manuscript .user-name {
@@ -1173,10 +1169,6 @@ a:hover {
   margin: 0;
 }
 
-.reviews li {
-  font-weight: 300;
-}
-
 .article-preview section {
   margin-bottom: 4em;
 }
@@ -1236,13 +1228,13 @@ table li {
 table tr {
   border-bottom: 1px solid var(--color-grey);
 }
+
 table td {
   border: 1px solid var(--color-grey);
   padding: .4ch .4ch;
 }
 
-
-nav.toc li.active {
+.toc-wrapper li.active {
   font-weight: 700;
 }
 
@@ -1351,10 +1343,6 @@ footer .footerText {
   padding-bottom: 4px;
   font-family: var(--font-content);
   margin-bottom: 2px !important;
-}
-
-.review-field li {
-  font-weight: 300;
 }
 
 @media screen and (max-width: 1100px) {
