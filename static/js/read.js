@@ -25,14 +25,9 @@ if (document.querySelector("#showtoc")) {
 
 
 if(document.querySelector('nav.toc li')) {
-  document.querySelector("nav.toc").addEventListener("click", function (event) {
-    //setupAndHandleTocItemClicks(event)
-  });
-
   window.addEventListener("scroll", function () {
-    console.log('scroll')
     var scrollPosition = window.scrollY;
-    var tocLinks = document.querySelectorAll("nav.toc li a");
+    var tocLinks = document.querySelectorAll(".toc-wrapper li a");
     tocLinks.forEach(function (link) {
       var target = document.querySelector(link.hash);
       if (target) {

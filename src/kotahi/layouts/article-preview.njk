@@ -4,7 +4,7 @@
 {% block content %}
     <main>
         <div class="article-preview-header">
-            <span class="topics"> {{ article.headerInfo.topics | getTopics }}  </span>
+            <span class="topics"> {{ article.headerInfo.topics }} </span>
             <span class="article-title"> {{ article.headerInfo.title }}</span>
              <ul class="authors metadata">
                 {% for author in article.headerInfo.authorNames %}
@@ -30,18 +30,19 @@
                         </a>
                 {% endif %}
             </span> 
-
-            <p class="published-date">
-                Published on <time datetime="article.headerInfo.publishedOn">{{ article.headerInfo.publishedOn | replace('Z','') | postDate }}</time>
-            </p>
+            
+            {% if article.headerInfo.publishedOn %}
+                <p class="published-date">
+                    Published on <time datetime="article.headerInfo.publishedOn">{{ article.headerInfo.publishedOn | replace('Z','') | postDate }}</time>
+                </p>
+            {% endif %}
         </div>
         <div class="horizontal-line"> <hr/> </div>
         <div class="article-content">
             <div class="meta-data">
                 <aside class="toc-wrapper">
                     <h3>Table of contents</h3>
-                        {{ article.meta.source | addIDtoTitles |  toc({"tags":["h2","h3", "figure"]})   | safe }}
-                      
+                        {{ article.meta.source | addIDtoTitles | toc({"tags":["h2","h3", "figure"]}) | safe }}
                         {% if collections.supplementaryFiles.length > 1 %}
                             <li class="main">
                                 <a href="#supplementary">Supplementary Files</a>
@@ -58,8 +59,13 @@
                             </li>
                         {% endif %}
                         {% if article.decisions.length > 0 %}
-                            <li class= "">
+                            <li>
                                 <a href="#decisions">Summary</a>
+                            </li>
+                        {% endif %}
+                        {% if article.metaData.length > 0 %}
+                            <li>
+                                <a href="#metaData">Metadata</a>
                             </li>
                         {% endif %}
                 </aside>
@@ -68,7 +74,7 @@
                 <section class="manuscript">
                     {% if  article.meta.source %}
                         <section id="article" class="article">
-                            {{ article.meta.source |  addIDtoTitles |  imagesHandler(article.shortId, 'articles', config.group)   | safe }}
+                            {{ article.meta.source | addIDtoTitles | imagesHandler(article.shortId, 'articles', config.group) | safe }}
                         </section>
                     {% endif %}
                     {% if collections.supplementaryFiles.length > 1 %}
@@ -93,7 +99,7 @@
                     {% if article.reviews.length > 0 %}
                         <h3 id="reviews">Reviews</h3>
                         {%for review in article.reviews %}
-                            <section class="reviews">
+                            <section class="content">
                                 <p class="user-name">{{ review.user.username }}</p>
                                 {% for reviewData in review.jsonData%}
                                     <div class="review-field">
@@ -106,7 +112,7 @@
                     {% if article.decisions.length > 0 %}
                         <h3 id="decisions">Summary</h3>
                         {%for decision in article.decisions %}
-                            <section class="reviews">
+                            <section class="content">
                                 <p class="user-name">{{ decision.user.username }}</p>
                                 {% for decisionData in decision.jsonData%}
                                     <div class="review-field">
@@ -115,6 +121,16 @@
                                 {% endfor%}
                             </section>
                         {% endfor %}
+                    {% endif %}
+                    {% if article.metaData.length > 0 %}
+                        <h3 id="metaData">Metadata</h3>
+                        <section class="content">
+                            {% for data in article.metaData %}
+                                <div class="review-field">
+                                    {{ data.text |safe }}
+                                </div>
+                            {% endfor%}
+                        </section>
                     {% endif %}
                 </section>
             </article>
