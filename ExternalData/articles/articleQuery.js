@@ -59,8 +59,9 @@ const getAllTheArticles = async (group, limit, offset) => {
           source
           abstract
         }
-        submissionWithFields
         submission
+        supplementaryFiles
+        submissionWithFields
         publishedDate
         printReadyPdfUrl
         styledHtml
@@ -87,7 +88,6 @@ const getAllTheArticles = async (group, limit, offset) => {
     article => {
 
       const parsedSubmission = JSON.parse(article.submission);
-
       const reviews = article.reviews?.map((review) => ({
         ...review,
         jsonData: JSON.parse(review.jsonData),
@@ -98,11 +98,12 @@ const getAllTheArticles = async (group, limit, offset) => {
         jsonData: JSON.parse(decision.jsonData),
       })) || [];
 
+      const supplementaryFiles = JSON.parse(article.supplementaryFiles)
       const headerInfo = getHeaderInfo(article.submissionWithFields, article);
       const metaData = getMetaData(article.submissionWithFields, article)
       article.submissionWithFields = JSON.parse(article.submissionWithFields)
 
-      return { parsedSubmission, ...article, reviews, decisions, metaData, headerInfo };
+      return { parsedSubmission, ...article, reviews, decisions, metaData, headerInfo, supplementaryFiles };
     }
   );
 
