@@ -6,7 +6,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
 
-        <title>{{site.name}} - {{title}}</title>
+        <title>
+            {% if title %}
+                {{site.name}} - {{title}}
+            {% else %}
+                {{site.name}}
+            {% endif %}
+        </title>
 
         <script type="module">
             document
