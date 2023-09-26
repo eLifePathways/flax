@@ -17,8 +17,12 @@ const stringIsAValidUrl = (s) => {
 	}
 };
 
-const getDirPathToSaveTheFile = (group, folderName) => {
+const getDirPathToSaveTheImages = (group, folderName) => {
 	return getGroupAssetDir(group, `/images/${folderName}`);
+};
+
+const getDirPathToSaveTheFile = group => {
+	return getGroupAssetDir(group, `/files`);
 };
 
 const setImageAttrs = (img, imgSrc) => {
@@ -29,6 +33,15 @@ const setImageAttrs = (img, imgSrc) => {
 	return img;
 };
 
+const setFiles = (file, group) => {
+	const url = file.storedObjects[0].url
+	const dirPath = getDirPathToSaveTheFile(group);
+	const fileName = file.name
+
+	downloadFile(url, `${dirPath}/${fileName}`);
+	return fileName;
+}
+
 const downloadAndSetImagePath = (img, imageId, dirPath, folderName) => {
 	let fileName = `${imageId}-${img.alt}`;
 	downloadFile(img.src, `${dirPath}/${fileName}`);
@@ -36,8 +49,8 @@ const downloadAndSetImagePath = (img, imageId, dirPath, folderName) => {
 	setImageAttrs(img, ImageUrl);
 };
 
-module.exports = (group, folderName, content, id) => {
-	let dirPath = getDirPathToSaveTheFile(group, folderName);
+const imagesHandler = (group, folderName, content, id) => {
+	let dirPath = getDirPathToSaveTheImages(group, folderName);
 	let imageId = id ? id : (Math.random() + 1).toString(36).substring(5);
 	if (!fs.existsSync(dirPath)) {
 		fs.mkdir(dirPath, (err) => {
@@ -57,3 +70,8 @@ module.exports = (group, folderName, content, id) => {
 	});
 	return contentDom.serialize();
 };
+
+module.exports = {
+	imagesHandler,
+	setFiles
+}
