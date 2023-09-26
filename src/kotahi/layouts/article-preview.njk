@@ -82,7 +82,7 @@
                 <section class="manuscript">
                     {% if article.meta.source %}
                         <section id="article" class="article">
-                            {{ article.meta.source | addIDtoTitles | imagesHandler(article.shortId, 'articles', config.group) | safe }}
+                            {{ article.meta.source | addIDtoTitles | imagesHandler(article.shortId, 'articles', config.group) | makeSvgsFromLatex(true) | safe }}
                         </section>
                     {% endif %}
                     {% if supplementaryFiles.length > 0 %}

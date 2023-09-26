@@ -5,6 +5,7 @@ const reorderBlock = require("./collections/reorderBlock.js");
 const dejats = require("./collections/dejats.js");
 const groupby = require("./collections/groupby.js");
 const arrayFunctions = require("./collections/arrayFunctions.js");
+const makeSvgsFromLatex = require("./collections/makeSvgsFromLatex.js");
 
 module.exports = function (eleventyConfig) {
 	// filters
@@ -15,4 +16,5 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPlugin(dejats);
 	eleventyConfig.addPlugin(groupby);
 	eleventyConfig.addPlugin(arrayFunctions);
+	eleventyConfig.addPlugin(makeSvgsFromLatex);
 };
