@@ -1,19 +1,13 @@
 const { makeAPICall } = require("../../api");
-const fs = require("fs");
 const { getGroupDataDir } = require("../../helpers");
-const imageHandler = require("../../SiteHelpers/imagesHandler");
+const {imagesHandler} = require("../../SiteHelpers/fileHandler.js");
+const fs = require("fs");
 
 const handleImages = (group, cmsPages) => {
 	let results = [];
 	for (let i in cmsPages) {
 		let cmsPage = cmsPages[i];
-		cmsPage.content = imageHandler(
-			group,
-			"cmsPages",
-			cmsPage.content,
-			cmsPage.id
-		);
-
+		cmsPage.content = imagesHandler(group,"cmsPages",cmsPage.content,cmsPage.id);
 		results.push(cmsPage);
 	}
 

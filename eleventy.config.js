@@ -8,7 +8,7 @@ const fg = require("fast-glob");
 const flaxPlugins = require("./11ty-plugins/flax-plugins.js");
 
 const deleteDirectories = require("./SiteHelpers/deleteDirectories.js");
-const imagesHandler = require("./SiteHelpers/imagesHandler.js");
+const {imagesHandler, setFiles} = require("./SiteHelpers/fileHandler.js");
 
 module.exports = function (eleventyConfig) {
 	// passthrough file copy //
@@ -83,6 +83,10 @@ module.exports = function (eleventyConfig) {
 		function (content, id, folderName, group) {
 			return imagesHandler(group, folderName, content, id);
 		}
+	);
+
+	eleventyConfig.addFilter("setSupplementaryFiles",
+		function (file, group) { return setFiles(file, group);}
 	);
 
 	eleventyConfig.addFilter("addIDtoTitles", function (value) {
