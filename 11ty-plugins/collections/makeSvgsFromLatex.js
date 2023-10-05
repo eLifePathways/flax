@@ -4,7 +4,7 @@ const he = require('he');
 
 mjAPI.config({
   MathJax: {
-    
+
   },
 });
 mjAPI.start();
@@ -40,7 +40,7 @@ const mathJaxWrapper = latex =>
     .catch(err => {
       console.error('MathJax error:', err);
       return { errors: err };
-});
+    });
 
 const convertMathJax = latex => mathJaxWrapper(latex);
 
@@ -63,6 +63,9 @@ module.exports = function async(eleventyConfig) {
       const latex = replaceHtml
         ? internal
         : internal.split('[CDATA[')[1].split(']]')[0]
+
+
+      if (latex.includes('\\\\')) continue;
 
       const decodedLatex = he.decode(latex)
 
