@@ -98,7 +98,15 @@ module.exports = function async(eleventyConfig) {
         ? internal
         : internal.split('[CDATA[')[1].split(']]')[0]
 
-      const newLatex = latex.replace(/\\/g, '').replace(/&gt;/g, '>');
+      let newLatex;
+
+      // Sometimes inside the math-inline tag we are getting the data which should come 
+      // inside the math-display tag. That's we are decoding it for math-inline tag too.
+      if (!latex.includes('\\\\')) {
+        newLatex = he.decode(latex);
+      } else {
+        newLatex = latex.replace(/\\/g, '').replace(/&gt;/g, '>');
+      }
 
       console.error('Converting inline-formula: ', newLatex)
       // eslint-disable-next-line no--in-loop
