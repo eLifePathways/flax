@@ -46,7 +46,12 @@ const setSupplementaryFiles = (article, group, hexCode) => {
       console.log(`Directory created successfully!`);
     });
   }
-  const files = supplementaryFiles.files
+
+  let files = [];
+  if(supplementaryFiles) {
+    files = supplementaryFiles.files
+  }
+
 
   for (let i in files) {
     let supplementaryFile = files[i];
