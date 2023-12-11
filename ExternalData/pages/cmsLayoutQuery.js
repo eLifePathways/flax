@@ -3,47 +3,13 @@ const {
 	getGroupAssetDir,
 	getGroupDataDir,
 	downloadFile,
-	imageFileLocalUrl,
+	storeImage,
+	isValidFile,
 } = require("../../helpers");
-const { makeAPICall } = require("../../api");
+const { getCMSLayout } = require('../../queries')
 
-const isValidFile = (file) => {
-	if (!file || !file.storedObjects) {
-		return false;
-	}
-
-	let originalImage = file.storedObjects.find(
-		(storedObject) => storedObject.type === "original"
-	);
-
-	if (!originalImage) {
-		return false;
-	}
-
-	return true;
-};
-
-const storePartnerImage = (partnerFile, partnersDir) => {
-	if (!isValidFile(partnerFile)) {
-		return "";
-	}
-
-	let originalImage = partnerFile.storedObjects.find(
-		(storedObject) => storedObject.type === "original"
-	);
-	let imageFullPath = `${partnersDir}${originalImage.key}`;
-	let imageLocalUrl = imageFileLocalUrl(`/partners/${originalImage.key}`);
-
-	downloadFile(originalImage.url, imageFullPath);
-
-	return {
-		imageFullPath,
-		imageLocalUrl,
-	};
-};
-
-const storePartners = async (group, partners) => {
-	const partnersDir = getGroupAssetDir(group, "/images/partners/");
+const storePartners = async (group, hexCode, partners) => {
+	const partnersDir = getGroupAssetDir(group, hexCode, "images/partners");
 	let updatedPartnersData = [];
 
 	if (!fs.existsSync(partnersDir)) {
@@ -51,14 +17,14 @@ const storePartners = async (group, partners) => {
 			if (err) {
 				return console.error(err);
 			}
-			console.log("Directory created successfully!");
+			console.log(`Directory created successfully!`);
 		});
 	}
 
 	for (let i in partners) {
 		let partner = partners[i];
-		if(partner.file) {
-			let image = storePartnerImage(partner.file, partnersDir);
+		if (partner.file) {
+			let image = storeImage(partner.file, hexCode, partnersDir, 'partners');
 			partner.file = "";
 			updatedPartnersData.push({
 				...partner,
@@ -81,7 +47,7 @@ const storeLogoFile = async (logo, groupAssetDir) => {
 	downloadFile(originalImage.url, groupAssetDir + "logo.png");
 };
 
-const fixUrlsForHeaderAndFooter = (flaxHeaderConfigs) => {
+const fixUrlsForHeaderAndFooter = (flaxHeaderConfigs, hexCode) => {
 	updatedHeaderConfig = [];
 	for (let i in flaxHeaderConfigs) {
 		let flaxHeaderConfig = flaxHeaderConfigs[i];
@@ -90,7 +56,7 @@ const fixUrlsForHeaderAndFooter = (flaxHeaderConfigs) => {
 			: "/" + flaxHeaderConfig.url;
 		updatedHeaderConfig.push({
 			...flaxHeaderConfig,
-			url,
+			url: `${hexCode ? '/' + hexCode : ''}${url}`,
 		});
 	}
 
@@ -98,72 +64,20 @@ const fixUrlsForHeaderAndFooter = (flaxHeaderConfigs) => {
 };
 
 const getLayoutInfo = async (group) => {
-	let graphQLQuery = JSON.stringify({
-		query: `
-		query cmsLayout {
-      		cmsLayout {
-				primaryColor
-				secondaryColor
-				footerText
-				publishConfig
-				flaxHeaderConfig {
-					title
-					sequenceIndex
-					shownInMenu
-					url
-				}
-				flaxFooterConfig {
-					title
-					sequenceIndex
-					shownInMenu
-					url
-				}
-				partners {
-					url
-					sequenceIndex
-					file {
-						name
-						storedObjects {
-							mimetype
-							key
-							url
-							type
-						}
-					}
-				}
-				logo {
-					id
-					name
-					storedObjects {
-						mimetype
-						key
-						url
-						type
-					}
-				}
-      	}
-    }`,
-		variables: {},
-	});
-
-	let response = await makeAPICall({ graphQLQuery, group });
-	if (!response) {
-		return false;
-	}
-
-	let cmsLayout = response.cmsLayout;
+	const cmsLayout = await getCMSLayout(group)
+	const { hexCode } = cmsLayout
 	cmsLayout.flaxHeaderConfig = fixUrlsForHeaderAndFooter(
-		cmsLayout.flaxHeaderConfig
+		cmsLayout.flaxHeaderConfig, cmsLayout.hexCode
 	);
 
 	cmsLayout.flaxFooterConfig = fixUrlsForHeaderAndFooter(
-		cmsLayout.flaxFooterConfig
+		cmsLayout.flaxFooterConfig, cmsLayout.hexCode
 	);
 
 	cmsLayout.publishConfig = cmsLayout.publishConfig ? JSON.parse(cmsLayout.publishConfig) : {}
 
-	storeLogoFile(cmsLayout.logo, getGroupAssetDir(group, "/images/"));
-	cmsLayout.partners = await storePartners(group, cmsLayout.partners);
+	await storeLogoFile(cmsLayout.logo, getGroupAssetDir(group, hexCode, "images/"));
+	cmsLayout.partners = await storePartners(group, hexCode, cmsLayout.partners);
 	return cmsLayout;
 };
 

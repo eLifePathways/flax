@@ -8,7 +8,7 @@ const fg = require("fast-glob");
 const flaxPlugins = require("./11ty-plugins/flax-plugins.js");
 
 const deleteDirectories = require("./SiteHelpers/deleteDirectories.js");
-const {imagesHandler, setFiles} = require("./SiteHelpers/fileHandler.js");
+const { imagesHandler } = require("./SiteHelpers/fileHandler.js");
 
 module.exports = function (eleventyConfig) {
 	// passthrough file copy //
@@ -80,13 +80,9 @@ module.exports = function (eleventyConfig) {
 	});
 
 	eleventyConfig.addFilter("imagesHandler",
-		function (content, id, folderName, group) {
-			return imagesHandler(group, folderName, content, id);
+		function (content, id, folderName, group, hexCode) {
+			return imagesHandler(group, folderName, content, id, hexCode);
 		}
-	);
-
-	eleventyConfig.addFilter("setSupplementaryFiles",
-		function (file, group) { return setFiles(file, group);}
 	);
 
 	eleventyConfig.addFilter("addIDtoTitles", function (value) {
@@ -105,9 +101,7 @@ module.exports = function (eleventyConfig) {
 	});
 
 	eleventyConfig.addFilter("dumpObject", function (value) {
-		console.log({ value })
 		return "items";
-		return JSON.stringify(value)
 	});
 
 	eleventyConfig.addFilter("shouldShowEllipses", (pagination, position) => {

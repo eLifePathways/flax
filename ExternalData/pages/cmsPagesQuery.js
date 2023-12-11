@@ -1,43 +1,11 @@
 const { makeAPICall } = require("../../api");
 const { getGroupDataDir } = require("../../helpers");
-const {imagesHandler} = require("../../SiteHelpers/fileHandler.js");
+const { imagesHandler } = require("../../SiteHelpers/fileHandler.js");
+const { getCmsPages } = require('../../queries')
 const fs = require("fs");
 
-const handleImages = (group, cmsPages) => {
-	let results = [];
-	for (let i in cmsPages) {
-		let cmsPage = cmsPages[i];
-		cmsPage.content = imagesHandler(group,"cmsPages",cmsPage.content,cmsPage.id);
-		results.push(cmsPage);
-	}
-
-	return results;
-};
-
 const getPages = async (group) => {
-	let graphQLQuery = JSON.stringify({
-		query: `query cmsPages {
-      cmsPages {
-				id
-				title
-				created
-				content
-				url
-      }
-    }`,
-	});
-
-	let response = await makeAPICall({
-		graphQLQuery,
-		group,
-	});
-
-	if (!response) {
-		return false;
-	}
-
-	const cmsPages = handleImages(group, response.cmsPages);
-
+	const cmsPages = await getCmsPages(group);
 	return {
 		pages: cmsPages,
 	};

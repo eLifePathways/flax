@@ -1,4 +1,5 @@
 const { setupAllGroups, setupGroup } = require("../setup");
+const { getCMSLayout } = require('../queries')
 const { getGroupById } = require("../groups");
 const { deleteAllSubDirectories } = require("../helpers");
 
@@ -8,7 +9,9 @@ const rebuild = async (req, res) => {
 	let updatedConfig = req.body.updatedConfig;
 	buildConfigs.updatedConfig = updatedConfig ? updatedConfig : false;
 	let group = await getGroupById(groupId);
-	await setupGroup(group, buildConfigs);
+	const cmsLayout = await getCMSLayout(group)
+	const { hexCode } = cmsLayout
+	await setupGroup(group, hexCode, buildConfigs);
 	return res.status(200).json({ message: "Flax site rebuilt successfully." });
 };
 
