@@ -2,6 +2,61 @@
 const { makeAPICall } = require("./api");
 
 const getCMSLayout = async group => {
+  let graphQLQuery = JSON.stringify({
+    query: `
+    query cmsLayout {
+      cmsLayout {
+        primaryColor
+        secondaryColor
+        footerText
+        hexCode
+        publishConfig
+        flaxHeaderConfig {
+          title
+          sequenceIndex
+          shownInMenu
+          url
+        }
+        flaxFooterConfig {
+          title
+          sequenceIndex
+          shownInMenu
+          url
+        }
+        partners {
+          url
+          sequenceIndex
+          file {
+            name
+            storedObjects {
+              mimetype
+              key
+              url
+              type
+            }
+          }
+        }
+        logo {
+          id
+          name
+          storedObjects {
+            mimetype
+            key
+            url
+            type
+          }
+        }
+      }
+    }`,
+    variables: {},
+  });
+
+  let response = await makeAPICall({ graphQLQuery, group });
+  if (!response) {
+    return false;
+  }
+
+  return response.cmsLayout
 }
 
 const getCmsPages = async group => {
