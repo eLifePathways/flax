@@ -32,8 +32,8 @@ const syncAllData = async (group, attrs = {}) => {
 		promises.push(scriptModule.syncData(group));
 		console.log("Sync started for file: " + filePath);
 	}
-	let results = await Promise.all(promises);
-	console.log("Sync completed for files ", results);
+	await Promise.all(promises);
+	console.log("Sync completed for files ", jsFiles);
 
 	return true;
 };

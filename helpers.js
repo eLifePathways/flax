@@ -4,8 +4,8 @@ const path = require("path");
 var https = require("https");
 var http = require("http");
 
-const getGroupAssetDir = (group, appendStr) => {
-	const dataFolderPath = path.join(__dirname, `public/${group.name}/assets`);
+const getGroupAssetDir = (group, hexCode, appendStr) => {
+	const dataFolderPath = path.join(__dirname, `public/${group.name}${hexCode ? '/' + hexCode : ''}/assets`);
 	return appendStr ? `${dataFolderPath}/${appendStr}` : dataFolderPath;
 };
 
@@ -14,17 +14,17 @@ const getGroupDataDir = (group, appendStr) => {
 	return appendStr ? `${dataFolderPath}/${appendStr}` : dataFolderPath;
 };
 
-const getGroupSrcDir = (group) => {
-	return path.join(__dirname, `src/${group.name}`);
+const getGroupSrcDir = (group, hexCode) => {
+	return path.join(__dirname, `src/${group.name}`, hexCode || '');
 };
 
-const getGroupPublicDir = (group) => {
-	return path.join(__dirname, `public/${group.name}`);
+const getGroupPublicDir = (group, hexCode) => {
+	return path.join(__dirname, `public/${group.name}${hexCode ? '/' + hexCode : ''}`);
 };
 
-const imageFileLocalUrl = (appendStr) => {
-	const baseImagesUrl = "/assets/images";
-	return appendStr ? `${baseImagesUrl}/${appendStr}` : dataFolderPath;
+const imageFileLocalUrl = (hexCode, appendStr) => {
+	const baseImagesUrl = `${hexCode ? '/' + hexCode : ''}/assets/images`;
+	return appendStr ? `${baseImagesUrl}/${appendStr}` : baseImagesUrl;
 };
 
 const deleteAllSubDirectories = async (directoryPath) => {
@@ -70,9 +70,44 @@ const downloadFile = (url, localPath) => {
 	}
 };
 
-const rebuildSite = (group) => {
+const storeImage = (file, hexCode, directory, folderName) => {
+	if (!isValidFile(file)) {
+		return "";
+	}
+
+	let originalImage = file.storedObjects.find(
+		(storedObject) => storedObject.type === "original"
+	);
+	let imageFullPath = `${directory}/${file.name}`;
+	let imageLocalUrl = imageFileLocalUrl(hexCode, `${folderName}/${file.name}`);
+
+	downloadFile(originalImage.url, imageFullPath);
+
+	return {
+		imageFullPath,
+		imageLocalUrl,
+	};
+};
+
+const isValidFile = (file) => {
+	if (!file || !file.storedObjects) {
+		return false;
+	}
+
+	let originalImage = file.storedObjects.find(
+		(storedObject) => storedObject.type === "original"
+	);
+
+	if (!originalImage) {
+		return false;
+	}
+
+	return true;
+};
+
+const rebuildSite = (group, hexCode) => {
 	const { exec } = require("child_process");
-	let command = `npx eleventy --pathprefix=${group.name} --input=src/${group.name} --output=public/${group.name}`;
+	let command = `npx eleventy --pathprefix=${group.name} --input=src/${group.name} --output=public/${group.name}${hexCode ? '/' + hexCode : ''}`;
 	console.log({ command, status: "rebuilding site" });
 	return new Promise((resolve, reject) => {
 		exec(command, (error, output) => (error ? reject(error) : resolve(output)));
@@ -93,18 +128,18 @@ const getSubDirectories = async (parentDir) => {
 	});
 };
 
-const updateFlaxSiteConfigFile = (group, updatedConfig) => {
+const updateFlaxSiteConfigFile = async (group, updatedConfig) => {
 	const configFilePath = getGroupDataDir(group, "config.json");
 	const config = require(configFilePath);
 	let newConfig = { ...config, ...updatedConfig };
 	fs.writeFileSync(configFilePath, JSON.stringify(newConfig), "utf8");
 };
 
-const updateFlaxSiteFile = group => { 
+const updateFlaxSiteFile = group => {
 	const siteFilePath = getGroupDataDir(group, "site.json");
 	const site = require(siteFilePath);
-	site.name = `${group.name}`;
-	const updatedSite = {...site}
+	site.name = `${group.name} `;
+	const updatedSite = { ...site }
 	fs.writeFileSync(siteFilePath, JSON.stringify(updatedSite), "utf8");
 };
 
@@ -137,6 +172,8 @@ module.exports = {
 	getGroupAssetDir,
 	rebuildSite,
 	authenticate,
+	storeImage,
+	isValidFile,
 	getSubDirectories,
 	updateFlaxSiteConfigFile,
 	getGroupSrcDir,

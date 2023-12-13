@@ -11,45 +11,59 @@ const {
 
 const syncAllData = require("./syncData");
 const { getGroups } = require("./groups");
+const { getCMSLayout } = require("./queries");
 const DEFAULT_GROUP = { id: "", name: "kotahi" };
 
-const setupGroupDirectory = async (group) => {
+const setupGroupDirectory = async (group, hexCode) => {
 	const currentGroupDir = getGroupSrcDir(group);
 	const defaultGroupDir = getGroupSrcDir(DEFAULT_GROUP);
 	if (currentGroupDir == defaultGroupDir) {
 		return true;
 	}
 
+	const updatedConfig = {
+		defaultImagesDirectory: `${hexCode ? '/' + hexCode : ''}/assets/images/`,
+		defaultArticleDirectory: `${hexCode ? '/' + hexCode : ''}/articles/`,
+		group,
+	}
+
 	await deleteAllSubDirectories(currentGroupDir);
 	await copyFolder(defaultGroupDir, currentGroupDir);
-	await updateFlaxSiteConfigFile(group, { group });
+	await updateFlaxSiteConfigFile(group, updatedConfig);
 	await setupSiteFlag(group);
 	return true;
 };
 
-const setupGroup = async (currentGroup, buildConfig) => {
-	const publicDir = getGroupPublicDir(currentGroup);
-	const currentGroupDir = getGroupSrcDir(currentGroup);
+const setupGroup = async (currentGroup, hexCode, buildConfig) => {
+	const publicDir = getGroupPublicDir(currentGroup, hexCode);
+	const currentGroupDir = getGroupSrcDir(currentGroup, hexCode);
+	const updatedConfig = {
+		defaultImagesDirectory: `${hexCode ? '/' + hexCode : ''}/assets/images/`,
+		defaultArticleDirectory: `${hexCode ? '/' + hexCode : ''}/articles/`,
+		...buildConfig.updatedConfig,
+	}
 
 	if (!fs.existsSync(currentGroupDir) || buildConfig.force == true) {
-		await setupGroupDirectory(currentGroup, buildConfig);
+		await setupGroupDirectory(currentGroup, hexCode);
 	}
 
-	if (buildConfig.updatedConfig) {
-		await updateFlaxSiteConfigFile(currentGroup, buildConfig.updatedConfig);
-	}
+	await updateFlaxSiteConfigFile(currentGroup, updatedConfig);
 
 	if (buildConfig.build != false) {
 		if (!fs.existsSync(publicDir)) {
-			await rebuildSite(currentGroup);
+			await rebuildSite(currentGroup, hexCode);
 		}
 
 		await syncAllData(currentGroup, buildConfig);
-		await rebuildSite(currentGroup);
+
+		if (fs.existsSync(publicDir)) {
+			await rebuildSite(currentGroup, hexCode);
+			await syncAllData(currentGroup, buildConfig);
+		}
 	}
 };
 
-const setupSiteFlag = group => {
+const setupSiteFlag = async group => {
 	return updateFlaxSiteFile(group);
 }
 
@@ -61,7 +75,9 @@ const setupAllGroups = async () => {
 	}
 	let promises = [];
 	for (const group of groups) {
-		promises.push(setupGroup(group, { build: true }));
+		const cmsLayout = await getCMSLayout(group)
+		const { hexCode } = cmsLayout
+		promises.push(setupGroup(group, hexCode, { build: true }));
 	}
 	let results = await Promise.all(promises);
 	return results;

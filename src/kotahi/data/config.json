@@ -1,8 +1,1 @@
-{
-    "webhook":"",
-    "cache":true,
-    "group": {
-        "id": "",
-        "name": "kotahi"
-      }
-}
+{"webhook":"","cache":true,"group":{"id":"","name":"kotahi"},"defaultImagesDirectory":"/d7b422832185f/assets/images/","defaultArticleDirectory":"/d7b422832185f/articles/"}

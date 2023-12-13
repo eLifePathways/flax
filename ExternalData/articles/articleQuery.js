@@ -1,90 +1,12 @@
 const fs = require("fs");
-const { makeAPICall } = require("../../api");
-const { getGroupDataDir } = require("../../helpers");
+const { getArticles, getCMSLayout } = require('../../queries')
+const { getGroupDataDir, getGroupAssetDir, storeImage } = require("../../helpers");
 
 const getAllTheArticles = async (group, limit, offset) => {
-  const graphQLQuery = JSON.stringify({
-    query: `query {
-      manuscriptsPublishedSinceDate(limit: ${limit}, offset: ${offset}) {
-        id
-        shortId
-        totalCount
-        files {
-          id
-          name
-          alt
-          caption
-          tags
-          objectId
-          storedObjects {
-            type
-            key
-            size
-            mimetype
-            extension
-            imageMetadata {
-              width
-              height
-              space
-              density
-            }
-            url
-          }
-          uploadStatus
-          inUse
-        }
-        reviews {
-          id
-          jsonData
-          user{
-            id
-            username
-          }
-        }
-        decisions {
-          id
-          jsonData
-          user{
-            id
-            username
-          }
-        }
-        editors {
-          name
-          role
-        }
-        status
-        meta {
-          title
-          source
-          abstract
-        }
-        submission
-        supplementaryFiles
-        submissionWithFields
-        publishedDate
-        printReadyPdfUrl
-        styledHtml
-        css
-        }
-      }
-    `,
-    variables: {},
-  });
-
-  let response = await makeAPICall({
-    graphQLQuery,
-    group,
-  });
-
-  console.log("Article query responded.");
-
-  if (!response) {
-    return [];
-  }
-
-
-  const parsedArticles = response.manuscriptsPublishedSinceDate.map(
+  const articles = await getArticles(group, limit, offset)
+  const cmsLayout = await getCMSLayout(group)
+  const { hexCode } = cmsLayout
+  const parsedArticles = articles.manuscriptsPublishedSinceDate.map(
     article => {
 
       const parsedSubmission = JSON.parse(article.submission);
@@ -98,7 +20,7 @@ const getAllTheArticles = async (group, limit, offset) => {
         jsonData: JSON.parse(decision.jsonData),
       })) || [];
 
-      const supplementaryFiles = JSON.parse(article.supplementaryFiles)
+      const supplementaryFiles = setSupplementaryFiles(article, group, hexCode)
       const headerInfo = getHeaderInfo(article.submissionWithFields, article);
       const metaData = getMetaData(article.submissionWithFields, article)
       article.submissionWithFields = JSON.parse(article.submissionWithFields)
@@ -109,6 +31,40 @@ const getAllTheArticles = async (group, limit, offset) => {
 
   return parsedArticles
 };
+
+const setSupplementaryFiles = (article, group, hexCode) => {
+  const supplementaryFiles = JSON.parse(article.supplementaryFiles)
+
+  const supplementaryFilesDir = getGroupAssetDir(group, hexCode, 'supplementary-files')
+  let updatedSupplementaryFiles = []
+
+  if (!fs.existsSync(supplementaryFilesDir)) {
+    fs.mkdir(supplementaryFilesDir, (err) => {
+      if (err) {
+        return console.error(err);
+      }
+      console.log(`Directory created successfully!`);
+    });
+  }
+
+  let files = [];
+  if(supplementaryFiles) {
+    files = supplementaryFiles.files
+  }
+
+
+  for (let i in files) {
+    let supplementaryFile = files[i];
+    if (files) {
+      let image = storeImage(supplementaryFile, hexCode, supplementaryFilesDir, 'supplementary-files');
+      updatedSupplementaryFiles.push({
+        name: supplementaryFile.name,
+        image,
+      });
+    }
+  }
+  return updatedSupplementaryFiles;
+}
 
 const extractTopics = (topicsField) => {
   const selectedLabels = topicsField?.value.map(val => {
@@ -122,7 +78,7 @@ const extractTopics = (topicsField) => {
 const getHeaderInfo = (submissionWithFields, article) => {
   let submission = JSON.parse(submissionWithFields);
 
-  if(!submission) {
+  if (!submission) {
     submission = [];
   }
 
@@ -143,7 +99,7 @@ const getHeaderInfo = (submissionWithFields, article) => {
 };
 
 const getMetaData = (submissionWithFields, article) => {
-  const fieldsToRemove = [ "submission.topics", "submission.doi", "submission.authorNames", "meta.title" ];
+  const fieldsToRemove = ["submission.topics", "submission.doi", "submission.authorNames", "meta.title"];
   const parsedSubmissionField = JSON.parse(submissionWithFields);
   const filteredMetaData = parsedSubmissionField.filter(field => !fieldsToRemove.includes(field.field.name));
   return filteredMetaData;

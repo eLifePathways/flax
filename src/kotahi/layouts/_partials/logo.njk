@@ -1,3 +1,3 @@
-<a class="logo" href="/">
-    <img src="/assets/images/logo.png" alt="logo file" onerror="this.onerror=null; this.src='/kotahi/assets/images/placeholders/logo.png'"/>
+<a class="logo" href="/{% if cmsLayout.hexCode %}{{cmsLayout.hexCode}}/{% endif %}">
+    <img src="{{config.defaultImagesDirectory}}/logo.png" alt="logo file" onerror="this.onerror=null; this.src='/kotahi{{config.defaultImagesDirectory}}placeholders/logo.png'"/>
 </a>
