@@ -5,7 +5,7 @@ const { getGroupDataDir, getGroupAssetDir, storeImage } = require("../../helpers
 const getAllTheArticles = async (group, limit, offset) => {
   const articles = await getArticles(group, limit, offset)
   const cmsLayout = await getCMSLayout(group)
-  const { hexCode } = cmsLayout
+  const { hexCode, css } = cmsLayout
   const parsedArticles = articles.manuscriptsPublishedSinceDate.map(
     article => {
 
@@ -19,6 +19,10 @@ const getAllTheArticles = async (group, limit, offset) => {
         ...decision,
         jsonData: JSON.parse(decision.jsonData),
       })) || [];
+
+      //add index.css File
+      const cssFile = getGroupAssetDir(group, hexCode, 'css/index.css')
+      fs.writeFileSync(cssFile, css, 'utf8');
 
       const supplementaryFiles = setSupplementaryFiles(article, group, hexCode)
       const headerInfo = getHeaderInfo(article.submissionWithFields, article);
