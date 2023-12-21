@@ -10,8 +10,9 @@ const rebuild = async (req, res) => {
 	buildConfigs.updatedConfig = updatedConfig ? updatedConfig : false;
 	let group = await getGroupById(groupId);
 	const cmsLayout = await getCMSLayout(group)
-	const { hexCode } = cmsLayout
-	await setupGroup(group, hexCode, buildConfigs);
+	const { hexCode, article } = cmsLayout
+
+	await setupGroup(group, hexCode, article, buildConfigs);
 	return res.status(200).json({ message: "Flax site rebuilt successfully." });
 };
 

@@ -18,6 +18,11 @@ const getGroupSrcDir = (group, hexCode) => {
 	return path.join(__dirname, `src/${group.name}`, hexCode || '');
 };
 
+const getGroupLayoutDir = (group, hexCode, appendStr) => {
+	const baseLayoutUrl = path.join(__dirname, `src/${group.name}`, hexCode || '');
+	return appendStr ? `${baseLayoutUrl}/${appendStr}` : baseLayoutUrl;
+};
+
 const getGroupPublicDir = (group, hexCode) => {
 	return path.join(__dirname, `public/${group.name}${hexCode ? '/' + hexCode : ''}`);
 };
@@ -114,6 +119,16 @@ const rebuildSite = (group, hexCode) => {
 	});
 };
 
+const copyArticleTemplate = (article, group, hexCode) => {
+	try {
+		// update article template file
+		const templateFile = `${getGroupLayoutDir(group, hexCode, 'layouts/article-preview.njk')}`
+  		fs.writeFileSync(templateFile, article, 'utf8');
+	} catch (err) {
+  		console.error('Error writing to file:', err);
+	}
+}
+
 const getSubDirectories = async (parentDir) => {
 	return new Promise((resolve, reject) => {
 		fs.readdir(parentDir, async (err, files) => {
@@ -171,6 +186,7 @@ module.exports = {
 	getGroupDataDir,
 	getGroupAssetDir,
 	rebuildSite,
+	copyArticleTemplate,
 	authenticate,
 	storeImage,
 	isValidFile,

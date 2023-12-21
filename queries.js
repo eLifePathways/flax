@@ -46,6 +46,8 @@ const getCMSLayout = async group => {
             type
           }
         }
+        css
+        article
       }
     }`,
     variables: {},

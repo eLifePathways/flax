@@ -7,6 +7,7 @@ const {
 	updateFlaxSiteConfigFile,
 	getGroupPublicDir,
 	updateFlaxSiteFile,
+	copyArticleTemplate,
 } = require("./helpers");
 
 const syncAllData = require("./syncData");
@@ -34,7 +35,7 @@ const setupGroupDirectory = async (group, hexCode) => {
 	return true;
 };
 
-const setupGroup = async (currentGroup, hexCode, buildConfig) => {
+const setupGroup = async (currentGroup, hexCode, article, buildConfig) => {
 	const publicDir = getGroupPublicDir(currentGroup, hexCode);
 	const currentGroupDir = getGroupSrcDir(currentGroup, hexCode);
 	const updatedConfig = {
@@ -46,6 +47,10 @@ const setupGroup = async (currentGroup, hexCode, buildConfig) => {
 
 	if (!fs.existsSync(currentGroupDir) || buildConfig.force == true) {
 		await setupGroupDirectory(currentGroup, hexCode);
+	}
+
+	if (article !== '') {
+		await copyArticleTemplate(article, currentGroup, hexCode)
 	}
 
 	await updateFlaxSiteConfigFile(currentGroup, updatedConfig);
@@ -77,8 +82,9 @@ const setupAllGroups = async () => {
 	let promises = [];
 	for (const group of groups) {
 		const cmsLayout = await getCMSLayout(group)
-		const { hexCode } = cmsLayout
-		promises.push(setupGroup(group, hexCode, { build: true }));
+		const { hexCode, article } = cmsLayout
+
+		promises.push(setupGroup(group, hexCode, article, { build: true }));
 	}
 	let results = await Promise.all(promises);
 	return results;
