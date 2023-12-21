@@ -38,6 +38,7 @@ const setupGroup = async (currentGroup, hexCode, buildConfig) => {
 	const publicDir = getGroupPublicDir(currentGroup, hexCode);
 	const currentGroupDir = getGroupSrcDir(currentGroup, hexCode);
 	const updatedConfig = {
+		group: currentGroup,
 		defaultImagesDirectory: `${hexCode ? '/' + hexCode : ''}/assets/images/`,
 		defaultArticleDirectory: `${hexCode ? '/' + hexCode : ''}/articles/`,
 		...buildConfig.updatedConfig,
