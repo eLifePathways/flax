@@ -139,9 +139,7 @@ const getArticles = async (group, limit, offset) => {
             }
             status
             meta {
-              title
               source
-              abstract
             }
             submission
             supplementaryFiles
