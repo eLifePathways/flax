@@ -162,7 +162,7 @@ const getSubDirectories = async (parentDir) => {
 };
 
 const updateFlaxSiteConfigFile = async (group, updatedConfig) => {
-	const configFilePath = getGroupDataDir(group, "config.json");
+	const configFilePath = getGroupDataDir(group, "cmsConfig.json");
 	const config = require(configFilePath);
 	let newConfig = { ...config, ...updatedConfig };
 	fs.writeFileSync(configFilePath, JSON.stringify(newConfig), "utf8");
