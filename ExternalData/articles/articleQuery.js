@@ -90,8 +90,11 @@ const getHeaderInfo = (submissionWithFields, article) => {
   const doiField = submission.find(sub => sub.field.name === 'submission.doi');
   const authorField = submission.find(sub => sub.field.name === 'submission.authorNames');
   const publishDateField = article.publishedDate;
-  const titleField = submission.find(sub => sub.field.name === 'meta.title');
-  const topics = extractTopics(topicsField);
+	// This change gets the title field to work correctly. BUT: this function generally seems to fail
+	// at present because what's being passed as submissionWithFields (article.submissionWithFields) seems
+	// to be undefined with the rearrangement of metadata.
+  const titleField = submission.find(sub => sub.field.name === 'submission.$title') || {value: JSON.parse(article.submission)['$title']};
+	const topics = extractTopics(topicsField);
 
   return {
     topics,
