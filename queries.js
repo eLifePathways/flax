@@ -47,6 +47,7 @@ const getCMSLayout = async group => {
           }
         }
         css
+        article
       }
     }`,
     variables: {},
@@ -169,32 +170,8 @@ const getArticles = async (group, limit, offset) => {
   return response;
 }
 
-
-const getActiveCmsFilesTree = async (group) => {
-  const graphQLQuery = JSON.stringify({
-    query: `query getActiveCmsFilesTree {
-      getActiveCmsFilesTree
-    }`
-  });
-
-  let response = await makeAPICall({
-    graphQLQuery,
-    group,
-  });
-
-  console.log("Article query responded.");
-
-  if (!response) {
-    return [];
-  }
-
-  return response;
-}
-
-
 module.exports = {
   getArticles,
   getCmsPages,
-  getCMSLayout,
-  getActiveCmsFilesTree
+  getCMSLayout
 };

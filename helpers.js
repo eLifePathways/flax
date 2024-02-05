@@ -3,7 +3,6 @@ const fs = require("fs");
 const path = require("path");
 var https = require("https");
 var http = require("http");
-const axios = require("axios");
 
 const getGroupAssetDir = (group, hexCode, appendStr) => {
 	const dataFolderPath = path.join(__dirname, `public/${group.name}${hexCode ? '/' + hexCode : ''}/assets`);
@@ -39,22 +38,22 @@ const deleteAllSubDirectories = async (directoryPath) => {
 	console.log(`${directoryPath} deleted successfully!`);
 };
 
-// const copyFolder = async (sourceDir, destinationDir) => {
-// 	if (!fs.existsSync(destinationDir)) {
-// 		fs.mkdirSync(destinationDir);
-// 	}
+const copyFolder = async (sourceDir, destinationDir) => {
+	if (!fs.existsSync(destinationDir)) {
+		fs.mkdirSync(destinationDir);
+	}
 
-// 	const files = fs.readdirSync(sourceDir);
-// 	for (const file of files) {
-// 		const currentSrc = `${sourceDir}/${file}`;
-// 		const currentDest = `${destinationDir}/${file}`;
-// 		if (fs.lstatSync(currentSrc).isDirectory()) {
-// 			copyFolder(currentSrc, currentDest);
-// 		} else {
-// 			fs.copyFileSync(currentSrc, currentDest);
-// 		}
-// 	}
-// };
+	const files = fs.readdirSync(sourceDir);
+	for (const file of files) {
+		const currentSrc = `${sourceDir}/${file}`;
+		const currentDest = `${destinationDir}/${file}`;
+		if (fs.lstatSync(currentSrc).isDirectory()) {
+			copyFolder(currentSrc, currentDest);
+		} else {
+			fs.copyFileSync(currentSrc, currentDest);
+		}
+	}
+};
 
 const downloadFile = (url, localPath) => {
 	try {
@@ -130,23 +129,6 @@ const copyArticleTemplate = (article, group, hexCode) => {
 	}
 }
 
-const downloadAndSaveFile = async (url, fileName) => {
-	const response = await axios({
-	  url,
-	  method: 'GET',
-	  responseType: 'stream',
-	});
-
-	const writer = fs.createWriteStream(fileName);
-  
-	return new Promise((resolve, reject) => {
-	  response.data.pipe(writer);
-	  writer.on('finish', resolve);
-	  writer.on('error', reject);
-	});
-}
-  
-
 const getSubDirectories = async (parentDir) => {
 	return new Promise((resolve, reject) => {
 		fs.readdir(parentDir, async (err, files) => {
@@ -162,7 +144,7 @@ const getSubDirectories = async (parentDir) => {
 };
 
 const updateFlaxSiteConfigFile = async (group, updatedConfig) => {
-	const configFilePath = getGroupDataDir(group, "cmsConfig.json");
+	const configFilePath = getGroupDataDir(group, "config.json");
 	const config = require(configFilePath);
 	let newConfig = { ...config, ...updatedConfig };
 	fs.writeFileSync(configFilePath, JSON.stringify(newConfig), "utf8");
@@ -200,8 +182,7 @@ const authenticate = async (req, res, next) => {
 
 module.exports = {
 	deleteAllSubDirectories,
-	downloadAndSaveFile,
-	// copyFolder,
+	copyFolder,
 	getGroupDataDir,
 	getGroupAssetDir,
 	rebuildSite,
