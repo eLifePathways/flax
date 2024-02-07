@@ -87,10 +87,10 @@ const getHeaderInfo = (submissionWithFields, article) => {
   }
 
   const topicsField = submission.find(sub => sub.field.name === 'submission.topics');
-  const doiField = submission.find(sub => sub.field.name === 'submission.doi');
-  const authorField = submission.find(sub => sub.field.name === 'submission.authorNames');
+  const doiField = submission.find(sub => sub.field.name === 'submission.$doi');
+  const authorField = submission.find(sub => sub.field.name === 'submission.$authors');
   const publishDateField = article.publishedDate;
-  const titleField = submission.find(sub => sub.field.name === 'meta.title');
+  const titleField = submission.find(sub => sub.field.name === 'submission.$title');
   const topics = extractTopics(topicsField);
 
   return {
@@ -103,7 +103,7 @@ const getHeaderInfo = (submissionWithFields, article) => {
 };
 
 const getMetaData = (submissionWithFields, article) => {
-  const fieldsToRemove = ["submission.topics", "submission.doi", "submission.authorNames", "meta.title"];
+  const fieldsToRemove = ["submission.topics", "submission.$doi", "submission.$authors", "submission.$title"];
   const parsedSubmissionField = JSON.parse(submissionWithFields);
   const filteredMetaData = parsedSubmissionField.filter(field => !fieldsToRemove.includes(field.field.name));
   return filteredMetaData;
