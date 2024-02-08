@@ -46,6 +46,16 @@ const getCMSLayout = async group => {
             type
           }
         }
+        favicon {
+          id
+          name
+          storedObjects {
+            mimetype
+            key
+            url
+            type
+          }
+        }
         css
         article
       }
