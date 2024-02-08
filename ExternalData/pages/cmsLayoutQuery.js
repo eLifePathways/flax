@@ -47,6 +47,18 @@ const storeLogoFile = async (logo, groupAssetDir) => {
 	downloadFile(originalImage.url, groupAssetDir + "logo.png");
 };
 
+const storeFaviconFile = async (favicon, groupAssetDir) => {
+	if (!isValidFile(favicon)) {
+		return "";
+	}
+
+	let originalImage = favicon.storedObjects.find(
+		(storedObject) => storedObject.type === "original"
+	);
+
+	downloadFile(originalImage.url, groupAssetDir + "favicon.png");
+};
+
 const fixUrlsForHeaderAndFooter = (flaxHeaderConfigs, hexCode) => {
 	updatedHeaderConfig = [];
 	for (let i in flaxHeaderConfigs) {
@@ -76,7 +88,9 @@ const getLayoutInfo = async (group) => {
 
 	cmsLayout.publishConfig = cmsLayout.publishConfig ? JSON.parse(cmsLayout.publishConfig) : {}
 
-	await storeLogoFile(cmsLayout.logo, getGroupAssetDir(group, hexCode, "images/"));
+	const groupAssetDir = getGroupAssetDir(group, hexCode, "images/")
+	await storeLogoFile(cmsLayout.logo, groupAssetDir);
+	await storeFaviconFile(cmsLayout.favicon, groupAssetDir)
 	cmsLayout.partners = await storePartners(group, hexCode, cmsLayout.partners);
 	return cmsLayout;
 };
