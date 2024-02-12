@@ -35,7 +35,7 @@
         <meta name="twitter:card" content="summary_large_image">
         <meta property="og:url" content="site.url">
 
-        <link rel="icon" href="{{config.defaultImagesDirectory}}/favicon.png">
+        {% if cmsLayout.favicon %}<link rel="icon" href="{{config.defaultImagesDirectory}}/favicon.png?{{cmsLayout.favicon.id}}">{% endif %}
         <meta name="twitter:dnt" content="on">
 
         {% block styles %}

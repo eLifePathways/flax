@@ -3,6 +3,7 @@ const {
 	getGroupAssetDir,
 	getGroupDataDir,
 	downloadFile,
+	deleteLocalFile,
 	storeImage,
 	isValidFile,
 } = require("../../helpers");
@@ -35,28 +36,18 @@ const storePartners = async (group, hexCode, partners) => {
 	return updatedPartnersData;
 };
 
-const storeLogoFile = async (logo, groupAssetDir) => {
-	if (!isValidFile(logo)) {
+const storeGroupwideFile = async (file, groupAssetDir, fileName) => {
+	const localPath = groupAssetDir + fileName;
+	if (!isValidFile(file)) {
+		deleteLocalFile(localPath)
 		return "";
 	}
 
-	let originalImage = logo.storedObjects.find(
+	let originalImage = file.storedObjects.find(
 		(storedObject) => storedObject.type === "original"
 	);
 
-	downloadFile(originalImage.url, groupAssetDir + "logo.png");
-};
-
-const storeFaviconFile = async (favicon, groupAssetDir) => {
-	if (!isValidFile(favicon)) {
-		return "";
-	}
-
-	let originalImage = favicon.storedObjects.find(
-		(storedObject) => storedObject.type === "original"
-	);
-
-	downloadFile(originalImage.url, groupAssetDir + "favicon.png");
+	downloadFile(originalImage.url, localPath);
 };
 
 const fixUrlsForHeaderAndFooter = (flaxHeaderConfigs, hexCode) => {
@@ -89,8 +80,8 @@ const getLayoutInfo = async (group) => {
 	cmsLayout.publishConfig = cmsLayout.publishConfig ? JSON.parse(cmsLayout.publishConfig) : {}
 
 	const groupAssetDir = getGroupAssetDir(group, hexCode, "images/")
-	await storeLogoFile(cmsLayout.logo, groupAssetDir);
-	await storeFaviconFile(cmsLayout.favicon, groupAssetDir)
+	await storeGroupwideFile(cmsLayout.logo, groupAssetDir, 'logo.png');
+	await storeGroupwideFile(cmsLayout.favicon, groupAssetDir, 'favicon.png')
 	cmsLayout.partners = await storePartners(group, hexCode, cmsLayout.partners);
 	return cmsLayout;
 };
