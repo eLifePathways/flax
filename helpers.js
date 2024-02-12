@@ -75,6 +75,14 @@ const downloadFile = (url, localPath) => {
 	}
 };
 
+const deleteLocalFile = (localPath) => {
+  try {
+		fs.rm(localPath, () => {});
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 const storeImage = (file, hexCode, directory, folderName) => {
 	if (!isValidFile(file)) {
 		return "";
@@ -195,6 +203,7 @@ module.exports = {
 	getGroupSrcDir,
 	getGroupPublicDir,
 	downloadFile,
+	deleteLocalFile,
 	updateFlaxSiteFile,
 	imageFileLocalUrl,
 };
