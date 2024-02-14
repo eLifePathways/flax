@@ -2,6 +2,21 @@ const fs = require("fs");
 const { getArticles, getCMSLayout } = require('../../queries')
 const { getGroupDataDir, getGroupAssetDir, storeImage } = require("../../helpers");
 
+/** Generate a submission object containing only publishable data.
+ * That is, for fields with publishing set to 'always',
+ * or set to 'ad-hoc' and manually chosen for publishing.
+ */
+const getPublishableSubmissionObject = submissionWithFields => {
+  const result = {}
+  submissionWithFields
+    .filter(entry => entry.shouldPublish && entry.fieldName.startsWith('submission.'))
+    .forEach(entry => {
+      const submissionFieldName = entry.fieldName.split('submission.')[1]
+      result[submissionFieldName] = entry.value
+    })
+  return result
+}
+
 const getAllTheArticles = async (group, limit, offset) => {
   const articles = await getArticles(group, limit, offset)
   const cmsLayout = await getCMSLayout(group)
@@ -29,7 +44,18 @@ const getAllTheArticles = async (group, limit, offset) => {
       const metaData = getMetaData(article.submissionWithFields, article)
       article.submissionWithFields = JSON.parse(article.submissionWithFields)
 
-      return { parsedSubmission, ...article, articleMetadata: { submission: JSON.parse(article.submission) },  reviews, decisions, metaData, headerInfo, supplementaryFiles };
+      const publishableSubmission = getPublishableSubmissionObject(article.submissionWithFields)
+
+      return {
+        parsedSubmission,
+        ...article,
+        articleMetadata: { submission: publishableSubmission },
+        reviews,
+        decisions,
+        metaData,
+        headerInfo,
+        supplementaryFiles
+      };
     }
   );
 
