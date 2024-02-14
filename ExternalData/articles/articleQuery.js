@@ -29,7 +29,7 @@ const getAllTheArticles = async (group, limit, offset) => {
       const metaData = getMetaData(article.submissionWithFields, article)
       article.submissionWithFields = JSON.parse(article.submissionWithFields)
 
-      return { parsedSubmission, ...article, reviews, decisions, metaData, headerInfo, supplementaryFiles };
+      return { parsedSubmission, ...article, articleMetadata: { submission: JSON.parse(article.submission) },  reviews, decisions, metaData, headerInfo, supplementaryFiles };
     }
   );
 
