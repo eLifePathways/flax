@@ -16,7 +16,7 @@ const getFilesFromDirectory = (dirPath) => {
 	return files;
 };
 
-const syncAllData = async (group, attrs = {}) => {
+const syncAllData = async (group, cmsLayout, attrs = {}) => {
 	if (!group) {
 		console.warn("No group found");
 		return false;
@@ -29,7 +29,7 @@ const syncAllData = async (group, attrs = {}) => {
 	for (let i in jsFiles) {
 		const filePath = `./${jsFiles[i]}`;
 		const scriptModule = require(filePath);
-		promises.push(scriptModule.syncData(group));
+		promises.push(scriptModule.syncData(group, cmsLayout));
 		console.log("Sync started for file: " + filePath);
 	}
 	await Promise.all(promises);

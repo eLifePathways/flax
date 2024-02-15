@@ -12,21 +12,27 @@ const rebuild = async (req, res) => {
 	const cmsLayout = await getCMSLayout(group)
 	const { hexCode, article } = cmsLayout
 
-	await setupGroup(group, hexCode, article, buildConfigs);
+	await setupGroup(group, hexCode, article, cmsLayout, buildConfigs);
 	return res.status(200).json({ message: "Flax site rebuilt successfully." });
 };
 
 const createGroup = async (req, res) => {
-	const group = req.body.group;
-	await setupGroup(group, { force: true, build: true });
+	const groupId = req.body.group;
+	const group = await getGroupById(groupId);
+	const cmsLayout = await getCMSLayout(group)
+	const { hexCode, article } = cmsLayout
+	await setupGroup(group, hexCode, article, cmsLayout, { force: true, build: true });
 	return res
 		.status(200)
 		.json({ message: `${group.name} created successfully. !!` });
 };
 
 const rebuildGroup = async (req, res) => {
-	const group = req.body.group;
-	await setupGroup(group, { build: true });
+	const groupId = req.body.group;
+	const group = await getGroupById(groupId);
+	const cmsLayout = await getCMSLayout(group)
+	const { hexCode, article } = cmsLayout
+	await setupGroup(group, hexCode, article, cmsLayout, { build: true });
 	return res
 		.status(200)
 		.json({ message: `${group.name} rebuild successfully. !!` });

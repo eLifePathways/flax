@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { getArticles, getCMSLayout } = require('../../queries')
+const { getArticles } = require('../../queries')
 const { getGroupDataDir, getGroupAssetDir, storeImage } = require("../../helpers");
 
 /** Generate a submission object containing only publishable data.
@@ -17,9 +17,8 @@ const getPublishableSubmissionObject = submissionWithFields => {
   return result
 }
 
-const getAllTheArticles = async (group, limit, offset) => {
+const getChunkOfArticles = async (group, cmsLayout, limit, offset) => {
   const articles = await getArticles(group, limit, offset)
-  const cmsLayout = await getCMSLayout(group)
   const { hexCode, css } = cmsLayout
   const parsedArticles = articles.manuscriptsPublishedSinceDate.map(
     article => {
@@ -135,47 +134,33 @@ const getMetaData = (submissionWithFields, article) => {
   return filteredMetaData;
 }
 
-const getTotalRecords = async group => {
+const getAllArticles = async (group, cmsLayout, chunkSize) => {
   try {
-    const initData = await getAllTheArticles(group, 1, 0);
-    if (!initData || initData.length < 1) {
-      return 0;
-    }
-    return initData[0].totalCount;
-  } catch (error) {
-    console.error("Error getting total records:", error);
-    return 0;
-  }
-};
+    let totalRecordsCount = Number.POSITIVE_INFINITY
+    let offset = 0
 
-const getAllTheQueryPromises = async (group, limit) => {
-  try {
-    const totalRecords = await getTotalRecords(group);
-    const offsetLimit = Math.floor(totalRecords / limit);
-    const promises = [];
-
-    for (let i = 0; i <= offsetLimit; i++) {
-      promises.push(getAllTheArticles(group, limit, i * limit));
+    const allArticles = []
+    while (offset < totalRecordsCount) {
+      const result = await getChunkOfArticles(group, cmsLayout, chunkSize, offset)
+      if (!result.length) break;
+      allArticles.push(...result)
+      totalRecordsCount = result[0].totalLength
+      offset += chunkSize
     }
 
-    return promises;
+    console.log(`Retrieved ${allArticles.length} articles for group ${group.name}`)
+
+    return allArticles;
   } catch (error) {
-    console.error("Error getting query promises:", error);
+    console.error("Error retrieving articles:", error);
     return [];
   }
 };
 
-const syncData = async (group) => {
+const syncData = async (group, cmsLayout) => {
   try {
-    const limit = 10;
-    const promises = await getAllTheQueryPromises(group, limit);
-
-    console.log("Triggered all the queries.");
-    const results = await Promise.all(promises);
-    console.log("Processed all the queries.");
-
-    const allArticles = results.flat();
-
+    const chunkSize = 10;
+    const allArticles = await getAllArticles(group, cmsLayout, chunkSize);
     const dataFile = `${getGroupDataDir(group)}/articleQuery.json`;
     fs.writeFileSync(dataFile, JSON.stringify({ articles: allArticles }), "utf8");
   } catch (error) {

@@ -1,6 +1,4 @@
-const { makeAPICall } = require("../../api");
 const { getGroupDataDir } = require("../../helpers");
-const { imagesHandler } = require("../../SiteHelpers/fileHandler.js");
 const { getCmsPages } = require('../../queries')
 const fs = require("fs");
 
@@ -11,7 +9,7 @@ const getPages = async (group) => {
 	};
 };
 
-const syncData = async (group) => {
+const syncData = async (group, cmsLayout) => {
 	const dataFile = getGroupDataDir(group) + "/cmsPages.json";
 	let data = await getPages(group);
 	if (data) {

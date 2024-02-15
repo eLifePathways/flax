@@ -1,4 +1,4 @@
-
+const deepFreeze = require("./SiteHelpers/deepFreeze");
 const { makeAPICall } = require("./api");
 
 const getCMSLayout = async group => {
@@ -68,7 +68,9 @@ const getCMSLayout = async group => {
     return false;
   }
 
-  return response.cmsLayout
+  response.cmsLayout.publishConfig = JSON.parse(response.cmsLayout.publishConfig)
+
+  return deepFreeze(response.cmsLayout)
 }
 
 const getCmsPages = async group => {
