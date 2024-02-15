@@ -7,7 +7,6 @@ const {
 	storeImage,
 	isValidFile,
 } = require("../../helpers");
-const { getCMSLayout } = require('../../queries')
 
 const storePartners = async (group, hexCode, partners) => {
 	const partnersDir = getGroupAssetDir(group, hexCode, "images/partners");
@@ -66,8 +65,7 @@ const fixUrlsForHeaderAndFooter = (flaxHeaderConfigs, hexCode) => {
 	return updatedHeaderConfig;
 };
 
-const getLayoutInfo = async (group) => {
-	const cmsLayout = await getCMSLayout(group)
+const getLayoutInfo = async (group, cmsLayout) => {
 	const { hexCode } = cmsLayout
 	cmsLayout.flaxHeaderConfig = fixUrlsForHeaderAndFooter(
 		cmsLayout.flaxHeaderConfig, cmsLayout.hexCode
@@ -77,8 +75,6 @@ const getLayoutInfo = async (group) => {
 		cmsLayout.flaxFooterConfig, cmsLayout.hexCode
 	);
 
-	cmsLayout.publishConfig = cmsLayout.publishConfig ? JSON.parse(cmsLayout.publishConfig) : {}
-
 	const groupAssetDir = getGroupAssetDir(group, hexCode, "images/")
 	await storeGroupwideFile(cmsLayout.logo, groupAssetDir, 'logo.png');
 	await storeGroupwideFile(cmsLayout.favicon, groupAssetDir, 'favicon.png')
@@ -86,11 +82,12 @@ const getLayoutInfo = async (group) => {
 	return cmsLayout;
 };
 
-const syncData = async (group) => {
+const syncData = async (group, cmsLayout) => {
 	const dataFile = getGroupDataDir(group) + "/cmsLayout.json";
-	let data = await getLayoutInfo(group);
+	let data = await getLayoutInfo(group, cmsLayout);
 	if (data) {
 		fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
 	}
 };
+
 module.exports = { syncData };

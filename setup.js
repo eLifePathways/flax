@@ -35,7 +35,7 @@ const setupGroupDirectory = async (group, hexCode) => {
 	return true;
 };
 
-const setupGroup = async (currentGroup, hexCode, article, buildConfig) => {
+const setupGroup = async (currentGroup, hexCode, article, cmsLayout, buildConfig) => {
 	const publicDir = getGroupPublicDir(currentGroup, hexCode);
 	const currentGroupDir = getGroupSrcDir(currentGroup, hexCode);
 	const updatedConfig = {
@@ -60,11 +60,12 @@ const setupGroup = async (currentGroup, hexCode, article, buildConfig) => {
 			await rebuildSite(currentGroup, hexCode);
 		}
 
-		await syncAllData(currentGroup, buildConfig);
+		await syncAllData(currentGroup, cmsLayout, buildConfig);
 
+		// TODO Why are we repeating this?
 		if (fs.existsSync(publicDir)) {
 			await rebuildSite(currentGroup, hexCode);
-			await syncAllData(currentGroup, buildConfig);
+			await syncAllData(currentGroup, cmsLayout, buildConfig);
 		}
 	}
 };
@@ -79,14 +80,13 @@ const setupAllGroups = async () => {
 		console.warn("No groups found.");
 		return;
 	}
-	let promises = [];
+	let results = [];
 	for (const group of groups) {
 		const cmsLayout = await getCMSLayout(group)
 		const { hexCode, article } = cmsLayout
 
-		promises.push(setupGroup(group, hexCode, article, { build: true }));
+		results.push(await setupGroup(group, hexCode, article, cmsLayout, { build: true }));
 	}
-	let results = await Promise.all(promises);
 	return results;
 };
 
