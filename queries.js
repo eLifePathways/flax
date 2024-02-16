@@ -1,4 +1,4 @@
-const deepFreeze = require("./SiteHelpers/deepFreeze");
+// const deepFreeze = require("./SiteHelpers/deepFreeze");
 const { makeAPICall } = require("./api");
 
 const getCMSLayout = async group => {
@@ -70,7 +70,15 @@ const getCMSLayout = async group => {
 
   response.cmsLayout.publishConfig = JSON.parse(response.cmsLayout.publishConfig)
 
-  return deepFreeze(response.cmsLayout)
+  // TODO We should not be mutating this object multiple times
+  // in multiple branches of program execution. We should do
+  // whatever manipulations we need to it right here, then pass
+  // it down in a deep-frozen state.
+  // Currently cmsLayoutQuery's syncData performs mutations on this,
+  // and we don't seem to get exceptions thrown by it mutating a
+  // deep frozen object. Perhaps javascript is not running in strict
+  // mode?
+  return response.cmsLayout // deepFreeze(response.cmsLayout)
 }
 
 const getCmsPages = async group => {
