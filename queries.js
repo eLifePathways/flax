@@ -1,6 +1,6 @@
 
 const { makeAPICall } = require("./api");
-
+//hex code after footerText
 const getCMSLayout = async group => {
   let graphQLQuery = JSON.stringify({
     query: `
@@ -9,19 +9,20 @@ const getCMSLayout = async group => {
         primaryColor
         secondaryColor
         footerText
-        hexCode
         publishConfig
         flaxHeaderConfig {
           title
           sequenceIndex
           shownInMenu
           url
+          config
         }
         flaxFooterConfig {
           title
           sequenceIndex
           shownInMenu
           url
+          config
         }
         partners {
           url
@@ -36,16 +37,9 @@ const getCMSLayout = async group => {
             }
           }
         }
-        logo {
-          id
-          name
-          storedObjects {
-            mimetype
-            key
-            url
-            type
-          }
-        }
+        logo
+        languages
+        languagesWithLabels
       }
     }`,
     variables: {},
@@ -76,7 +70,6 @@ const getCmsPages = async group => {
     graphQLQuery,
     group,
   });
-
   if (!response) {
     return false;
   }
@@ -160,7 +153,6 @@ const getArticles = async (group, limit, offset) => {
   });
 
   console.log("Article query responded.");
-
   if (!response) {
     return [];
   }

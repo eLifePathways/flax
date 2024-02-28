@@ -3,8 +3,8 @@ permalink: /assets/css/theme/default.css
 ---
 
 :root {
-    --color-primary: {{ cmsLayout.primaryColor | valueOrDefault('#30ac66') | safe  }};
-    --color-secondary: {{ cmsLayout.secondaryColor | valueOrDefault('red') | safe  }};;
+    --color-primary: {{ cmsLayout.primaryColor.en | valueOrDefault('#30ac66') | safe  }};
+    --color-secondary: {{ cmsLayout.secondaryColor.en | valueOrDefault('red') | safe  }};
     --color-background: #fff;
     --color-grey: #999;
     --color-grey-light: #ccc;

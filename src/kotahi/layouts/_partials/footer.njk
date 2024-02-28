@@ -2,13 +2,13 @@
     <div class="footer-info-container">
         <div class="footer-cms-page-info-container">
             <div class="footer-cms-page-listing">
-                {% for cmsFooterPage in (cmsLayout.flaxFooterConfig | reorderPages) %}
-                    {% if cmsFooterPage.shownInMenu == true or cmsFooterPage.shownInMenu == "true" %}
+                {% for cmsFooterPage in (cmsLayout.flaxFooterConfig | reorderPages(locale, page)) %}
+                    {% if cmsFooterPage.config[locale].shownInMenu == true or cmsFooterPage.config[locale].shownInMenu == "true" %}
                         <div class="pageListItem">
                             <a
-                            href="{{ cmsFooterPage.url }}"
-                            title="{{ cmsFooterPage.title }}">
-                            {{ cmsFooterPage.title }}
+                            href="{{localeUrl}}{{ cmsFooterPage.url }}"
+                            title="{{ cmsFooterPage.title[locale] }}">
+                            {{ cmsFooterPage.title[locale] }}
                             </a>
                         </div>
                     {% endif %}
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="footerText">
-            {{ cmsLayout.footerText | safe }}
+            {{ cmsLayout.footerText[locale] | safe }}
         </div>
     </div>
 </footer>

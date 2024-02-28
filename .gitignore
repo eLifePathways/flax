@@ -8,3 +8,6 @@ src/*
 !src/kotahi
 !src/kotahi/
 !src/kotahi/*
+!src/i18n
+
+.vscode

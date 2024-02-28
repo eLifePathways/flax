@@ -1,18 +1,29 @@
 <aside class="topbar">
 			{% include "_partials/logo.njk" %}
-	<nav>
-		<ul>
-			{% for cmsHeaderPage in (cmsLayout.flaxHeaderConfig | reorderPages) %}
-				{% if cmsHeaderPage.shownInMenu == true or cmsHeaderPage.shownInMenu == "true" %}
-					<li>
-							<a 
-							href="{{ cmsHeaderPage.url }}"
-							title="{{ cmsHeaderPage.title }}">
-							{{ cmsHeaderPage.title }}
-							</a>
-					</li>
-				{% endif %}
-			{% endfor %}
-		</ul>
-	</nav>
+	<div class="topbar__rightside">
+		<nav>
+			<ul>
+				{% for cmsHeaderPage in (cmsLayout.flaxHeaderConfig | reorderPages(locale, page)) %}
+					{% if cmsHeaderPage.config[locale].shownInMenu == true or cmsHeaderPage.config[locale].shownInMenu == "true" %}
+						<li>
+								<a
+								href="{{localeUrl}}{{ cmsHeaderPage.url }}"
+								title="{{ cmsHeaderPage.title[locale] }}">
+								{{ cmsHeaderPage.title[locale]}}
+								</a>
+						</li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</nav>
+		{% if cmsLayout.languagesWithLabels|length > 1 %}
+			
+				<select id="languageSelector">
+					{% for language in cmsLayout.languagesWithLabels %}
+						<option value="{{language.value}}">{{language.label}}</option>
+					{% endfor %}
+				</select>
+			
+		{% endif %}
+	</div>
 </aside>

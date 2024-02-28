@@ -1,19 +1,18 @@
 <section class="articles-list">
     {% if articleQuery.articles.length == 0 %}
-        No articles published yet.
+        {{ 'noArticlesPublished' | i18n({}, locale)  }}
     {% endif %}
-
     {% for article in pagination.items %}
         <article>
             <span class="topics">
                 {{ article.headerInfo.topics }}
             </span>
             <h2 class="article-title">
-                <a href="{{config.defaultArticleDirectory}}{{article.shortId}}/index.html">{{ article.headerInfo.title | safe }}</a>
+                <a href="{{localeUrl}}{{config.defaultArticleDirectory}}{{article.shortId}}/index.html">{{ article.headerInfo.title | safe }}</a>
             </h2>
             <span class="author-name">{{ article.headerInfo.authorNames | arrayToString('lastName') }}</span>
             <p class="published-date">
-                Published on <time datetime="article.headerInfo.publishedOn">{{ article.headerInfo.publishedOn | replace('Z','') | postDate }}</time>
+                {{ 'publishedOn' | i18n({}, locale)  }} <time datetime="article.headerInfo.publishedOn">{{ article.headerInfo.publishedOn | replace('Z','') | postDate }}</time>
             </p>
 
         </article>

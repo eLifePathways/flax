@@ -18,3 +18,4 @@ src/*
 
 # Include the kotahi directory
 !src/kotahi
+!src/i18n

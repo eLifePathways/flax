@@ -33,6 +33,18 @@ const deleteAllSubDirectories = async (directoryPath) => {
 	console.log(`${directoryPath} deleted successfully!`);
 };
 
+const createDirectory = async (directoryPath) => {
+	if (!fs.existsSync(directoryPath)){
+    fs.mkdirSync(directoryPath);
+	}
+}
+
+const createFile = async (filePath, content) => {
+	if (!fs.existsSync(filePath)){
+		fs.writeFileSync(filePath, content);
+	}
+}
+
 const copyFolder = async (sourceDir, destinationDir) => {
 	if (!fs.existsSync(destinationDir)) {
 		fs.mkdirSync(destinationDir);
@@ -181,4 +193,6 @@ module.exports = {
 	downloadFile,
 	updateFlaxSiteFile,
 	imageFileLocalUrl,
+	createDirectory,
+	createFile,
 };

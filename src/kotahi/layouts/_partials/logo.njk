@@ -1,3 +1,3 @@
-<a class="logo" href="/{% if cmsLayout.hexCode %}{{cmsLayout.hexCode}}/{% endif %}">
-    <img src="{{config.defaultImagesDirectory}}/logo.png" alt="logo file" onerror="this.onerror=null; this.src='/kotahi{{config.defaultImagesDirectory}}placeholders/logo.png'"/>
+<a class="logo" href="{% if localeUrl %}{{localeUrl}}{% endif %}/{% if cmsLayout.hexCode %}{{cmsLayout.hexCode}}/{% endif %}">
+    <img src="{{config.defaultImagesDirectory}}/logo{% if localeUrl %}{{locale}}{% endif %}.png" alt="logo file" onerror="this.onerror=null; this.src='/kotahi{{config.defaultImagesDirectory}}placeholders/logo.png'"/>
 </a>

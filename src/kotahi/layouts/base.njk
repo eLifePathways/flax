@@ -1,6 +1,8 @@
 <!DOCTYPE html>
+{% set locale = getLocale(page) %}
+{% set localeUrl = getLocaleUrl(page) %}
 
-<html lang="{% if lang %}{{lang}}{% else %} {{site.lang}}{% endif %}" class="no-js">
+<html lang="{% if locale %}{{locale}}{% else %} {{site.lang}}{% endif %}" class="no-js">
 
     <head>
         <meta charset="UTF-8">
@@ -30,7 +32,7 @@
         <meta property="og:description" content="{% if description %}{{description}}{% else %}{{site.description}}{% endif %}">
         <meta property="og:image" content="{{site.image}}">
         <meta property="og:image:alt" content="{{site.imageAlt}}">
-        <meta property="og:locale" content="{{site.locale}}">
+        <meta property="og:locale" content="{{locale}}">
         <meta property="og:type" content="website">
         <meta name="twitter:card" content="summary_large_image">
         <meta property="og:url" content="site.url">
@@ -39,15 +41,19 @@
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
         <meta name="twitter:dnt" content="on">
-
+        
         {% block styles %}
+            <link rel="stylesheet" href="/assets/css/nice-select2.css"/>
             <link rel="stylesheet" href="/assets/css/main.css?{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}{{ [1,2,3,4,5,6,7,8,9] | random }}">
         {% endblock %}
 
+        
+
     </head>
-
+    {{ locale }}
+    {{ localeUrl }}
+    
     <body class="{{class}} {% block bodyclass %}{% endblock %}">
-
         {% block topbar %}
             {% include "_partials/menu.njk" %}
         {% endblock %}
@@ -68,11 +74,21 @@
 
         {# check instant #}
         <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+        <script>
+            const config = {{ cmsLayout | dump | safe }};
+        </script>
         {% block scripts %}
             <script type="module" src="/assets/js/read.js"></script>
+            <script type="module" src="/assets/js/nice-select2.js"></script>
+            <script type="module" src="/assets/js/languages.js"></script>
         {% endblock %}
 
         {% block printpreview %}{% endblock %}
-
+        <style>
+            :root {
+                --color-primary: {{ cmsLayout.primaryColor[locale] | valueOrDefault('#30ac66') | safe  }} !important;
+                --color-secondary: {{ cmsLayout.secondaryColor[locale] | valueOrDefault('red') | safe  }} !important;
+            }
+        </style>
     </body>
 </html>

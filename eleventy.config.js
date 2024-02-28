@@ -6,9 +6,24 @@ const { DateTime } = require("luxon");
 const cheerio = require("cheerio");
 const fg = require("fast-glob");
 const flaxPlugins = require("./11ty-plugins/flax-plugins.js");
+const i18n = require('eleventy-plugin-i18n');
 
 const deleteDirectories = require("./SiteHelpers/deleteDirectories.js");
 const { imagesHandler } = require("./SiteHelpers/fileHandler.js");
+const fs = require('fs');
+
+
+const getDirectories = source =>
+  fs.readdirSync(source, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name)
+const translations = require('./src/i18n/index.js');
+
+
+
+const intersectArrays = (arr1, arr2) => {
+	return arr1.filter(value => arr2.map(value => value.toLowerCase()).includes(value.toLowerCase()));
+}
 
 module.exports = function (eleventyConfig) {
 	// passthrough file copy //
@@ -21,7 +36,7 @@ module.exports = function (eleventyConfig) {
 	);
 
 	eleventyConfig.setServerOptions({
-		watch: ["public/**/*.css", "static/**/*.css"],
+		watch: ["public/**/*.css", "static/**/*.css", "public/**/*.js", "static/**/*.js"],
 	});
 
 	// flaxHelpers
@@ -37,6 +52,15 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addCollection("supplementaryFiles", function (collection) {
 		return supplementary;
 	});
+
+	//plugin i18n
+  eleventyConfig.addPlugin(i18n, {
+    translations,
+    fallbackLocales: {
+      '*': 'en'
+    },
+  });
+
 
 	// plugin TOC
 	eleventyConfig.addPlugin(pluginTOC);
@@ -57,14 +81,64 @@ module.exports = function (eleventyConfig) {
 		"!**/temp",
 		"!**/public",
 	]);
-
-	eleventyConfig.addFilter("reorderPages", function (pages) {
+	eleventyConfig.addFilter("reorderPages", function (pages, locale = undefined, page = null) {
+		if(page){
+			const group = page.outputPath.split('/')[1].toLowerCase();
+			const cmsLayout = JSON.parse(fs.readFileSync(`./src/${group}/data/cmsLayout.json`, 'utf8'));
+			const languages = cmsLayout.languages;
+			const mainLanguage = languages[0];
+			const sortLanguage = locale || mainLanguage;
+			return pages.sort((page1, page2) => {
+				if (page1.config[sortLanguage].sequenceIndex > page2.config[sortLanguage].sequenceIndex) return 1;
+				else if (page1.config[sortLanguage].sequenceIndex < page2.config[sortLanguage].sequenceIndex) return -1;
+				else return 0;
+			});
+		}
 		return pages.sort((page1, page2) => {
 			if (page1.sequenceIndex > page2.sequenceIndex) return 1;
 			else if (page1.sequenceIndex < page2.sequenceIndex) return -1;
 			else return 0;
 		});
 	});
+
+
+	eleventyConfig.addNunjucksGlobal("getLocale", (page) => {
+
+		const group = page.outputPath.split('/')[1].toLowerCase();
+		const cmsLayout = JSON.parse(fs.readFileSync(`./src/${group}/data/cmsLayout.json`, 'utf8'));
+		const languages = cmsLayout.languages;
+		
+		if(languages.length == 1) return languages[0]
+
+		if(!page.url) return languages[0];
+
+		const pathSegments = page.url.split('/').filter(segment => segment !== '');
+		const intersect = intersectArrays(pathSegments, languages);
+		if(!intersect.length) return languages[0];
+
+		const localeIndex = languages.map(lang => lang.toLowerCase()).indexOf(intersect[0].toLowerCase());
+		if(localeIndex != -1) return languages[localeIndex];
+		return languages[0];
+	});
+
+	eleventyConfig.addNunjucksGlobal("getLocaleUrl", (page) => {
+		const group = page.outputPath.split('/')[1].toLowerCase();
+		const cmsLayout = JSON.parse(fs.readFileSync(`./src/${group}/data/cmsLayout.json`, 'utf8'));
+		const languages = cmsLayout.languages;
+
+		if(languages.length == 1) return ``
+
+		if(!page.url) return `/${languages[0]}`;
+
+		const pathSegments = page.url.split('/').filter(segment => segment !== '');
+		const intersect = intersectArrays(pathSegments, languages);
+		if(!intersect.length) return `/${languages[0]}`;
+
+		const localeIndex = languages.map(lang => lang.toLowerCase()).indexOf(intersect[0].toLowerCase());
+		if(localeIndex != -1) return `/${languages[localeIndex]}`;
+		return `/${languages[0]}`;
+	});
+
 
 	eleventyConfig.addFilter("valueOrDefault", function (value, defaultValue) {
 		if (!value) {
@@ -78,6 +152,10 @@ module.exports = function (eleventyConfig) {
 		let date = new Date(dateObj);
 		return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED);
 	});
+
+	eleventyConfig.addFilter("toLowerCase", (string) => {
+		return string.toLowerCase();
+	})
 
 	eleventyConfig.addFilter("imagesHandler",
 		function (content, id, folderName, group, hexCode) {
@@ -127,6 +205,7 @@ module.exports = function (eleventyConfig) {
 		ul: false, // if to use `ul` instead of `ol`
 		flat: false,
 	});
+
 
 	// folder structures
 	// -----------------------------------------------------------------------------

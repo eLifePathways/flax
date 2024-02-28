@@ -582,3 +582,15 @@ main nav ol {
   object-fit: cover;
   object-position: top;
 }
+
+
+.topbar__rightside{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+@media screen and (max-width: 768px){
+  .topbar__rightside{
+    flex-direction: column;
+  }
+}

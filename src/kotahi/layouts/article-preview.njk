@@ -38,7 +38,7 @@
 
             {% if article.headerInfo.publishedOn %}
                 <p class="published-date">
-                    Published on <time datetime="article.headerInfo.publishedOn">{{ article.headerInfo.publishedOn | replace('Z','') | postDate }}</time>
+                    {{ 'publishedOn' | i18n({}, locale)  }} <time datetime="article.headerInfo.publishedOn">{{ article.headerInfo.publishedOn | replace('Z','') | postDate }}</time>
                 </p>
             {% endif %}
         </div>
@@ -48,31 +48,31 @@
         <div class="article-content">
             <div class="meta-data">
                 <aside class="toc-wrapper">
-                    <h3>Table of contents</h3>
+                    <h3>{{ 'tableOfContents' | i18n({}, locale)  }}</h3>
                     {{ article.meta.source | addIDtoTitles | toc({"tags":["h2","h3", "figure"]}) | safe }}
                     {% if article.supplementaryFiles.length >= 1 %}
                         <li>
-                            <a href="#supplementary">Supplementary Files</a>
+                            <a href="#supplementary">{{ 'supplementaryFiles' | i18n({}, locale)  }}</a>
                         </li>
                     {% endif %}
                     {% if article.editors.length > 0 %}
                         <li>
-                            <a href="#editors">Editors</a>
+                            <a href="#editors">{{ 'editors' | i18n({}, locale)  }}</a>
                         </li>
                     {% endif %}
                     {% if article.reviews.length > 0 %}
                         <li>
-                            <a href="#reviews">Reviews</a>
+                            <a href="#reviews">{{ 'reviews' | i18n({}, locale)  }}</a>
                         </li>
                     {% endif %}
                     {% if article.decisions.length > 0 %}
                         <li>
-                            <a href="#decisions">Summary</a>
+                            <a href="#decisions">{{ 'summary' | i18n({}, locale)  }}</a>
                         </li>
                     {% endif %}
                     {% if article.metaData.length > 0 %}
                         <li>
-                            <a href="#metaData">Metadata</a>
+                            <a href="#metaData">{{ 'metadata' | i18n({}, locale)  }}</a>
                         </li>
                     {% endif %}
                 </aside>
@@ -86,7 +86,7 @@
                     {% endif %}
                     {% if article.supplementaryFiles.length >= 1 %}
                         <section>
-                            <h3 id="supplementary">Supplementary Files</h3>
+                            <h3 id="supplementary">{{ 'supplementaryFiles' | i18n({}, locale)  }}</h3>
                             {% for item in article.supplementaryFiles %}
                                 <ol>
                                     <div class="attachment">
@@ -100,7 +100,7 @@
                         </section>
                     {% endif %}
                     {% if article.editors.length > 0 %}
-                        <h3 id="editors">Editors</h3>
+                        <h3 id="editors">{{ 'editors' | i18n({}, locale)  }}</h3>
                         {% for editor in article.editors %}
                             <section class="content">
                                 {# <p class="editor-role">{{ editor.role }}</p> #}
@@ -109,7 +109,7 @@
                         {% endfor %}
                     {% endif %}
                     {% if article.reviews.length > 0 %}
-                        <h3 id="reviews">Reviews</h3>
+                        <h3 id="reviews">{{ 'reviews' | i18n({}, locale)  }}</h3>
                         {% for review in article.reviews %}
                             <section class="content">
                                 <p class="user-name">{{ review.user.username }}</p>
@@ -122,7 +122,7 @@
                         {% endfor %}
                     {% endif %}
                     {% if article.decisions.length > 0 %}
-                        <h3 id="decisions">Summary</h3>
+                        <h3 id="decisions">{{ 'summary' | i18n({}, locale)  }}</h3>
                         {% for decision in article.decisions %}
                             <section class="content">
                                 <p class="user-name">{{ decision.user.username }}</p>
@@ -135,7 +135,7 @@
                         {% endfor %}
                     {% endif %}
                     {% if article.metaData.length > 0 %}
-                        <h3 id="metaData">Metadata</h3>
+                        <h3 id="metaData">{{ 'metadata' | i18n({}, locale)  }}</h3>
                         <section class="content">
                             {% for data in article.metaData %}
                                 <div class="review-field">
