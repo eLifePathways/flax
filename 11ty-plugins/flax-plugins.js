@@ -6,8 +6,13 @@ const dejats = require("./collections/dejats.js");
 const groupby = require("./collections/groupby.js");
 const arrayFunctions = require("./collections/arrayFunctions.js");
 const makeSvgsFromLatex = require("./collections/makeSvgsFromLatex.js");
+const lightningCSS = require("@11tyrocks/eleventy-plugin-lightningcss");
 
-module.exports = function (eleventyConfig) {
+
+
+module.exports = function(eleventyConfig) {
+
+
 	// filters
 	eleventyConfig.addPlugin(limitData);
 	eleventyConfig.addPlugin(dateWrangler);
@@ -16,5 +21,6 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPlugin(dejats);
 	eleventyConfig.addPlugin(groupby);
 	eleventyConfig.addPlugin(arrayFunctions);
+	eleventyConfig.addPlugin(lightningCSS);
 	eleventyConfig.addPlugin(makeSvgsFromLatex);
 };

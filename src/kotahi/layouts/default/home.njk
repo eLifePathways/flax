@@ -1,0 +1,13 @@
+{% include "snippets/start.njk" %}
+<body class="{{ class }} {% block bodyclass %}{% endblock %}">
+    {% include "./_partials/menu.njk" %}
+    <main>
+        <section class="section-latest">
+            {% include "./_partials/list-articles.njk" %}
+        </section>
+    </main>
+    {% include "_partials/partners.njk" %}
+    {% include "_partials/footer.njk" %}
+    <script type="module" src="/assets/js/read.js"></script>
+</body>
+{% include "snippets/end.njk" %}

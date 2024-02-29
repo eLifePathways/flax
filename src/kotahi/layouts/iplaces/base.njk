@@ -1,0 +1,14 @@
+{% include "snippets/start.njk" %}
+<body class="home">
+    {% include "_partials/menu.njk" %}
+    <main>
+        {{ content | safe }}
+    </main>
+    {% include "snippets/partners.njk" %}
+    {% include "_partials/footer.njk" %}
+    <script src="//instant.page/5.1.0"
+            type="module"
+            integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+    <script type="module" src="/assets/js/read.js"></script>
+</body>
+{% include "snippets/end.njk" %}

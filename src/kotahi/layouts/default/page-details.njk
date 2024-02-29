@@ -1,0 +1,13 @@
+{% include "snippets/start.njk" %}
+<body class="{{ class }} {% block bodyclass %}{% endblock %}">
+    {% include "_partials/menu.njk" %}
+    {% set currentPage = cmsPage %}
+    {% set title = cmsPage.title %}
+    <main>
+        <div class="page-content">{{ cmsPage.content | safe }}</div>
+    </main>
+    {% include "_partials/partners.njk" %}
+    {% include "_partials/footer.njk" %}
+    <script type="module" src="/assets/js/read.js"></script>
+</body>
+{% include "snippets/end.njk" %}

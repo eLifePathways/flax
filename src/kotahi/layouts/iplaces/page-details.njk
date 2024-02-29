@@ -1,0 +1,66 @@
+{% if cmsPage.title == "Journals" %}
+    {% include "./snippets/start.njk" %}
+    <body class="journal-list">
+        {% include "./snippets/menu.njk" %}
+        <main>
+            <section id="journals">
+                <h1>iPlaces publications</h1>
+                <section class="journal"
+                         id="tetiaroa-ecostation"
+                         style="--journal-color-main:#4B8562;
+                                --journal-color-background:#EFFFF5">
+                    <figure class="journal-cover">
+                        <img src="/assets/images/cover-tetiaroa1.jpg" alt="">
+                    </figure>
+                    <div class="journal-meta">
+                        <h2>
+                            <a href="/tetiaroa-ecostation/">Tetiaroa Ecostation</a>
+                        </h2>
+                        <div class="journal-intro">
+                            <p>
+                                <strong>Tetiaroa journal</strong> is a platform that integrates tools focused on the critical early ‘field’ phases of research projects that sample and digitize social-ecological systems. It aims to serve and empower places, giving local stewards (and ordinary citizens) greater agency over the information generated in and about the people, culture and nature that constitute their place. Our approach is to innovate and disrupt the entire publishing model while still utilizing its key platforms, tools, and incentive structures.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section class="journal"
+                         id="gump-station"
+                         style="--journal-color-main:#008CAC;
+                                --journal-color-background:#D9F8FF">
+                    <figure class="journal-cover">
+                        <img src="/assets/images/cover-gumpstation1.jpg" alt="">
+                    </figure>
+                    <div class="journal-meta">
+                        <h2>
+                            <a href="/gump-station/">Gump Station</a>
+                        </h2>
+                        <div class="journal-intro">
+                            <p>
+                                <strong>Gump Station</strong> is a platform that integrates tools focused on the critical early ‘field’ phases of research projects that sample and digitize social-ecological systems. It aims to serve and empower places, giving local stewards (and ordinary citizens) greater agency over the information generated in and about the people, culture and nature that constitute their place. Our approach is to innovate and disrupt the entire publishing model while still utilizing its key platforms, tools, and incentive structures.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </body>
+    {% include "./snippets/end.njk" %}
+{% else %}
+    {% include "./snippets/start.njk" %}
+    <body class="single">
+        {% include "./snippets/menu.njk" %}
+        {% set currentPage = cmsPage %}
+        {% set title = cmsPage.title %}
+        <main>
+            {% if cover.image %}<img src="/images/{{ cover.image }}" alt="{{ cover.alttext }}">{% endif %}
+            <article class="content">
+                <header>
+                    <h1>{{ cmsPage.title | safe }}</h1>
+                    {% if baseline %}<p class="intro">{{ baseline }}</p>{% endif %}
+                    {% if intro %}<p class="intro">{{ intro }}</p>{% endif %}
+                </header>
+            {{ cmsPage.content | safe }}</article>
+        </main>
+    </body>
+    {% include "./snippets/end.njk" %}
+{% endif %}

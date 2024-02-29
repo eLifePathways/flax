@@ -1,7 +1,10 @@
 {% extends '../layouts/base.njk' %}
 {% set currentPage = article %}
-{% set title = article.meta.title %}
+{% set title = article.headerInfo.title %}
 {% block content %}
+<head>
+	<link rel="stylesheet" href="../../assets/css/index.css">
+</head>
     <main>
         <div class="article-preview-header">
             <span class="topics">
@@ -26,9 +29,11 @@
             </ul>
 
             <span class="header-doi-and-licenses">
-                <a href="{{ article.headerInfo.DOI }}">
-                    {{ article.headerInfo.DOI }}
-                </a>
+                {% if article.headerInfo.DOI %}
+                    <a href="https://doi.org/{{ article.headerInfo.DOI }}">
+                        https://doi.org/{{ article.headerInfo.DOI }}
+                    </a>
+                {% endif %}
                 {% if cmsLayout.publishConfig.licenseUrl %}
                     <a href="{{cmsLayout.publishConfig.licenseUrl}}">
                         {{cmsLayout.publishConfig.licenseUrl}}

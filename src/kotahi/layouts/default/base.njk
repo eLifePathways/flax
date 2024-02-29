@@ -1,0 +1,9 @@
+{% include "snippets/start.njk" %}
+<body class="{{ class }} {% block bodyclass %}{% endblock %}">
+    {% include "_partials/menu.njk" %}
+    {{ content | safe }}
+    {% include "_partials/partners.njk" %}
+    {% include "_partials/footer.njk" %}
+    <script type="module" src="/assets/js/read.js"></script>
+</body>
+{% include "snippets/end.njk" %}

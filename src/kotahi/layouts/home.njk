@@ -1,9 +1,9 @@
-{% extends "base.njk" %}
-
-{% block content %}
-    <main>
-        <section class="section-latest">
-            {% include "_partials/list-articles.njk" %}
-        </section>
-    </main>
-{% endblock %}
+{% if config.group.name == "tetiaroa" %}
+    {% include "./tetiaroa/home.njk" %}
+{% elif config.group.name == "gumpstation" %}
+    {% include "./gumpstation/home.njk" %}
+{% elif config.group.name == "iplaces" %}
+    {% include "./iplaces/home.njk" %}
+{% else %}
+    {% include "./default/home.njk" %}
+{% endif %}

@@ -1,10 +1,9 @@
-{% extends '../layouts/base.njk' %}
-{% set currentPage = cmsPage %}
-{% set title = cmsPage.title %}
-{% block content %}
-    <main>
-        <div class="page-content">
-            {{ cmsPage.content | safe }}
-        </div>
-    </main>
-{% endblock %}
+{% if config.group.name == "tetiaroa" %}
+    {% include "./tetiaroa/page-details.njk" %}
+{% elif config.group.name == "gumpstation" %}
+    {% include "./gumpstation/page-details.njk" %}
+{% elif config.group.name == "iplaces" %}
+    {% include "./iplaces/page-details.njk" %}
+{% else %}
+    {% include "./default/page-details.njk" %}
+{% endif %}

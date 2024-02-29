@@ -1,0 +1,67 @@
+.journal-issues-grid {
+  & main {
+    padding: 4em 5ch;
+  }
+
+  & .journal-issue-list {
+    width: 90%;
+    max-width: 1000px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    max-width: 100vw;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: end;
+    gap: 0 1ch;
+    margin: auto;
+
+    font-family: var(--font-sans);
+
+    & li {
+      display: grid;
+      align-items: end;
+
+      &.vol-number {
+        margin-top: 3em;
+        margin-bottom: 1em;
+        border-bottom: 1px solid var(--color-journal-background-dark);
+        grid-column: 1/-1;
+        text-align: left;
+        /* color: orange; */
+        color: var(--color-journal-main);
+        font-size: 2em;
+
+        & .vol {
+          font-size: 0.7em;
+          line-height: 1;
+          color: var(--color-journal-background-dark);
+        }
+      }
+
+      & a {
+        font-size: 1.2em;
+        text-decoration: none;
+        position: relative;
+
+        & img {
+          width: 100%;
+          border: 5px solid var(--color-journal-background-dark);
+          height: 100%;
+        }
+        & .issuenumber {
+          font-size: 1.5em;
+          position: absolute;
+          z-index: 5;
+          bottom: 0;
+          right: 0;
+          background: var(--color-journal-background-dark);
+          color: white;
+          padding: .4em 1ch;
+          width: 100%;
+
+        }
+      }
+    }
+  }
+}

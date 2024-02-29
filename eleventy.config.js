@@ -10,7 +10,7 @@ const flaxPlugins = require("./11ty-plugins/flax-plugins.js");
 const deleteDirectories = require("./SiteHelpers/deleteDirectories.js");
 const { imagesHandler } = require("./SiteHelpers/fileHandler.js");
 
-module.exports = function (eleventyConfig) {
+module.exports = function(eleventyConfig) {
 	// passthrough file copy //
 
 	eleventyConfig.addPassthroughCopy(
@@ -20,9 +20,9 @@ module.exports = function (eleventyConfig) {
 		}
 	);
 
-	eleventyConfig.setServerOptions({
-		watch: ["public/**/*.css", "static/**/*.css"],
-	});
+	// eleventyConfig.setServerOptions({
+	// 	watch: ["public/**/*.css", "src", "static/**/*.css"],
+	// });
 
 	// flaxHelpers
 	eleventyConfig.addPlugin(flaxPlugins);
@@ -34,7 +34,7 @@ module.exports = function (eleventyConfig) {
 		deleteDirectories(outputDir, "assets");
 	});
 
-	eleventyConfig.addCollection("supplementaryFiles", function (collection) {
+	eleventyConfig.addCollection("supplementaryFiles", function(collection) {
 		return supplementary;
 	});
 
@@ -58,7 +58,7 @@ module.exports = function (eleventyConfig) {
 		"!**/public",
 	]);
 
-	eleventyConfig.addFilter("reorderPages", function (pages) {
+	eleventyConfig.addFilter("reorderPages", function(pages) {
 		return pages.sort((page1, page2) => {
 			if (page1.sequenceIndex > page2.sequenceIndex) return 1;
 			else if (page1.sequenceIndex < page2.sequenceIndex) return -1;
@@ -66,7 +66,7 @@ module.exports = function (eleventyConfig) {
 		});
 	});
 
-	eleventyConfig.addFilter("valueOrDefault", function (value, defaultValue) {
+	eleventyConfig.addFilter("valueOrDefault", function(value, defaultValue) {
 		if (!value) {
 			return defaultValue;
 		}
@@ -80,15 +80,15 @@ module.exports = function (eleventyConfig) {
 	});
 
 	eleventyConfig.addFilter("imagesHandler",
-		function (content, id, folderName, group, hexCode) {
+		function(content, id, folderName, group, hexCode) {
 			return imagesHandler(group, folderName, content, id, hexCode);
 		}
 	);
 
-	eleventyConfig.addFilter("addIDtoTitles", function (value) {
+	eleventyConfig.addFilter("addIDtoTitles", function(value) {
 		const $ = cheerio.load(`${value}`);
 
-		$("h2,h3,h4,h5").each(function (i, elem) {
+		$("h2,h3,h4,h5").each(function(i, elem) {
 			let selector = $(this).text().toLowerCase().replace(/[\s\.\/\W\d]+/g, "");
 			$(this).attr("id", selector);
 		});
@@ -96,11 +96,11 @@ module.exports = function (eleventyConfig) {
 		return $.html();
 	});
 
-	eleventyConfig.addFilter("cleanLink", function (value) {
+	eleventyConfig.addFilter("cleanLink", function(value) {
 		return value.replace(/static\/outputs\/\d+?\//, "");
 	});
 
-	eleventyConfig.addFilter("dumpObject", function (value) {
+	eleventyConfig.addFilter("dumpObject", function(value) {
 		return "items";
 	});
 
@@ -120,6 +120,29 @@ module.exports = function (eleventyConfig) {
 		return "...";
 	});
 
+
+	eleventyConfig.addFilter("renderDate", function(date, language, format) {
+		if (!date) date = new Date();
+		let renderedDate = new Date(date);
+		const options = {
+			month: format === "short" ? "short" : "long",
+			day: "numeric",
+			year: "numeric",
+		};
+
+		return new Intl.DateTimeFormat(language, options).format(renderedDate);
+	});
+
+
+
+	// getYear() = return the current year 
+	eleventyConfig.addShortcode("getYear", function(date) {
+		if (!date) return new Date().getFullYear();
+		return new Date(date).getFullYear();
+	});
+
+
+
 	eleventyConfig.addPlugin(pluginTOC, {
 		tags: ["h2", "h3", "h4"], // which heading tags are selected headings must each have an ID attribute
 		wrapper: "nav", // element to put around the root `ol`/`ul`
@@ -138,7 +161,7 @@ module.exports = function (eleventyConfig) {
 
 		dir: {
 			input: "src/kotahi",
-			output: "public/kotahi",
+			output: "public/",
 			includes: "layouts",
 			data: "data",
 		},

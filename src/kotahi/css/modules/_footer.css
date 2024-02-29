@@ -1,0 +1,19 @@
+
+
+
+footer {
+  font-family:var(--font-sans);
+  position: relative;
+  background: var(--color-footer-background);
+  color: white;
+  padding: 2em 10ch;
+  overflow: hidden;
+  & svg {
+
+    right: 0;
+    fill: #8AA1A9;
+    position: absolute;
+    width:80ch;
+
+  }
+}
