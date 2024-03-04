@@ -1,4 +1,5 @@
 .article-single main {
+  background: orange;
   max-width: 120ch;
   --font-size-offset: 0;
   font-size: calc(1em + var(--font-size-offset));

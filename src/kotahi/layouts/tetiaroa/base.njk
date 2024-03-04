@@ -1,5 +1,8 @@
-{% includes "./snippets/menu.njk" %}
+
+{% include "snippets/start.njk" %}
+
 <body class="{% block bodyclass %} {% endblock bodyclass %}">
+{% includes "./snippets/menu.njk" %}
     <main>
         {% block content %}{{ content | safe }}{% endblock %}
     </main>
@@ -10,3 +13,4 @@
         {% include "_partials/footer.njk" %}
     {% endblock %}
 </body>
+{% include "snippets/end.njk" %}

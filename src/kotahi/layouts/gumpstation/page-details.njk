@@ -1,55 +1,15 @@
-{# {% include "./snippets/start.njk" %} #}
+{% include "./snippets/start.njk" %}
 <body class="single">
     {% include "./snippets/menu.njk" %}
     {% set currentPage = cmsPage %}
     {% set title = cmsPage.title %}
     <main>
-        {% if cover.image %}<img src="/images/{{ cover.image }}" alt="{{ cover.alttext }}">{% endif %}
+        <img src="/assets/images/cover-gumpstation1.jpg" alt="A color photo of the Tetiaroa atol">
         <article class="content">
             <header>
-                <h1>{{ cmsPage.title | safe }}</h1>
-                {% if baseline %}<p class="intro">{{ baseline }}</p>{% endif %}
-                {% if intro %}<p class="intro">{{ intro }}</p>{% endif %}
+                <h1>{{ title }}</h1>
             </header>
-        {{ cmsPage.content | safe }}</article>
-        <div class="intro-text">
-            {{ introtext | markdownify | safe }}
-            <p class="links">
-                <a href="/about/">Read more about {{ journalmeta.title }}</a>
-            </p>
-        </div>
-        <article>
-            <img class="issuecover-img"
-                {# change that to the collection tool#}
-                src="/assets/images/cover-tetiaroa1.jpg"
-                alt="this image has no meaning">
-                <section class="issueintro">
-                    <p class="meta">
-                        {# <span>Issue {{ journalmeta.fakelastissue.issuenumber }}</span> — #}
-                        {# <span>published on  {{ journalmeta.fakelastissue.publisheddate | renderDate }}</span> #}
-                    </p>
-                    <h2>issuetitle</h2>
-                    {{ "issue intro" | markdownify | safe }}
-                    <ul class="journal-issue-list">
-                        {# foreach article #}
-                            <li>
-                                <h3>
-                                    <a href="/articles/{{ article.shortId }}/index.html">{{ article.title }}</a>
-                                </h3>
-                                <p class="introtext">{{ article.abstract | safe }}</p>
-                                <p class="authors">
-                                author, author, author
-                                    {# {% for author in article.author %} #}
-                                        {# {{- author.given }}&nbsp;{{ author.family }}{%- if not loop.last %}, #}
-                                    {# {% endif %} #}
-                                {% endfor %}
-                            </p>
-                            <p>
-                                <a href="/articles/{{ article.shortId }}/index.html">Read the article</a>
-                            </p>
-                        </li>
-                </ul>
-            </section>
+            {{ cmsPage.content | safe }}
         </article>
     </main>
 </body>
