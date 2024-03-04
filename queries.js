@@ -188,8 +188,55 @@ const getArticles = async (group, limit, offset) => {
   return response;
 }
 
+const getCollectionsQuery = async (group) => {
+  const graphQLQuery = JSON.stringify({
+    query: `query GetCmsMetadata($groupId: ID!) {
+      cmsMetadata(groupId: $groupId) {
+        id
+        created
+        updated
+        formData {
+          title
+          description
+          publicationDate
+          image
+          issueNumber
+          file {
+            id
+            name
+          }
+        }
+        active
+        manuscripts {
+          id
+          submission
+        }
+        groupId
+      }
+    }
+    `,
+    variables: {
+      groupId: group.id
+    },
+  });
+
+  let response = await makeAPICall({
+    graphQLQuery,
+    group,
+  });
+
+  console.log("Collection query responded.");
+
+  if (!response) {
+    return [];
+  }
+
+  return response;
+}
+
 module.exports = {
   getArticles,
   getCmsPages,
+  getCollectionsQuery,
   getCMSLayout
 };
