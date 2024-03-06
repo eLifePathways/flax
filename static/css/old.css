@@ -1,0 +1,31 @@
+@import url("./modules/_reset.css");
+@import url("./modules/_fonts.css");
+@import url("./modules/_variables.css");
+@import url("./modules/_menu.css");
+@import url("./modules/_layout.css");
+@import url("./modules/_texts.css");
+@import url("./modules/_footer.css");
+@import url("./modules/_journal-list.css");
+@import url("./modules/_journal-home.css");
+@import url("./modules/_journal-issues-list.css");
+@import url("./modules/_journal-issues-list.css");
+@import url("./modules/_journal-issue.css");
+@import url("./modules/_journal-article.css");
+@import url("./modules/_journal-list-grid.css");
+
+@import url("./modules/_homepage.css");
+
+
+
+#gump-station-journal,
+.gump-station-journal {
+  --journal-color-main: #008CAC;
+  --journal-color-background: #D9F8FF
+}
+
+
+#tetiaroa-ecostation,
+.tetiaroa-ecostation {
+  --journal-color-main: #4B8562;
+  --journal-color-background: #EFFFF5;
+}

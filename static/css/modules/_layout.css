@@ -1,0 +1,30 @@
+main {
+  min-height: 90vh;
+}
+
+.single main {
+  /* margin: 0; */
+  margin: auto;
+  /* border-top: 2px solid var(--color-footer-background); */
+  margin: 0 5ch;
+  display: grid;
+  grid-template-columns: [img-start] minmax(32px, 1fr) [img-end content-start] 3fr [content-end];
+  gap: 5ch;
+  font-family: var(--font-sans);
+}
+
+.single main p {
+  max-width: 70ch;
+}
+.single main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: sticky;
+  top: 0;
+}
+
+.single article {
+  grid-column: content;
+  padding-bottom: 10em;
+}
