@@ -6,12 +6,12 @@ const dejats = require("./collections/dejats.js");
 const groupby = require("./collections/groupby.js");
 const arrayFunctions = require("./collections/arrayFunctions.js");
 const makeSvgsFromLatex = require("./collections/makeSvgsFromLatex.js");
+const where = require("./collections/filtercoll.js")
 // const lightningCSS = require("@11tyrocks/eleventy-plugin-lightningcss");
 
 
 
 module.exports = function(eleventyConfig) {
-
 
 	// filters
 	eleventyConfig.addPlugin(limitData);
@@ -21,6 +21,8 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addPlugin(dejats);
 	eleventyConfig.addPlugin(groupby);
 	eleventyConfig.addPlugin(arrayFunctions);
+	eleventyConfig.addPlugin(where);
+	// somehow this crash on linux when using the docker image and the local volume because OSx has a different dependenices trouble
 	// eleventyConfig.addPlugin(lightningCSS);
 	eleventyConfig.addPlugin(makeSvgsFromLatex);
 };
