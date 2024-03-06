@@ -1,33 +1,32 @@
 <article>
     <img class="issuecover-img"
-         src="/assets/images/cover-tetiaroa1.jpg"
+         src="{{ collectionItem.formData.image }}"
          alt="" />
     <section class="issueintro">
-        {# {{articleQuery.articles[0].parsedSubmission.datePublished }} #}
+        {# {{collectionItem.formData.description | log}} #}
         <p class="meta">
-            Issue number — published on {{ articleQuery.articles[0].submissionWithField.publishedDate | renderDate }}
+            Issue #{{ collectionItem.formData.issueNumber }} 
+            {# — published on {{ collectionItem.formData.publicationDate | renderDate }} #}
         </p>
-        <h2>the title of the issue can go into  line and the line height is fine</h2>
-        <p>
-            Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
-        </p>
+        <h2>{{ collectionItem.formData.title }}</h2>
+        {{ collectionItem.formData.description  | safe }}
         <ul class="journal-issue-list">
-            {% for article in articleQuery.articles %}
-                <li>
+            {# // get the article with the id from the article #}
+            {% for manuscript in collectionItem.manuscripts %}
+                {% for article in articleQuery.articles | where("id", manuscript.id ) %}
                     <h3>
                         <a href="/articles/{{ article.shortId }}/index.html">{{ article.headerInfo.title }}</a>
                     </h3>
-                    <p class="introtext">{{ article.parsedSubmission.$abstract | safe }}</p>
-                    <p class="authors">
+                    <p>{{ article.parsedSubmission.$abstract | safe }}</p>
+                    <p>
                         {% for author in article.headerInfo.authorNames %}
                             <span class="author-name">{{- author.firstName -}}&nbsp;{{- author.lastName -}}</span>
-                            {% if not loop.last %},{% endif %}
                         {% endfor %}
                     </p>
                     <p>
                         <a href="/articles/{{ article.shortId }}/index.html">Read the article</a>
                     </p>
-                </li>
+                {% endfor %}
             {% endfor %}
         </ul>
     </section>

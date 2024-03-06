@@ -1,0 +1,9 @@
+{% if config.group.name == "tetiaroa" %}
+    {% include "./tetiaroa/collection-single.njk" %}
+{% elif config.group.name == "gumpstation" %}
+    {% include "./gumpstation/collection-single.njk" %}
+{% elif config.group.name == "iplaces" %}
+    {% include "./iplaces/collection-single.njk" %}
+{% else %}
+    {% include "./default/collection-single.njk" %}
+{% endif %}

@@ -1,63 +1,10 @@
-{# // includes instead of block for a while  #}
+{% if config.group.name == "tetiaroa" %}
+    {% include "./tetiaroa/article-preview.njk" %}
+{% elif config.group.name == "gumpstation" %}
+    {% include "./gumpstation/article-preview.njk" %}
+{% elif config.group.name == "iplaces" %}
+    {% include "./iplaces/article-preview.njk" %}
+{% else %}
+    {% include "./default/article-preview.njk" %}
+{% endif %}
 
-
-{% include "./gumpstation/snippets/start.njk" %}
-<body class="{{ config.group.name }}-body article-single">
-    {# // use the menu from the groupname #}
-    {% include "./gumpstation/snippets/menu.njk" %}
-    <main>
-        <article>
-            <figure class="article-thumb">
-                {% if article.thumbnail %}<img class="" src="/images/{{ article.thumbnail }}" alt="">{% endif %}
-            </figure>
-            <header>
-                <p class="date">
-                    Published on {{ article.headerInfo.publishedOn | renderDate }}
-                    {% if article.headerInfo.topics %}— <span class="topics">{{ article.headerInfo.topics }}</span>{% endif %}
-                </p>
-                <h1>{{ article.headerInfo.title }}</h1>
-                <ul class="authorslist">
-                    {% for author in article.headerInfo.authorNames %}
-                        <li class="author metadata">
-                            <span class="author-name">{{- author.firstName -}}&nbsp;{{- author.lastName -}}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <ul class="affiliationslist">
-                    <span class="author-affiliations">{{- article.headerInfo.authorNames | arrayToString('affiliation', 'trim') -}}</span>
-                </ul>
-                {# are there any keywords in kotahi? #}
-                {% if article.parsedSubmission.keywords %}
-                    <p class="keywords">Keywords:  {{ article.parsedSubmission.keywords }}</p>
-                {% endif %}
-                {% if article.parsedSubmission.AuthorCorrespondance %}
-                    <p class="authoremail">
-                        Corresponding author: <a href="mailto:{{ article.parsedSubmission.AuthorCorrespondance }}">{{ article.parsedSubmission.AuthorCorrespondance }}</a>
-                    </p>
-                {% endif %}
-                {% if article.parsedSubmission.license %}
-                    <p class="license">
-                        <a href="">{{ article.parsedSubmission.license }}</a>
-                    </p>
-                {% endif %}
-            </header>
-            <aside class="article-toc-wrapper">
-                <div class="article-toc">
-                    <h2>Table of Contents</h2>
-                    {{ article.meta.source | addIDtoTitles | toc(tags=['h2']) | safe }}
-                </div>
-            </aside>
-            <section class="article-content-wrapper">
-                <div class="article-content">
-                    <div class="article-abstract">
-                        <h2>Abstract</h2>
-                        {{ article.parsedSubmission.$abstract | safe }}
-                    </div>
-                    {{ article.meta.source |  addIDtoTitles | safe }}
-                </div>
-            </section>
-        </article>
-    </main>
-    {% include "./gumpstation/snippets/footer.njk" %}
-    {% include "./gumpstation/snippets/end.njk" %}
-</body>

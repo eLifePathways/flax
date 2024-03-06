@@ -1,55 +1,64 @@
-{# {% include "./snippets/start.njk" %} #}
-<body class="article-single">
+{# // includes instead of block for a while  #}
+{% include "./snippets/start.njk" %}
+<body class="{{ config.group.name }}-body article-single">
+    {# // use the menu from the groupname #}
     {% include "./snippets/menu.njk" %}
-    {% set currentPage = cmsPage %}
-    {% set title = cmsPage.title %}
     <main>
-        {% if cover.image %}<img src="/images/{{ cover.image }}" alt="{{ cover.alttext }}">{% endif %}
-        <article class="content">
-            <header>
-                <h1>{{ cmsPage.title | safe }}</h1>
-                {% if baseline %}<p class="intro">{{ baseline }}</p>{% endif %}
-                {% if intro %}<p class="intro">{{ intro }}</p>{% endif %}
-            </header>
-        {{ cmsPage.content | safe }}</article>
-        <div class="intro-text">
-            {{ introtext | markdownify | safe }}
-            <p class="links">
-                <a href="/about/">Read more about {{ journalmeta.title }}</a>
-            </p>
-        </div>
         <article>
-            <img class="issuecover-img"
-                {# change that to the collection tool#}
-                src="/assets/images/cover-tetiaroa1.jpg"
-                alt="this image has no meaning">
-                <section class="issueintro">
-                    <p class="meta">
-                        {# <span>Issue {{ journalmeta.fakelastissue.issuenumber }}</span> — #}
-                        {# <span>published on  {{ journalmeta.fakelastissue.publisheddate | renderDate }}</span> #}
-                    </p>
-                    <h2>issuetitle</h2>
-                    {{ "issue intro" | markdownify | safe }}
-                    <ul class="journal-issue-list">
-                        {# foreach article #}
-                        <li>
-                            <h3>
-                                <a href="/articles/{{ article.shortId }}/index.html">{{ article.title }}</a>
-                            </h3>
-                            <p class="introtext">{{ article.abstract | safe }}</p>
-                            <p class="authors">
-                                author, author, author
-                                {# {% for author in article.author %} #}
-                                {# {{- author.given }}&nbsp;{{ author.family }}{%- if not loop.last %}, {% endif %} #}
-                            {# {% endfor %} #}
-                        </p>
-                        <p>
-                            <a href="/articles/{{ article.shortId }}/index.html">Read the article</a>
-                        </p>
-                    </li>
+            <figure class="article-thumb">
+                {% if article.thumbnail %}<img class="" src="/images/{{ article.thumbnail }}" alt="">{% endif %}
+            </figure>
+            <header>
+                <p class="date">
+                    Published on {{ article.headerInfo.publishedOn | renderDate }}
+                    {% if article.headerInfo.topics %}— <span class="topics">{{ article.headerInfo.topics }}</span>{% endif %}
+                </p>
+                <h1>
+                    {{ article.headerInfo.title }}
+                    {% include "./snippets/bclabel.njk" %}
+                </h1>
+                <ul class="authorslist">
+                    {% for author in article.headerInfo.authorNames %}
+                        <li class="author metadata">
+                            <span class="author-name">{{- author.firstName -}}&nbsp;{{- author.lastName -}}</span>
+                        </li>
+                    {% endfor %}
                 </ul>
+                <ul class="affiliationslist">
+                    <span class="author-affiliations">{{- article.headerInfo.authorNames | arrayToString('affiliation', 'trim') -}}</span>
+                </ul>
+                {# are there any keywords in kotahi? #}
+                {% if article.parsedSubmission.keywords %}
+                    <p class="keywords">Keywords:  {{ article.parsedSubmission.keywords }}</p>
+                {% endif %}
+                {% if article.parsedSubmission.AuthorCorrespondance %}
+                    <p class="authoremail">
+                        Corresponding author: <a href="mailto:{{ article.parsedSubmission.AuthorCorrespondance }}">{{ article.parsedSubmission.AuthorCorrespondance }}</a>
+                    </p>
+                {% endif %}
+                {% if article.parsedSubmission.license %}
+                    <p class="license">
+                        <a href="">{{ article.parsedSubmission.license }}</a>
+                    </p>
+                {% endif %}
+            </header>
+            <aside class="article-toc-wrapper">
+                <div class="article-toc">
+                    <h2>Table of Contents</h2>
+                    {{ article.meta.source | addIDtoTitles | toc(tags=['h2']) | safe }}
+                </div>
+            </aside>
+            <section class="article-content-wrapper">
+                <div class="article-content">
+                    <div class="article-abstract">
+                        <h2>Abstract</h2>
+                        {{ article.parsedSubmission.$abstract | safe }}
+                    </div>
+                    {{ article.meta.source |  addIDtoTitles | safe }}
+                </div>
             </section>
         </article>
     </main>
+    {% include "./snippets/footer.njk" %}
+    {% include "./snippets/end.njk" %}
 </body>
-{% include "./snippets/end.njk" %}

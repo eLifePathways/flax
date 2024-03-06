@@ -2,15 +2,18 @@
 <body class="single">
     {% include "./snippets/menu.njk" %}
     {% set currentPage = cmsPage %}
-    {% set title = cmsPage.title %}
     <main>
-        <img src="/assets/images/cover-gumpstation1.jpg" alt="A color photo of the Tetiaroa atol">
+         {# maybe reusing the cover from kotahi? #}
+        <img src="/assets/images/cover-tetiaroa1.jpg" alt="{{ cover.alttext }}">
         <article class="content">
             <header>
-                <h1>{{ title }}</h1>
+                <h1>{{ cmsPage.title | safe }}</h1>
+                {% if baseline %}<p class="intro">{{ baseline }}</p>{% endif %}
+                {% if intro %}<p class="intro">{{ intro }}</p>{% endif %}
             </header>
-            {{ cmsPage.content | safe }}
+        {{ cmsPage.content | safe }}
         </article>
     </main>
+    {% include "./snippets/footer.njk" %}
 </body>
 {% include "./snippets/end.njk" %}

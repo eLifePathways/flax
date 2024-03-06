@@ -1,0 +1,40 @@
+{% include "./snippets/start.njk" %}
+<body class=" journal-home">
+    {% include "./snippets/menu.njk" %}
+    <main>
+        <article>
+            <img class="issuecover-img"
+                 src="{{ collectionItem.formData.image }}"
+                 alt="" />
+            <section class="issueintro">
+                {# {{collectionItem.formData.description | log}} #}
+                <p class="meta">
+                    Issue #{{ collectionItem.formData.issueNumber }} — published on {{ collectionItem.formData.publicationDate | renderDate }}
+                </p>
+                <h2>{{ collectionItem.formData.title }}</h2>
+                {{ collectionItem.formData.description | markdownify | safe }}
+                <ul class="journal-issue-list">
+                    {# // get the article with the id from the article #}
+                    {% for manuscript in collectionItem.manuscripts %}
+                        {% for article in articleQuery.articles | where("id", manuscript.id ) %}
+                            <h3>
+                                <a href="/articles/{{ article.shortId }}/index.html">{{ article.headerInfo.title }}</a>
+                            </h3>
+                            <p>{{ article.parsedSubmission.$abstract | safe }}</p>
+                            <p>
+                                {% for author in article.headerInfo.authorNames %}
+                                    <span class="author-name">{{- author.firstName -}}&nbsp;{{- author.lastName -}}</span>
+                                {% endfor %}
+                            </p>
+                            <p>
+                                <a href="/articles/{{ article.shortId }}/index.html">Read the article</a>
+                            </p>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </section>
+        </article>
+        {% include "./snippets/footer.njk" %}
+    </main>
+</body>
+{% include "./snippets/end.njk" %}

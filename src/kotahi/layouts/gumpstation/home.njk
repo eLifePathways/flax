@@ -4,21 +4,27 @@
     <main>
         <header>
             <div class="background">
-                <img src="/assets/images/cover-tetiaroa1.jpg">
+                <img src="/assets/images/cover-gumpstation1.jpg">
             </div>
             <div class="intro">
-                <h1>Tetiaroa Ecostation</h1>
+                <h1>Gump Field Station</h1>
             </div>
         </header>
         <div class="intro-text">
             <p>
-                Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+                The iPlaces Tetiaroa Ecostation Journal is dedicated to showcasing scientific projects unfolding at the Tetiaroa Ecostation. Unlike traditional approaches where field station work remains largely unseen until journal articles are published months or years after fieldwork concludes, our journal focuses on sharing work early through project marker paper publications and annual reports. We emphasize linking additional downstream data and publications back to these marker papers for the project. Inspired by the real-world Tetiaroa Ecostation, the iPlaces platform amplifies research insights and methodologies vital for successful fieldwork, facilitating new connections and fostering collaborative efforts in environmental research and stewardship.
             </p>
             <p class="links">
-                <a href="/about/">Read more about Tetiaroa Ecostation</a>
+                <a href="/about/">Read more about Gump Station</a>
             </p>
         </div>
-        {% include "./snippets/journal-issue.njk" %}
+        {% if collectionItem.length > 0 %}
+            {% include "./snippets/journal-noissue.njk" %}
+        {% else %}
+            {% for collectionItem in cmsCollections.collections %}
+                {% include "./snippets/journal-issue.njk" %}
+            {% endfor %}
+        {% endif %}
         {% include "./snippets/footer.njk" %}
     </main>
 </body>
