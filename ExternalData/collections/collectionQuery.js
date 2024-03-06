@@ -39,9 +39,7 @@ const syncData = async (group, cmsLayout) => {
 	collections = await storeImages(group, hexCode, data.cmsMetadata)
 	if (collections.length) {
 		fs.writeFileSync(dataFile, JSON.stringify({ collections }), "utf8");
-	}
-	else {
-		// else we should keep the file set in /src/kotahi/data
+	} else {
 		fs.writeFileSync(dataFile, `{ "collections" : [] }`, "utf8");
 	}
 };

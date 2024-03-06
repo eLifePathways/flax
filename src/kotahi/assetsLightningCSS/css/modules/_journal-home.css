@@ -106,6 +106,8 @@
       display: block;
       position: sticky;
       top: 3em;
+      width: 100%;
+      height: auto;
     }
 
     & .issueintro {

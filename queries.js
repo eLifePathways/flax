@@ -228,7 +228,7 @@ const getCollectionsQuery = async (group) => {
   console.log("Collection query responded.");
 
   if (!response) {
-    return [];
+    return  {"collections": []};
   }
 
   return response;
