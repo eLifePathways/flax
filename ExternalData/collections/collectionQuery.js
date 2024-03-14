@@ -32,16 +32,16 @@ const storeImages = async (group, hexCode, collections) => {
 }
 
 const syncData = async (group, cmsLayout) => {
-	const { hexCode } = cmsLayout
-	const dataFile = getGroupDataDir(group) + "/cmsCollections.json";
-	let data = await getCollectionsQuery(group)
-
-	collections = await storeImages(group, hexCode, data.cmsMetadata)
-	if (collections.length) {
-		fs.writeFileSync(dataFile, JSON.stringify({ collections }), "utf8");
-	} else {
-		fs.writeFileSync(dataFile, `{ "collections" : [] }`, "utf8");
-	}
+	// const { hexCode } = cmsLayout
+	// const dataFile = getGroupDataDir(group) + "/cmsCollections.json";
+	// let data = await getCollectionsQuery(group)
+	//
+	// collections = await storeImages(group, hexCode, data.cmsMetadata)
+	// if (collections.length) {
+	// 	fs.writeFileSync(dataFile, JSON.stringify({ collections }), "utf8");
+	// } else {
+	// 	fs.writeFileSync(dataFile, `{ "collections" : [] }`, "utf8");
+	// }
 };
 
 module.exports = { syncData };
