@@ -2,7 +2,6 @@
 <body class="home {{ class }} {% block bodyclass %}  {% endblock bodyclass %}">
     {% include "./snippets/menu.njk" %}
     <main>
-        
         <header>
             <img src="/assets/images/iplaces1.jpg" alt="">
             <div class="intro-text">
@@ -23,16 +22,19 @@
                     <p>
                         <strong>Tetiaroa journal</strong> is a platform that integrates tools focused on the critical early ‘field’ phases of research projects that sample and digitize social-ecological systems. It aims to serve and empower places, giving local stewards (and ordinary citizens) greater agency over the information generated in and about the people, culture and nature that constitute their place. Our approach is to innovate and disrupt the entire publishing model while still utilizing its key platforms, tools, and incentive structures.
                     </p>
+                    <p></p>
+                    <p class="">
+                        <a href="tetiaroa.iplaces.org">Access to Tetiaroa Ecostation</a>
+                    </p>
                 </div>
-                <p class="journal-title">
-                    <a href="tetiaroa.iplaces.org">Access to Tetiaroa Ecostation</a>
-                </p>
             </section>
             <section class="home-journal"
                      id="gump-station"
                      style="--journal-color-main:#008CAC;
                             --journal-color-background:#D9F8FF">
-                <img class="journal-cover" src="/assets/images/cover-gumpstation1.jpg" alt="">
+                <img class="journal-cover"
+                     src="/assets/images/cover-gumpstation1.jpg"
+                     alt="">
                 <div class="journal-intro">
                     <p>
                         <strong>Gump Station</strong> is a platform that integrates tools focused on the critical early ‘field’ phases of research projects that sample and digitize social-ecological systems. It aims to serve and empower places, giving local stewards (and ordinary citizens) greater agency over the information generated in and about the people, culture and nature that constitute their place. Our approach is to innovate and disrupt the entire publishing model while still utilizing its key platforms, tools, and incentive structures.
@@ -44,8 +46,6 @@
             </section>
         </section>
     </main>
-{% include "./snippets/footer.njk" %}
-
+    {% include "./snippets/footer.njk" %}
 </body>
-
 {% include "./snippets/end.njk" %}

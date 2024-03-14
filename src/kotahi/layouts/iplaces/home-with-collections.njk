@@ -1,0 +1,38 @@
+{% include "./snippets/start.njk" %}
+
+
+
+
+<body class="home {{ class }} {% block bodyclass %}  {% endblock bodyclass %}">
+    {% include "./snippets/menu.njk" %}
+    <main>
+        <header>
+            {# // this part is hardcoded ad we can’t change it from within kotahi #}
+            {# //how can we get that image but not hardcoded #}
+            <img src="/assets/images/iplaces1.jpg" alt="">
+            <div class="intro-text">
+                <p>
+                    <strong>Iplaces</strong> is a platform that integrates tools focused on the critical early ‘field’ phases of research projects that sample and digitize social-ecological systems. It aims to serve and empower places, giving local stewards (and ordinary citizens) greater agency over the information generated in and about the people, culture and nature that constitute their place. Our approach is to innovate and disrupt the entire publishing model while still utilizing its key platforms, tools, and incentive structures.
+                    <a href="/about">Read more</a>
+                </p>
+            </div>
+        </header>
+        <article id="journals">
+            <h2 class="meta">Our journals</h2>
+            {# using the data from the collection #}
+            {% for collection in cmsCollections.collections %}
+                <section class="home-journal" id="{{ collection.formData.title | slug }}">
+                    <img class="journal-cover" src="{{ collection.formData.image }}" alt="">
+                    <div class="journal-intro">
+                        <p>{{ collection.formData.description | safe }}</p>
+                    </div>
+                    {# <p class="journal-title"> #}
+                    {#     <a href="/{{ collection.formData.title | slugify }}/">Access to {{ collection.formData.title }}</a> #}
+                    {# </p> #}
+                </section>
+            {% endfor %}
+        </article>
+    </main>
+    {% include "./snippets/footer.njk" %}
+</body>
+{% include "./snippets/end.njk" %}

@@ -1,37 +1,51 @@
 {% include "./snippets/start.njk" %}
-
-
-
-
 <body class="home {{ class }} {% block bodyclass %}  {% endblock bodyclass %}">
     {% include "./snippets/menu.njk" %}
     <main>
         <header>
-            {# // this part is hardcoded ad we can’t change it from within kotahi #}
-            {# //how can we get that image but not hardcoded #}
             <img src="/assets/images/iplaces1.jpg" alt="">
             <div class="intro-text">
                 <p>
                     <strong>Iplaces</strong> is a platform that integrates tools focused on the critical early ‘field’ phases of research projects that sample and digitize social-ecological systems. It aims to serve and empower places, giving local stewards (and ordinary citizens) greater agency over the information generated in and about the people, culture and nature that constitute their place. Our approach is to innovate and disrupt the entire publishing model while still utilizing its key platforms, tools, and incentive structures.
-                    <a href="/about">Read more</a>
+                    <a href="/about/">Read more</a>
                 </p>
             </div>
         </header>
-        <article id="journals">
+        <section id="journals">
             <h2 class="meta">Our journals</h2>
-            {# using the data from the collection #}
-            {% for collection in cmsCollections.collections %}
-                <section class="home-journal" id="{{ collection.formData.title | slug }}">
-                    <img class="journal-cover" src="{{ collection.formData.image }}" alt="">
-                    <div class="journal-intro">
-                        <p>{{ collection.formData.description | safe }}</p>
-                    </div>
-                    {# <p class="journal-title"> #}
-                    {#     <a href="/{{ collection.formData.title | slugify }}/">Access to {{ collection.formData.title }}</a> #}
-                    {# </p> #}
-                </section>
-            {% endfor %}
-        </article>
+            <section class="home-journal"
+                     id="tetiaroa-ecostation"
+                     style="--journal-color-main:#4B8562;
+                            --journal-color-background:#EFFFF5">
+                <img class="journal-cover" src="/assets/images/cover-tetiaroa1.jpg" alt="">
+                <div class="journal-intro">
+                    <p>
+                        <strong>Tetiaroa journal</strong> is a platform that integrates tools focused on the critical early ‘field’ phases of research projects that sample and digitize social-ecological systems. It aims to serve and empower places, giving local stewards (and ordinary citizens) greater agency over the information generated in and about the people, culture and nature that constitute their place. Our approach is to innovate and disrupt the entire publishing model while still utilizing its key platforms, tools, and incentive structures.
+                    </p>
+                    <p></p>
+                    <h3 class="journal-title">
+                        <a href="https://place-based-research.cloud68.co/tetiaroa/">Access to Tetiaroa Ecostation</a>
+                    </h3>
+                </div>
+            </section>
+            <section class="home-journal"
+                     id="gump-station"
+                     style="--journal-color-main:#008CAC;
+                            --journal-color-background:#D9F8FF">
+                <img class="journal-cover"
+                     src="/assets/images/cover-gumpstation1.jpg"
+                     alt="">
+                <div class="journal-intro">
+                    <p>
+                        <strong>Gump Station</strong> is a platform that integrates tools focused on the critical early ‘field’ phases of research projects that sample and digitize social-ecological systems. It aims to serve and empower places, giving local stewards (and ordinary citizens) greater agency over the information generated in and about the people, culture and nature that constitute their place. Our approach is to innovate and disrupt the entire publishing model while still utilizing its key platforms, tools, and incentive structures.
+                    </p>
+                    <p></p>
+                <h3 class="journal-title">
+                    <a href="https://place-based-research.cloud68.co/gumpstation/">Access to Gump Station</a>
+                </h3>
+                </div>
+            </section>
+        </section>
     </main>
     {% include "./snippets/footer.njk" %}
 </body>
