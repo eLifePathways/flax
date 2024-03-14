@@ -18,15 +18,11 @@
                 <a href="/about/">Read more about Gump Station</a>
             </p>
         </div>
-
-        {% if cmsCollections.collections and cmsCollections.collections.length < 1 %}
-            {% include "./snippets/journal-noissue.njk" %}
-        {% else %}
-            {% for collectionItem in cmsCollections.collections %}
-                {% include "./snippets/journal-issue.njk" %}
-            {% endfor %}
-        {% endif %}
+        {% include "./snippets/journal-noissue.njk" %}
         {% include "./snippets/footer.njk" %}
     </main>
 </body>
 {% include "./snippets/end.njk" %}
+
+
+
