@@ -1,0 +1,27 @@
+{% include "./snippets/start.njk" %}
+<body class=" journal-home">
+    {% include "./snippets/menu.njk" %}
+    <main>
+        <header>
+            <div class="background">
+                <img src="/assets/images/cover-tetiaroa1.jpg">
+            </div>
+            <div class="intro">
+                <h1>Tetiaroa Ecostation</h1>
+            </div>
+        </header>
+        <div class="intro-text">
+            <p>
+                The iPlaces Tetiaroa Ecostation Journal is dedicated to showcasing scientific projects unfolding at the Tetiaroa Ecostation. Unlike traditional approaches where field station work remains largely unseen until journal articles are published months or years after fieldwork concludes, our journal focuses on sharing work early through project marker paper publications and annual reports. We emphasize linking additional downstream data and publications back to these marker papers for the project. Inspired by the real-world Tetiaroa Ecostation, the iPlaces platform amplifies research insights and methodologies vital for successful fieldwork, facilitating new connections and fostering collaborative efforts in environmental research and stewardship.
+            </p>
+            <p class="links">
+                <a href="/about/">Read more about Tetiaroa Ecostation</a>
+            </p>
+        </div>
+        {% for collectionItem in cmsCollections.collections %}
+            {% include "./snippets/journal-issue.njk" %}
+        {% endfor %}
+        {% include "./snippets/footer.njk" %}
+    </main>
+</body>
+{% include "./snippets/end.njk" %}

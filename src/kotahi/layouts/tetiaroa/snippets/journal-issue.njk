@@ -1,19 +1,16 @@
 <article>
     <img class="issuecover-img"
-         src="{{ collectionItem.formData.image }}"
+         src="/assets/images/cover-tetiaroa1.jpg"
          alt="" />
     <section class="issueintro">
-        {# {{collectionItem.formData.description | log}} #}
         <p class="meta">
-            Issue #{{ collectionItem.formData.issueNumber }} 
-            {# — published on {{ collectionItem.formData.publicationDate | renderDate }} #}
+            Issue #1 
         </p>
-        <h2>{{ collectionItem.formData.title }}</h2>
-        {{ collectionItem.formData.description  | safe }}
+        <h2></h2>
+        {# {{ collectionItem.formData.description  | safe }} #}
         <ul class="journal-issue-list">
             {# // get the article with the id from the article #}
-            {% for manuscript in collectionItem.manuscripts %}
-                {% for article in articleQuery.articles | where("id", manuscript.id ) %}
+                {% for article in articleQuery.articles  %}
                 <li>
                     <h3>
                         <a href="/articles/{{ article.shortId }}/index.html">{{ article.headerInfo.title }}</a>
@@ -28,7 +25,6 @@
                         <a href="/articles/{{ article.shortId }}/index.html">Read the article</a>
                     </p>
                 </li>
-                {% endfor %}
             {% endfor %}
         </ul>
     </section>

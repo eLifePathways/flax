@@ -1,16 +1,19 @@
 <article>
     <img class="issuecover-img"
-         src="/assets/images/cover-gumpstation1.jpg"
+         src="{{ collectionItem.formData.image }}"
          alt="" />
     <section class="issueintro">
+        {# {{collectionItem.formData.description | log}} #}
         <p class="meta">
-            Issue #1 
+            Issue #{{ collectionItem.formData.issueNumber }} 
+            {# — published on {{ collectionItem.formData.publicationDate | renderDate }} #}
         </p>
-        <h2></h2>
-        {# {{ collectionItem.formData.description  | safe }} #}
+        <h2>{{ collectionItem.formData.title }}</h2>
+        {{ collectionItem.formData.description  | safe }}
         <ul class="journal-issue-list">
             {# // get the article with the id from the article #}
-                {% for article in articleQuery.articles  %}
+            {% for manuscript in collectionItem.manuscripts %}
+                {% for article in articleQuery.articles | where("id", manuscript.id ) %}
                 <li>
                     <h3>
                         <a href="/articles/{{ article.shortId }}/index.html">{{ article.headerInfo.title }}</a>
@@ -25,6 +28,7 @@
                         <a href="/articles/{{ article.shortId }}/index.html">Read the article</a>
                     </p>
                 </li>
+                {% endfor %}
             {% endfor %}
         </ul>
     </section>
