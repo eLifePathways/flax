@@ -2,7 +2,7 @@
     {% include "./tetiaroa/base.njk" %}
 {% elif config.group.name == "gumpstation" %}
     {% include "./gumpstation/base.njk" %}
-{% elif config.group.name == "iplaces" %}
+{% elif config.group.name == "iplaces" or config.group.name == "prc" %}
     {% include "./iplaces/base.njk" %}
 {% else %}
     {% include "./default/base.njk" %}

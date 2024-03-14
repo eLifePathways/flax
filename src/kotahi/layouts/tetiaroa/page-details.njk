@@ -1,17 +1,18 @@
+{% set currentPage = cmsPage %}
 {% include "./snippets/start.njk" %}
 <body class="single">
     {% include "./snippets/menu.njk" %}
     {% set currentPage = cmsPage %}
     <main>
-         {# maybe reusing the cover from kotahi? #}
-        <img src="/assets/images/cover-tetiaroa1.jpg" alt="{{ cover.alttext }}">
+        <div class="empty"></div>
+        <header>
+            <h1>{{ cmsPage.title }}</h1>
+        </header>
+        <div class="emptybis">
+            <img class="cover" src="/assets/images/tetiaroa-about.jpg" alt="" />
+        </div>
         <article class="content">
-            <header>
-                <h1>{{ cmsPage.title | safe }}</h1>
-                {% if baseline %}<p class="intro">{{ baseline }}</p>{% endif %}
-                {% if intro %}<p class="intro">{{ intro }}</p>{% endif %}
-            </header>
-        {{ cmsPage.content | safe }}
+            <div class="content-text">{{ cmsPage.content | safe }}</div>
         </article>
     </main>
     {% include "./snippets/footer.njk" %}

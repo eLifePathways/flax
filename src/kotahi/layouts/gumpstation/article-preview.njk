@@ -1,4 +1,3 @@
-{# // includes instead of block for a while  #}
 {% include "./snippets/start.njk" %}
 <body class="{{ config.group.name }}-body article-single">
     {# // use the menu from the groupname #}
@@ -15,7 +14,7 @@
                 </p>
                 <h1>
                     {{ article.headerInfo.title }}
-                    {% include "./snippets/bclabel.njk" %}
+                    {# {% include "./snippets/bclabel.njk" %} #}
                 </h1>
                 <ul class="authorslist">
                     {% for author in article.headerInfo.authorNames %}
@@ -36,13 +35,27 @@
                         Corresponding author: <a href="mailto:{{ article.parsedSubmission.AuthorCorrespondance }}">{{ article.parsedSubmission.AuthorCorrespondance }}</a>
                     </p>
                 {% endif %}
-                {% if article.parsedSubmission.license %}
-                    <p class="license">
-                        <a href="">{{ article.parsedSubmission.license }}</a>
-                    </p>
-                {% endif %}
             </header>
             <aside class="article-toc-wrapper">
+                <div id="article-toc-meta">
+                    {# <h2>Metadata</h2> #}
+                    {% include "./snippets/bclabel.njk" %}
+                    {# {% if article.parsedSubmission.license %} #}
+                    <p class="toc-meta-license">{{ article.parsedSubmission.copyrightStatement }}</p>
+                    <p class="toc-meta-doi"><a href="https://doi.org/{{article.parsedSubmission.$doi}}">{{ article.parsedSubmission.$doi }}</a></p>
+                    <ul class="toc-meta-dates">
+                        {% if article.parsedSubmission.dateReceived %}
+                            <li>Received: {{ article.parsedSubmission.dateReceived }}</li>
+                        {% endif %}
+                        {% if article.parsedSubmission.dateAccepted %}
+                            <li>Accepted: {{ article.parsedSubmission.dateAccepted }}</li>
+                        {% endif %}
+                        {% if article.parsedSubmission.datePublished %}
+                            <li>Published: {{ article.parsedSubmission.datePublished }}</li>
+                        {% endif %}
+                    </ul>
+                    {# {% endif %} #}
+                </div>
                 <div class="article-toc">
                     <h2>Table of Contents</h2>
                     {{ article.meta.source | addIDtoTitles | toc(tags=['h2']) | safe }}

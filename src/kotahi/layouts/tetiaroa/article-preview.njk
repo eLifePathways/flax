@@ -15,7 +15,6 @@
                 </p>
                 <h1>
                     {{ article.headerInfo.title }}
-                    {% include "./snippets/bclabel.njk" %}
                 </h1>
                 <ul class="authorslist">
                     {% for author in article.headerInfo.authorNames %}
@@ -43,6 +42,10 @@
                 {% endif %}
             </header>
             <aside class="article-toc-wrapper">
+                <div id="article-toc-meta">
+                    <h2>Metadata</h2>
+                    {% include "./snippets/bclabel.njk" %}
+                </div>
                 <div class="article-toc">
                     <h2>Table of Contents</h2>
                     {{ article.meta.source | addIDtoTitles | toc(tags=['h2']) | safe }}

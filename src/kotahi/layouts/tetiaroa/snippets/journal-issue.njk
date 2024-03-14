@@ -14,6 +14,7 @@
             {# // get the article with the id from the article #}
             {% for manuscript in collectionItem.manuscripts %}
                 {% for article in articleQuery.articles | where("id", manuscript.id ) %}
+                <li>
                     <h3>
                         <a href="/articles/{{ article.shortId }}/index.html">{{ article.headerInfo.title }}</a>
                     </h3>
@@ -26,6 +27,7 @@
                     <p>
                         <a href="/articles/{{ article.shortId }}/index.html">Read the article</a>
                     </p>
+                </li>
                 {% endfor %}
             {% endfor %}
         </ul>
