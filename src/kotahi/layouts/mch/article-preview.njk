@@ -1,0 +1,77 @@
+{% include "./snippets/start.njk" %}
+<body class="{{ config.group.name }}-body article-single">
+    {# // use the menu from the groupname #}
+    {% include "./snippets/menu.njk" %}
+    <main>
+        <article>
+            <figure class="article-thumb">
+                {% if article.thumbnail %}<img class="" src="/images/{{ article.thumbnail }}" alt="">{% endif %}
+            </figure>
+            <header>
+                <p class="date">
+                    Published on {{ article.headerInfo.publishedOn | renderDate }}
+                    {% if article.headerInfo.topics %}— <span class="topics">{{ article.headerInfo.topics }}</span>{% endif %}
+                </p>
+                <h1>
+                    {{ article.headerInfo.title }}
+                    {# {% include "./snippets/bclabel.njk" %} #}
+                </h1>
+                <ul class="authorslist">
+                    {% for author in article.headerInfo.authorNames %}
+                        <li class="author metadata">
+                            <span class="author-name">{{- author.firstName -}}&nbsp;{{- author.lastName -}}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <ul class="affiliationslist">
+                    <span class="author-affiliations">{{- article.headerInfo.authorNames | arrayToString('affiliation', 'trim') -}}</span>
+                </ul>
+                {# are there any keywords in kotahi? #}
+                {% if article.parsedSubmission.keywords %}
+                    <p class="keywords">Keywords:  {{ article.parsedSubmission.keywords }}</p>
+                {% endif %}
+                {% if article.parsedSubmission.AuthorCorrespondance %}
+                    <p class="authoremail">
+                        Corresponding author: <a href="mailto:{{ article.parsedSubmission.AuthorCorrespondance }}">{{ article.parsedSubmission.AuthorCorrespondance }}</a>
+                    </p>
+                {% endif %}
+            </header>
+            <aside class="article-toc-wrapper">
+                <div id="article-toc-meta">
+                    {# <h2>Metadata</h2> #}
+                    {% include "./snippets/bclabel.njk" %}
+                    {# {% if article.parsedSubmission.license %} #}
+                    <p class="toc-meta-license">{{ article.parsedSubmission.copyrightStatement }}</p>
+                    <p class="toc-meta-doi"><a href="https://doi.org/{{article.parsedSubmission.$doi}}">{{ article.parsedSubmission.$doi }}</a></p>
+                    <ul class="toc-meta-dates">
+                        {% if article.parsedSubmission.dateReceived %}
+                            <li>Received: {{ article.parsedSubmission.dateReceived }}</li>
+                        {% endif %}
+                        {% if article.parsedSubmission.dateAccepted %}
+                            <li>Accepted: {{ article.parsedSubmission.dateAccepted }}</li>
+                        {% endif %}
+                        {% if article.parsedSubmission.datePublished %}
+                            <li>Published: {{ article.parsedSubmission.datePublished }}</li>
+                        {% endif %}
+                    </ul>
+                    {# {% endif %} #}
+                </div>
+                <div class="article-toc">
+                    <h2>Table of Contents</h2>
+                    {{ article.meta.source | addIDtoTitles | toc(tags=['h2']) | safe }}
+                </div>
+            </aside>
+            <section class="article-content-wrapper">
+                <div class="article-content">
+                    <div class="article-abstract">
+                        <h2>Abstract</h2>
+                        {{ article.parsedSubmission.$abstract | safe }}
+                    </div>
+                    {{ article.meta.source |  addIDtoTitles | safe }}
+                </div>
+            </section>
+        </article>
+    </main>
+    {% include "./snippets/footer.njk" %}
+    {% include "./snippets/end.njk" %}
+</body>

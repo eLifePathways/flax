@@ -4,6 +4,8 @@
     {% include "./gumpstation/article-preview.njk" %}
 {% elif config.group.name == "iplaces" or config.group.name == "pbr" %}
     {% include "./iplaces/article-preview.njk" %}
+{% elif config.group.name == "mch" %}
+    {% include "./mch/article-preview.njk" %}
 {% else %}
     {% include "./default/article-preview.njk" %}
 {% endif %}

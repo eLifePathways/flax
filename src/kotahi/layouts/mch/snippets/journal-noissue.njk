@@ -1,0 +1,31 @@
+<article>
+    <img class="issuecover-img"
+         src="/assets/images/cover-gumpstation1.jpg"
+         alt="" />
+    <section class="issueintro">
+        <p class="meta">
+            Issue #1 
+        </p>
+        <h2></h2>
+        {# {{ collectionItem.formData.description  | safe }} #}
+        <ul class="journal-issue-list">
+            {# // get the article with the id from the article #}
+                {% for article in articleQuery.articles  %}
+                <li>
+                    <h3>
+                        <a href="/articles/{{ article.shortId }}/index.html">{{ article.headerInfo.title }}</a>
+                    </h3>
+                    <p>{{ article.parsedSubmission.$abstract | safe }}</p>
+                    <p>
+                        {% for author in article.headerInfo.authorNames %}
+                            <span class="author-name">{{- author.firstName -}}&nbsp;{{- author.lastName -}}</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        <a href="/articles/{{ article.shortId }}/index.html">Read the article</a>
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+</article>

@@ -4,6 +4,8 @@
     {% include "./gumpstation/home.njk" %}
 {% elif config.group.name == "iplaces" or config.group.name == "pbr" %}
     {% include "./iplaces/home.njk" %}
+{% elif config.group.name == "mch" %}
+    {% include "./mch/home.njk" %}
 {% else %}
     {% include "./default/home.njk" %}
 {% endif %}
