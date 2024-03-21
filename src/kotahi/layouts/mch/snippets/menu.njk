@@ -1,20 +1,35 @@
 <aside class="topbar">
-    <a href="/">
-        {# {% include "snippets/logo.njk" %} #}
-        {{ config.group.name }}
-    </a>
+    <section class="top">
+        {% include "./logo.njk" %}
+        {# journal intro #}
+        <p>Material Chemistry Horizon</p>
+        <p class="labels">
+            <span class="label">Cite Score <span class="score">10.1</span> </span>
+            <span class="label">Impact factor <span class="score">10.1</span>
+                <span class="logo-open-access"></span>
+                <span class="">open access</span>
+        </p>
+        <div class="cover">
+            <img src="/assets/images/mch/cover1.jpg" alt="">
+        </div>
+    </section>
+
     <nav>
         <ul>
-            {% for cmsHeaderPage in (cmsLayout.flaxHeaderConfig | reorderPages) %}
-                {% if cmsHeaderPage.shownInMenu == true or cmsHeaderPage.shownInMenu == "true" %}
-                    <li>
-                        <a href="{{ cmsHeaderPage.url }}" title="{{ cmsHeaderPage.title }}">{{ cmsHeaderPage.title }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
             <li>
-                <a href="https://kotahi.place-based-research.cloud68.co/gumpstation/" title="Submit to ">Submit</a>
+                <a href="/issues/">issues list</a>
             </li>
+            <li>
+                <a href="/issues/1/">issues single</a>
+            </li>
+            <li>
+                <a href="/about/">page single</a>
+            </li>
+            <li>
+                <a href="/articles/1/">article single</a>
+            </li>
+            <li class="submit">submit</li>
+            <input class="search">search</input>
         </ul>
     </nav>
 </aside>

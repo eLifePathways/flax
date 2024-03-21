@@ -1,0 +1,23 @@
+{% include "./snippets/start.njk" %}
+<body class="journal-home {% block bodyclass %} {% endblock bodyclass %}">
+    {# // search and submit button #}
+    {% include "./snippets/menu.njk" %}
+    <main>
+        <section class="toc-issues">
+            <h2>Issue single: will show the list of article from one journal</h2>
+            <h3>Volume number (year)</h3>
+            <ul>
+                <li>
+                    <img src="issues-cover.jpg" alt="issue cover">
+                    <div class="meta">
+                        <p>issue 4</p>
+                        <p>Date Year</p>
+                        <p>Pages 230-293</p>
+                        <p>Number of articles: 5</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </main>
+</body>
+{% include "./snippets/end.njk" %}

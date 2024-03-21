@@ -1,10 +1,38 @@
-
 {% include "snippets/start.njk" %}
-
 <body class="{% block bodyclass %} {% endblock bodyclass %}">
-{% includes "./snippets/menu.njk" %}
+    {# // search and submit button #}
+    {# // logo #}
+    {# // menu #}
+    {% includes "./snippets/menu.njk" %}
     <main>
-        {% block content %}{{ content | safe }}{% endblock %}
+        <header>
+            {# journal intro  #}
+            <p class="home-issn">
+                Online ISSN <span class="home-issn-number shouldComeFromKotahi">journal-issn</span>
+            </p>
+            <h1>Material Chemistry Horiszon</h1>
+            <p>
+                Materials Chemistry Horizons publishes high-quality articles in the broad field of science and technology in all fields of materials and chemistry. Topics covered in the journal include but not limited to design, synthesis, characterization, and application of materials in:
+            </p>
+            <p>
+                Medicinal chemistry and biomedical engineering (drug/gene delivery, cancer therapy, tissue engineering, diagnosis and bioimaging, electrochemical detection, and bio-sensing)
+            </p>
+            <p>
+                Energy generation and storage (fuel cells, solar cells, magnetic and semiconductor materials, water splitting, hydrogen production, and storage)
+            </p>
+            <p>Food chemistry</p>
+            <p>
+                Environmental chemistry (sensors, catalysts, membranes, surface modifications and coatings, corrosion and degradation, food packaging, and water treatment)
+            </p>
+            <p>Green chemistry</p>
+            <p>Nanomaterials</p>
+            <p>3D and 4D printingkkk</p>
+        </header>
+        {# {% block content %}{{ content | safe }}{% endblock %} #}
+        {# journal 3 latest articles #}
+        {# journal team  #}
+        {# journal bar #}
+        {# real footer #}
     </main>
     {% block partners %}
         {% include "_partials/partners.njk" %}

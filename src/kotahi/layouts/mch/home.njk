@@ -1,25 +1,77 @@
 {% include "./snippets/start.njk" %}
-<body class=" journal-home">
+
+<body class="journal-home {% block bodyclass %} {% endblock bodyclass %}">
+    {# // search and submit button #}
     {% include "./snippets/menu.njk" %}
+
     <main>
         <header>
-            <div class="background">
-                <img src="/assets/images/cover-gumpstation1.jpg">
-            </div>
-            <div class="intro">
-                <h1>Gump Field Station</h1>
-            </div>
+            <section class="heading">
+                <p class="home-issn">
+                    Online ISSN <span class="home-issn-number shouldComeFromKotahi">journal-issn</span>
+                </p>
+                <h1>Material Chemistry Horiszon</h1>
+
+            </section>
+            <section class="intro">
+                <p>
+                    Materials Chemistry Horizons publishes high-quality articles in the broad field of science and
+                    technology in all fields of materials and chemistry. Topics covered in the journal include but not
+                    limited to design, synthesis, characterization, and application of materials in:
+                </p>
+                <p>
+                    Medicinal chemistry and biomedical engineering (drug/gene delivery, cancer therapy, tissue
+                    engineering, diagnosis and bioimaging, electrochemical detection, and bio-sensing)
+                </p>
+                <p>
+                    Energy generation and storage (fuel cells, solar cells, magnetic and semiconductor materials, water
+                    splitting, hydrogen production, and storage)
+                </p>
+                <p>Food chemistry</p>
+                <p>
+                    Environmental chemistry (sensors, catalysts, membranes, surface modifications and coatings,
+                    corrosion and degradation, food packaging, and water treatment)
+                </p>
+                <p>Green chemistry</p>
+                <p>Nanomaterials</p>
+                <p>3D and 4D printingkkk</p>
+            </section>
         </header>
-        <div class="intro-text">
-            <p>
-                The iPlaces Gump Station Journal is committed to disseminating scientific projects conducted at the Gump Station. Traditionally, field station work remains obscured until journal articles are released months or even years later. However, the Gump Station Journal prioritizes early sharing through project marker paper publications, which serve as a foundation for subsequent data and publications. Drawing inspiration from the real-world Gump Station, the iPlaces platform enhances the understanding of research insights and methodologies vital for effective fieldwork, facilitating the formation of new connections.
-            </p>
-            <p class="links">
-                <a href="/about/">Read more about Gump Station</a>
-            </p>
-        </div>
-        {% include "./snippets/journal-noissue.njk" %}
-        {% include "./snippets/footer.njk" %}
+
+        <section class="editors">
+
+            <ul class="editors">
+
+                {% for editor in team %}
+                <li>
+                    <img src="" alt="" class="portrait">
+                    <p class="name">{{editor.name}}</p>
+                    <p class="affiliation">{{editor.affiliation}}</p>
+                </li>
+                {% endfor %}
+
+            </ul>
+
+        </section>
+        {# {% block content %}{{ content | safe }}{% endblock %} #}
+        {# journal 3 latest articles #}
+        {% include "./snippets/journal-latest-three.njk" %}
+        <section class="mostdownloaded">
+            <section class="downloaded">
+
+                {% include "./snippets/journal-most-cited.njk" %}
+            </section>
+            <section class="cited">
+
+                {% include "./snippets/journal-most-dl.njk" %}
+            </section>
+        </section>
+        {# journal team #}
+        {# journal bar #}
+        {# real footer #}
     </main>
+    {# {% block footer %} #}
+    {% include "./snippets/footer.njk" %}
+    {# {% endblock %} #}
 </body>
 {% include "./snippets/end.njk" %}
