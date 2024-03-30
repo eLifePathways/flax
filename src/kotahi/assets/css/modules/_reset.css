@@ -1,0 +1,14 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+body {
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+
+a {
+  color:inherit;
+}

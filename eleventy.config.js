@@ -122,8 +122,11 @@ module.exports = function(eleventyConfig) {
 
 
 	eleventyConfig.addFilter("renderDate", function(date, language, format) {
-		if (!date) date = new Date();
+
+		if (!date) return date;
 		let renderedDate = new Date(date);
+		if(!isValidDate(renderedDate)) return date
+		if (!renderedDate) return ""
 		const options = {
 			month: format === "short" ? "short" : "long",
 			day: "numeric",
@@ -133,7 +136,8 @@ module.exports = function(eleventyConfig) {
 		return new Intl.DateTimeFormat(language, options).format(renderedDate);
 	});
 
-
+	const isValidDate = dateObject => new Date(dateObject)
+    .toString() !== 'Invalid Date';
 
 	// getYear() = return the current year 
 	eleventyConfig.addShortcode("getYear", function(date) {
@@ -156,6 +160,9 @@ module.exports = function(eleventyConfig) {
 	// content, data and layouts comes from the src folders
 	// output goes to public (for gitlab ci/cd)
 	// -----------------------------------------------------------------------------
+
+	//build every time something change in css
+	eleventyConfig.addWatchTarget("./src");
 	return {
 		markdownTemplateEngine: "njk",
 

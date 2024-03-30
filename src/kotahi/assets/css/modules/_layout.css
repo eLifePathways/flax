@@ -1,0 +1,133 @@
+body {
+ padding: 0;
+ margin: 0;
+
+ & article {
+  padding-bottom: 10em;
+  min-height: 80vh;
+ }
+
+}
+
+/*menu and topbar*/
+.topbar {
+ background: var(--color-main);
+ color: white;
+ font-family: var(--font-sans);
+ padding: 2em;
+
+ .top-division {
+  max-width: 1400px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* grid-template-columns: 3fr 3fr 100px; */
+  align-items: center;
+  margin: auto;
+
+
+  & .cover img {
+   max-width: 100px;
+   height: auto;
+   margin-left: auto;
+  }
+
+  & .journaltitle {
+   margin-bottom: 0;
+   font-size: 1.8em;
+   font-family: var(--font-serif);
+   font-weight: 800;
+  }
+
+  & .labels {
+   list-style-type: none;
+   padding: 0;
+   margin: 0;
+   display: grid;
+   grid-template-columns: repeat(4, auto);
+
+  }
+ }
+
+
+ & .logo {
+  display: flex;
+ }
+
+ & .logo svg {
+  fill: white;
+  height: 7em;
+  margin-top: auto;
+ }
+
+ & nav ul {
+  max-width: 1400px;
+  margin: auto;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3ch;
+  justify-content: space-between;
+  border-top: 1px solid white;
+  padding: 1em .5ch;
+
+  & a {
+   color: white;
+   text-decoration: none;
+   text-transform: capitalize;
+   font-weight: 800;
+  }
+ }
+
+ & .submit {
+  background: var(--color-sub);
+  padding: .2em 1ch;
+  border-radius: 8px;
+ }
+
+ & .search {
+  background: var(--color-sub-lighter);
+  border: 0;
+  padding: .2em 1ch;
+  border-radius: 8px;
+  font-size: 1em;
+
+  &::placeholder {
+   font-weight: 700;
+   font-family: var(--font-sans);
+  }
+ }
+
+}
+
+
+/*the submeta that can exist anywhere on the page*/
+.sub-meta {
+ padding: 0;
+ background: var(--color-sub-light);
+ padding: 2em 8ch;
+ display: flex;
+ list-style-type: none;
+ gap: 2em 10ch;
+ flex-wrap: wrap;
+ text-align: center;
+ font-family: var(--font-sans);
+ justify-content: center;
+ align-items: center;
+
+ & li {
+  max-width: 25ch;
+ }
+
+ & span {
+  display: block;
+
+  &.metatitle {
+   font-size: 1.2em;
+   font-weight: 600;
+   margin-bottom: .2em;
+  }
+ }
+
+}

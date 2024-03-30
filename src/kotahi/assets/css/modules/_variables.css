@@ -1,0 +1,15 @@
+:root {
+  --color-main: #204B74;
+  --color-main-light: #2387CB;
+  --color-main-light-text: #387CBE;
+  --color-main-lighter: #ebf2f8;
+  --color-sub: #F28705;
+  --color-sub-light: #f2b264;
+  --color-sub-lighter: #F6D9B4;
+  --color-third: #872983;
+  --color-grey: #aaa;
+  
+
+  --font-serif: "PT Serif";
+  --font-sans: "PT Sans";
+}

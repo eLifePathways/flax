@@ -1,0 +1,132 @@
+.journal-home {
+
+  & header {
+    margin-top: 0;
+    background: var(--color-main-lighter);
+
+    & .wrapper {
+      max-width: 1200px;
+      margin: auto;
+      padding: 4em 5ch;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5ch;
+
+      & section {
+        width: min(50%, 450px);
+      }
+    }
+
+    & .home-issn {
+      font-family: var(--font-sans);
+    }
+
+    & h1 {
+      font-family: var(--font-serif);
+      font-size: 4em;
+      margin-top: 0;
+      color: var(--color-main);
+      font-weight: 300;
+    }
+
+    & .intro p {
+      max-width: 65ch;
+      margin-bottom: 1em;
+    }
+
+    & p {
+      margin: 0;
+    }
+  }
+
+  /* gap: 30ch; */
+  /* max-width: 1000px; */
+  /* padding: 4em clamp(200px, 10vw, 400px); */
+
+  /* team section*/
+  & .team {
+    max-width: 1200px;
+    margin: auto;
+    padding: 4em 5ch;
+
+    & h2 {
+      margin: 1em 0 2em;
+
+      & a {
+        font-weight: 400;
+        color: var(--color-main);
+      }
+    }
+
+
+    & ul.editors {
+      display: flex;
+      justify-items: center;
+      list-style-type: none;
+      justify-content: space-evenly;
+      text-align: center;
+      font-family: var(--font-sans);
+      padding: 0;
+      flex-wrap: wrap;
+      gap: 10ch;
+
+      & li {
+        max-width: 300px;
+      }
+
+      & .portrait {
+        --portrait-size: 10em;
+        width: var(--portrait-size);
+        height: var(--portrait-size);
+        border-radius: 50%;
+        background: #ccc;
+        border: 0;
+        display: block;
+        margin: auto;
+        margin-bottom: 1em;
+      }
+
+      & .name {
+        margin: 0;
+        margin-top: .8em;
+        font-size: 1.2em;
+      }
+
+      & .affiliation {
+        font-size: 1.1em;
+        margin-top: 0;
+      }
+    }
+  }
+
+  & main>section {
+    margin-bottom: 3em;
+    padding: 0 8ch;
+    margin: auto;
+    max-width: 1200px;
+
+
+    & h2 {
+      max-width: 1200px;
+      margin-top: 5em;
+      font-size: 1.1em;
+    }
+
+    & .author-names {
+      line-height:1.35;
+      & span {
+        white-space: nowrap;
+
+      }
+    }
+  }
+  & img {
+    min-height: 5em;
+    height: 8em;
+    display: block;
+    max-height: 10em;
+    width:auto;
+    background: var(--color-grey);
+  }
+
+}

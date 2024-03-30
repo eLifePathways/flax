@@ -5,13 +5,10 @@
     {% set currentPage = cmsPage %}
     <main>
         <div class="empty"></div>
-        <header>
-            <h1>{{ cmsPage.title }}</h1>
-        </header>
-        <div class="emptybis">
-            <img class="cover" src="/assets/images/gumpstation-about.jpg" alt="" />
-        </div>
         <article class="content">
+            <header>
+                <h1>{{ cmsPage.title }}</h1>
+            </header>
             <div class="content-text">{{ cmsPage.content | safe }}</div>
         </article>
     </main>

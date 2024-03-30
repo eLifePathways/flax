@@ -1,0 +1,117 @@
+.article-single {
+
+  & main {
+    display: flex;
+    flex-wrap: wrap;
+    /* grid-template-columns: 30ch 1fr; */
+    gap: 3ch;
+    margin: auto;
+    max-width: 1200px;
+  }
+
+  & aside.meta-column {
+    padding-left: 30ch;
+    /* max-width: 40ch; */
+    background: var(--color-main-lighter);
+    flex-basis: 30ch;
+    padding: .5em 4ch;
+    font-family: var(--font-sans);
+    position: sticky;
+    top: 0;
+
+    &::before {
+      content: "";
+      background: var(--color-main-lighter);
+      width: 40vw;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    & .toc-meta-dates {
+      list-style-type: none;
+      padding: 0;
+
+      font-weight: 600;
+
+      & li {
+        margin-bottom: 1em;
+      }
+
+      & span {
+        display: block;
+        font-weight: 300;
+      }
+
+    }
+    & .meta-column-content {
+
+      margin-top: 3em;
+    }
+    & .meta-column-content > img {
+      width: 40%;
+      height: 20em;
+      max-height: 7em;
+      background: var(--color-main);
+      float: left;
+      margin-right: 3ch;
+    }
+    & .issue-meta p {
+      margin: 0;
+    }
+  }
+
+  /*the article content*/
+  & article {
+    max-width: 100ch;
+    padding: 2em 10ch;
+
+    & h1 {
+      font-family: var(--font-serif);
+      color: var(--color-main-light);
+    }
+
+    & .authorslist {
+      font-weight: 600;
+      list-style-type: none;
+      padding: 0;
+      font-family: var(--font-sans);
+
+      li {
+        display: inline;
+
+        &:not(:last-of-type)::after {
+          content: ", "
+        }
+
+        /* &::after { */
+        /*   content: ". " */
+        /* } */
+      }
+    }
+
+    & .affiliationslist {
+      font-family: var(--font-sans);
+      list-style-type: none;
+      padding: 0;
+
+    }
+
+    & .article-abstract {
+      margin-top: 5em;
+      margin-bottom: 5em;
+
+      & h2 {
+        margin-bottom: .4em;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 1em;
+      }
+
+    }
+  }
+
+}

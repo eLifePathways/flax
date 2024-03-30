@@ -1,17 +1,14 @@
 {% include "./snippets/start.njk" %}
-
 <body class="journal-home {% block bodyclass %} {% endblock bodyclass %}">
     {# // search and submit button #}
     {% include "./snippets/menu.njk" %}
-
-    <main>
-        <header>
+    <header>
+        <div class="wrapper">
             <section class="heading">
                 <p class="home-issn">
                     Online ISSN <span class="home-issn-number shouldComeFromKotahi">journal-issn</span>
                 </p>
-                <h1>Material Chemistry Horiszon</h1>
-
+                <h1>Material Chemistry Horizon</h1>
             </section>
             <section class="intro">
                 <p>
@@ -34,35 +31,34 @@
                 </p>
                 <p>Green chemistry</p>
                 <p>Nanomaterials</p>
-                <p>3D and 4D printingkkk</p>
+                <p>3D and 4D printing</p>
             </section>
-        </header>
-
-        <section class="editors">
-
-            <ul class="editors">
-
-                {% for editor in team %}
+        </div>
+    </header>
+    <section class="team">
+        <h2>
+            Chief Editors <a href="/board/">Editorial Board</a>
+        </h2>
+        <ul class="editors">
+            {% for editor in team %}
                 <li>
                     <img src="" alt="" class="portrait">
-                    <p class="name">{{editor.name}}</p>
-                    <p class="affiliation">{{editor.affiliation}}</p>
+                    <p class="name">{{ editor.name }}</p>
+                    <p class="affiliation">{{ editor.affiliation }}</p>
                 </li>
-                {% endfor %}
-
-            </ul>
-
-        </section>
+            {% endfor %}
+        </ul>
+    </section>
+    {% include "./snippets/subfooter.njk" %}
+    <main>
         {# {% block content %}{{ content | safe }}{% endblock %} #}
         {# journal 3 latest articles #}
         {% include "./snippets/journal-latest-three.njk" %}
-        <section class="mostdownloaded">
+        <section class="mostdownloaded subcontent">
             <section class="downloaded">
-
                 {% include "./snippets/journal-most-cited.njk" %}
             </section>
             <section class="cited">
-
                 {% include "./snippets/journal-most-dl.njk" %}
             </section>
         </section>

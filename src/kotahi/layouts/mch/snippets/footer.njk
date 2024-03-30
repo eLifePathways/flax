@@ -1,19 +1,55 @@
 <footer>
-    <section>
-        {% include "./logo.njk" %}
-        <p>Tetiaroa Society</p>
-        <p>Legal ref ? Contact ?</p>
+    <section class="footer-links">
+        <div class="logo">{% include "./logo.njk" %}</div>
+        <div class="footer-meta">
+            <ul class="footer-cms-page-listing">
+                {% for cmsFooterPage in (cmsLayout.flaxFooterConfig | reorderPages) %}
+                    {% if cmsFooterPage.shownInMenu == true or cmsFooterPage.shownInMenu == "true" %}
+                        <li class="pageListItem">
+                            <a href="{{ cmsFooterPage.url }}" title="{{ cmsFooterPage.title }}">{{ cmsFooterPage.title }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                <li>
+                    <a href="#">Proposing or transfering journal</a>
+                </li>
+                <li>
+                    <a href="#">Terms and conditions</a>
+                </li>
+                <li>
+                    <a href="#">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#">Disclaimer</a>
+                </li>
+            </ul>
+            <p class="lang">
+                {% include "./icons/lang.njk" %}
+                English | United Kingdom
+            </p>
+            <p class="copyright">Copyright 2024 UniverSci Press Ltd — All Rights Reserved.</p>
+        </div>
     </section>
     <section class="newsletter">
         <h2>Newsletter subscription</h2>
         <p>Subscribe to the journal newsletter and receive the latest news and updates</p>
         <input type="text" name="email" value="" placeholder="person@someone.com">
     </section>
-    <section class="links">
-        <a href="#">Academics</a>
-        <a href="#">linkedin</a>
-        <a href="#">x/twitter</a>
-        <a href="#">Telegram</a>
-        <a href="#">Whatsapp</a>
-    </section>
+    <ul class="links">
+        <li>
+            <a href="#">{% include "./icons/academy.njk" %}</a>
+        </li>
+        <li>
+            <a href="#">{% include "./icons/linkedin.njk" %}</a>
+        </li>
+        <li>
+            <a href="#">{% include "./icons/xtwitter.njk" %}</a>
+        </li>
+        <li>
+            <a href="#">{% include "./icons/telegram.njk" %}</a>
+        </li>
+        <li>
+            <a href="#">{% include "./icons/whatsapp.njk" %}</a>
+        </li>
+    </ul>
 </footer>
