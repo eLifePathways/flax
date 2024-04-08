@@ -40,9 +40,9 @@
             Chief Editors <a href="/board/">Editorial Board</a>
         </h2>
         <ul class="editors">
-            {% for editor in team %}
+            {% for editor in teammch %}
                 <li>
-                    <img src="" alt="" class="portrait">
+                    <img src="/assets/images/mch/{{editor.picture}}" alt="portrait of {{editor.picture}}" class="portrait">
                     <p class="name">{{ editor.name }}</p>
                     <p class="affiliation">{{ editor.affiliation }}</p>
                 </li>
@@ -51,20 +51,7 @@
     </section>
     {% include "./snippets/subfooter.njk" %}
     <main>
-        {# {% block content %}{{ content | safe }}{% endblock %} #}
-        {# journal 3 latest articles #}
-        {% include "./snippets/journal-latest-three.njk" %}
-        <section class="mostdownloaded subcontent">
-            <section class="downloaded">
-                {% include "./snippets/journal-most-cited.njk" %}
-            </section>
-            <section class="cited">
-                {% include "./snippets/journal-most-dl.njk" %}
-            </section>
-        </section>
-        {# journal team #}
-        {# journal bar #}
-        {# real footer #}
+        {% include "./snippets/journal-home-next.njk" %}
     </main>
     {# {% block footer %} #}
     {% include "./snippets/footer.njk" %}

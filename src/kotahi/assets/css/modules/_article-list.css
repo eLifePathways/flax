@@ -3,12 +3,13 @@
   list-style-type: none;
   /* background: red; */
   display: flex;
-  gap: 1em 5ch;
+  gap: 4em 5ch;
   font-family: var(--font-sans);
   flex-wrap: wrap;
   justify-content: space-between;
   margin:auto;
   max-width:1200px;
+
   & li {
   width: clamp(300px, 30%, 400px);
     & .meta-org {

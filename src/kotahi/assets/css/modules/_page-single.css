@@ -55,7 +55,9 @@
 
     & h1 {
       font-family: var(--font-serif);
-      color: var(--color-main-light);
+      color: var(--color-main);
+      font-weight: 300;
+      font-size:1.8em;
     }
 
     & .authorslist {

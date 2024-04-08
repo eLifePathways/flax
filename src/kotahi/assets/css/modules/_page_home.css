@@ -1,4 +1,7 @@
 .journal-home {
+  & main {
+    padding-bottom: 10em;
+  }
 
   & header {
     margin-top: 0;
@@ -78,8 +81,9 @@
         --portrait-size: 10em;
         width: var(--portrait-size);
         height: var(--portrait-size);
+        object-fit:contain;
         border-radius: 50%;
-        background: #ccc;
+        /* background: #ccc; */
         border: 0;
         display: block;
         margin: auto;
@@ -114,13 +118,16 @@
 
     & .author-names {
       line-height:1.35;
+      font-family:var(--font-serif);
+      margin:0;
+      font-weight:300;
       & span {
         white-space: nowrap;
 
       }
     }
   }
-  & img {
+  & :is(main, article) img {
     min-height: 5em;
     height: 8em;
     display: block;

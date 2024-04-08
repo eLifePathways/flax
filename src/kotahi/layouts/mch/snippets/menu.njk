@@ -1,22 +1,21 @@
 <aside class="topbar">
     <section class="top-division">
-        <div class="logo">
-            {% include "./logo.njk" %}
-        </div>
+        <a class="logo" href="/">{% include "./logo.njk" %}</a>
         {# journal intro #}
         <div class="journalmeta">
             <p class="journaltitle">Material Chemistry Horizon</p>
             <ul class="labels">
-                <li class="label">Cite Score <span class="score">10.1</span></li>
-                <li class="label">Impact factor <span class="score">10.1</span></li>
-                <li class="logo-open-access">logo open access</li>
-                <li>open access</li>
+                {# <li class="label">Cite Score <span class="score">10.1</span></li> #}
+                {# <li class="label">Impact factor <span class="score">10.1</span></li> #}
+                <li class="logo-open-access">
+                    {% include "./icons/openaccess.njk" %}
+                    Open Access
+                </li>
             </ul>
         </div>
         <div class="cover">
             <img src="/assets/images/mch/cover1.jpg" alt="">
         </div>
-
     </section>
     <nav>
         <ul>
@@ -27,14 +26,16 @@
                     </li>
                 {% endif %}
             {% endfor %}
-            <li>
-                <a href="/issues/">issues list</a>
-            </li>
+            {# <li> #}
+            {#     <a href="/issues/">issues list</a> #}
+            {# </li> #}
             <li>
                 <a href="/articles/1/">article single</a>
             </li>
-            <li class="submit"><a href="#submit">submit your manuscript</a></li>
-            <input class="search" type="text" placeholder="Search…">
+            <li class="submit">
+                <a href="#submit">submit your manuscript</a>
+            </li>
+            {# <input class="search" type="text" placeholder="Search…"> #}
         </ul>
     </nav>
 </aside>

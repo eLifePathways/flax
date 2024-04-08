@@ -1,0 +1,32 @@
+<section class="article-in-press subcontent">
+    <h2>Article in press</h2>
+    <ul class="article-list">
+        {% for article in articleQuery.articles %}
+            <li>
+                <p class="meta-org">
+                    <span class="type">
+                        {% for topic in article.parsedSubmission.topics %}
+                            {{ topic -}}
+                            {% if not loop.last %}{{-"," }}{% endif %}
+                        {% endfor %}
+                        {# {{ article.parsedSubmission.topics }}</span> #}
+                    </span>
+                    <span class="pagenumber">Article #{{ article.shortId }}</span>
+                </p>
+                <h3>
+                    <a href="/articles/{{article.shortId}}/">{{ article.parsedSubmission.$title }}</a>
+                </h3>
+                <p class="author-names">
+                    {% for author in article.headerInfo.authorNames %}
+                        <span>{{ author.firstName }} {{ author.lastName -}}
+                            {% if not loop.last %}{{-"," }}{% endif %}
+                        </span>
+                    {% endfor %}
+                </p>
+                {% if article.parsedSubmission.visualAbstract %}
+                    <img src="/assets/images/{{ visualabstact }}" alt="visual abstract">
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</section>
