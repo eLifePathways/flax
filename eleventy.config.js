@@ -20,6 +20,16 @@ module.exports = function (eleventyConfig) {
 		}
 	);
 
+	eleventyConfig.addPassthroughCopy(
+		{ "src/**/*.+(jpg|jpeg|png|gif|svg)": "assets/images/" },
+	);
+
+	// Copy JavaScript files from any folder
+	eleventyConfig.addPassthroughCopy({ "src/**/*.js": 'assets/js/' });
+
+	// Copy font files from any folder
+	eleventyConfig.addPassthroughCopy({ "src/**/*.+(woff|woff2|ttf|otf)": 'assets/fonts/' });
+
 	eleventyConfig.setServerOptions({
 		watch: ["public/**/*.css", "static/**/*.css"],
 	});

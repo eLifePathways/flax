@@ -130,7 +130,7 @@ const getHeaderInfo = (submissionWithFields, article) => {
 const getMetaData = (submissionWithFields, article) => {
   const fieldsToRemove = ["submission.topics", "submission.$doi", "submission.$authors", "submission.$title"];
   const parsedSubmissionField = JSON.parse(submissionWithFields);
-  const filteredMetaData = parsedSubmissionField.filter(field => !fieldsToRemove.includes(field.field.name));
+  const filteredMetaData = (parsedSubmissionField || []).filter(field => !fieldsToRemove.includes(field.field.name));
   return filteredMetaData;
 }
 
