@@ -10,9 +10,8 @@ const rebuild = async (req, res) => {
 	buildConfigs.updatedConfig = updatedConfig ? updatedConfig : false;
 	let group = await getGroupById(groupId);
 	const cmsLayout = await getCMSLayout(group)
-	const { hexCode, article } = cmsLayout
 
-	await setupGroup(group, hexCode, article, cmsLayout, buildConfigs);
+	await setupGroup(group, cmsLayout, buildConfigs);
 	return res.status(200).json({ message: "Flax site rebuilt successfully." });
 };
 
@@ -20,8 +19,8 @@ const createGroup = async (req, res) => {
 	const groupId = req.body.group;
 	const group = await getGroupById(groupId);
 	const cmsLayout = await getCMSLayout(group)
-	const { hexCode, article } = cmsLayout
-	await setupGroup(group, hexCode, article, cmsLayout, { force: true, build: true });
+
+	await setupGroup(group, cmsLayout, { force: true, build: true });
 	return res
 		.status(200)
 		.json({ message: `${group.name} created successfully. !!` });
@@ -31,8 +30,8 @@ const rebuildGroup = async (req, res) => {
 	const groupId = req.body.group;
 	const group = await getGroupById(groupId);
 	const cmsLayout = await getCMSLayout(group)
-	const { hexCode, article } = cmsLayout
-	await setupGroup(group, hexCode, article, cmsLayout, { build: true });
+
+	await setupGroup(group, cmsLayout, { build: true });
 	return res
 		.status(200)
 		.json({ message: `${group.name} rebuild successfully. !!` });
