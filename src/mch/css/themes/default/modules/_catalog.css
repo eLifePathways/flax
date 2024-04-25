@@ -1,0 +1,23 @@
+/*catalog issues*/
+.catalog-entries {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  gap: 10ch 5ch;
+  flex-wrap: wrap;
+  & li {
+    display: block;
+    width: 400px;
+  }
+  & h3 {
+    color: orange;
+    margin-bottom: 0.3em;
+  }
+  & a {
+    font-variant-caps: all-small-caps;
+    color: var(--color-main);
+    font-family: var(--font-sans);
+    margin-left: auto;
+    display: block;
+  }
+}

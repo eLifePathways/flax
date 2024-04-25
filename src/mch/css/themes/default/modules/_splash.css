@@ -1,0 +1,59 @@
+.splash {
+  box-shadow:  0 0 0 2em white inset; 
+  min-height:100vh;
+}
+
+.splash .background img {
+  position: fixed;
+  unset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+}
+
+.splash .subtitle {
+  color:orange;
+}
+
+.splash .background {
+  z-index: -1;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  opacity: 0.2;
+  background: var(--color-background);
+}
+
+.splash {
+  color: var(--color-main);
+}
+
+.splash svg {
+  fill: var(--color-main);
+  width: 70vw;
+  max-width: 500px;
+}
+
+.splash header {
+  /* background: white; */
+}
+
+.splash main {
+  margin: auto;
+  background-color: rgb(#FFFFFF76);
+}
+
+.splash {}
+
+.splash nav ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.splash nav ul li {
+  margin-bottom: 0.5em;
+  /* font-weight: 00; */
+}

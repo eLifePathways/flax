@@ -6,13 +6,16 @@ const { DateTime } = require("luxon");
 const cheerio = require("cheerio");
 const fg = require("fast-glob");
 const flaxPlugins = require("./11ty-plugins/flax-plugins.js");
+const eleventyPluginLightningCSS = require("@11tyrocks/eleventy-plugin-lightningcss")
 
+// why do we delete the directory
 const deleteDirectories = require("./SiteHelpers/deleteDirectories.js");
 const { imagesHandler } = require("./SiteHelpers/fileHandler.js");
 
-module.exports = function (eleventyConfig) {
+module.exports = function(eleventyConfig) {
 	// passthrough file copy //
 
+	// eleventy copy any files from /static to /assets
 	eleventyConfig.addPassthroughCopy(
 		{ "static/": "assets/" },
 		{
@@ -20,10 +23,15 @@ module.exports = function (eleventyConfig) {
 		}
 	);
 
+	eleventyConfig.addPlugin(eleventyPluginLightningCSS)
+
 	eleventyConfig.addPassthroughCopy(
 		{ "src/**/*.+(jpg|jpeg|png|gif|svg)": "assets/images/" },
 	);
 
+	eleventyConfig.addPassthroughCopy(
+		{ "src/**/*.+(woff|otf|ttf|eot|woff2)": "assets/fonts/" },
+	);
 	// Copy JavaScript files from any folder
 	eleventyConfig.addPassthroughCopy({ "src/**/*.js": 'assets/js/' });
 
@@ -39,12 +47,14 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 
 	// Clean the output directory before each build
+	// remove the public folder before each new build but keep assets (this shouldn’t be the case)
 	eleventyConfig.on("beforeBuild", (options) => {
 		const outputDir = options.inputDir.replace("src", "public");
 		deleteDirectories(outputDir, "assets");
 	});
 
-	eleventyConfig.addCollection("supplementaryFiles", function (collection) {
+	// eleventy add collection from supplementaryFiles
+	eleventyConfig.addCollection("supplementaryFiles", function(collection) {
 		return supplementary;
 	});
 
@@ -68,7 +78,9 @@ module.exports = function (eleventyConfig) {
 		"!**/public",
 	]);
 
-	eleventyConfig.addFilter("reorderPages", function (pages) {
+
+	// reorder page filter
+	eleventyConfig.addFilter("reorderPages", function(pages) {
 		return pages.sort((page1, page2) => {
 			if (page1.sequenceIndex > page2.sequenceIndex) return 1;
 			else if (page1.sequenceIndex < page2.sequenceIndex) return -1;
@@ -76,7 +88,9 @@ module.exports = function (eleventyConfig) {
 		});
 	});
 
-	eleventyConfig.addFilter("valueOrDefault", function (value, defaultValue) {
+	//value of default?
+	// can’t find where it’s used
+	eleventyConfig.addFilter("valueOrDefault", function(value, defaultValue) {
 		if (!value) {
 			return defaultValue;
 		}
@@ -84,21 +98,27 @@ module.exports = function (eleventyConfig) {
 	});
 
 	// get the date with luxon (for all date)
+	// post Date
 	eleventyConfig.addFilter("postDate", (dateObj) => {
 		let date = new Date(dateObj);
 		return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED);
 	});
 
+
+
+
+	// download and set images
 	eleventyConfig.addFilter("imagesHandler",
-		function (content, id, folderName, group, hexCode) {
+		function(content, id, folderName, group, hexCode) {
 			return imagesHandler(group, folderName, content, id, hexCode);
 		}
 	);
 
-	eleventyConfig.addFilter("addIDtoTitles", function (value) {
+	// addIDtoTitles: add id to all titles
+	eleventyConfig.addFilter("addIDtoTitles", function(value) {
 		const $ = cheerio.load(`${value}`);
 
-		$("h2,h3,h4,h5").each(function (i, elem) {
+		$("h2,h3,h4,h5").each(function(i, elem) {
 			let selector = $(this).text().toLowerCase().replace(/[\s\.\/\W\d]+/g, "");
 			$(this).attr("id", selector);
 		});
@@ -106,13 +126,16 @@ module.exports = function (eleventyConfig) {
 		return $.html();
 	});
 
-	eleventyConfig.addFilter("cleanLink", function (value) {
+	// cleanlink: replace static for outputs
+	eleventyConfig.addFilter("cleanLink", function(value) {
 		return value.replace(/static\/outputs\/\d+?\//, "");
 	});
 
-	eleventyConfig.addFilter("dumpObject", function (value) {
-		return "items";
-	});
+	// dump object (can’t find where it’s used)
+	// eleventyConfig.addFilter("dumpObject", function (value) {
+	// 	return "items";
+	// });
+
 
 	eleventyConfig.addFilter("shouldShowEllipses", (pagination, position) => {
 		if (pagination.links.length <= 5) {
@@ -137,6 +160,7 @@ module.exports = function (eleventyConfig) {
 		ul: false, // if to use `ul` instead of `ol`
 		flat: false,
 	});
+
 
 	// folder structures
 	// -----------------------------------------------------------------------------

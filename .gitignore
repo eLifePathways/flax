@@ -3,7 +3,7 @@ node_modules
 public
 .cache
 
-src/*
+# src/*
 
 !src/kotahi
 !src/kotahi/
