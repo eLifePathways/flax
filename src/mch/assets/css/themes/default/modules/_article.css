@@ -84,10 +84,10 @@
 }
 
 /* // affiliation in header */
-.article-single main .article-institution-list {
+.article-single main .article-affiliations-list {
   margin: 1em 0;
 }
-.article-single main .article-institution-list :is(ul, li) {
+.article-single main .article-affiliations-list :is(ul, li) {
   list-style-type: none;
   font-weight: 500;
   margin-top: 0;
@@ -574,14 +574,3 @@ details {
   position: relative;
 }
 
-.clipboard-cp {
-  /* color: orange; */
-  /* position: absolute; */
-  /* display: block ; */
-  /* margin-top:.4em; */
-  /* border-bottom:2px solid var(--color-meta); */
-}
-
-.themechanger {
-  z-index: 400000;
-}
