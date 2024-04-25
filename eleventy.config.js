@@ -26,21 +26,28 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addPlugin(eleventyPluginLightningCSS)
 
 	eleventyConfig.addPassthroughCopy(
-		{ "src/**/*.+(jpg|jpeg|png|gif|svg)": "assets/images/" },
+		{ "src/**/*.+(jpg|jpeg|png|gif|svg)": "/assets/images/" },
 	);
 
 	eleventyConfig.addPassthroughCopy(
-		{ "src/**/*.+(woff|otf|ttf|eot|woff2)": "assets/fonts/" },
+		{ "src/**/*.+(woff|woff2|eot|otf|ttf)": "/assets/fonts/" },
 	);
+
+	eleventyConfig.addPassthroughCopy(
+		"src/**/fonts/" 
+	);
+
 	// Copy JavaScript files from any folder
 	eleventyConfig.addPassthroughCopy({ "src/**/*.js": 'assets/js/' });
 
 	// Copy font files from any folder
-	eleventyConfig.addPassthroughCopy({ "src/**/*.+(woff|woff2|ttf|otf)": 'assets/fonts/' });
+	eleventyConfig.addPassthroughCopy("src/**/*.+(woff|woff2|ttf|otf)");
 
-	eleventyConfig.setServerOptions({
-		watch: ["public/**/*.css", "static/**/*.css"],
-	});
+
+	// not copy the css
+	// eleventyConfig.setServerOptions({
+	// 	watch: ["public/**/*.css", "static/**/*.css"],
+	// });
 
 	// flaxHelpers
 	eleventyConfig.addPlugin(flaxPlugins);

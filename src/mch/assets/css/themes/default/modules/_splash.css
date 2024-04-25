@@ -1,11 +1,10 @@
 .splash {
-  box-shadow:  0 0 0 2em white inset; 
-  min-height:100vh;
+  box-shadow: 0 0 0 2em white inset;
+  min-height: 100vh;
 }
 
 .splash .background img {
   position: fixed;
-  unset: 0;
   top: 0;
   left: 0;
   width: 100%;
@@ -15,7 +14,7 @@
 }
 
 .splash .subtitle {
-  color:orange;
+  color: orange;
 }
 
 .splash .background {
@@ -37,16 +36,12 @@
   max-width: 500px;
 }
 
-.splash header {
-  /* background: white; */
-}
 
 .splash main {
   margin: auto;
   background-color: rgb(#FFFFFF76);
 }
 
-.splash {}
 
 .splash nav ul {
   list-style-type: none;
