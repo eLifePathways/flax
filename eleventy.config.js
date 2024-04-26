@@ -13,9 +13,13 @@ const deleteDirectories = require("./SiteHelpers/deleteDirectories.js");
 const { imagesHandler } = require("./SiteHelpers/fileHandler.js");
 
 module.exports = function(eleventyConfig) {
+
+
+	// eleventy css from the src folder
+	eleventyConfig.addPlugin(eleventyPluginLightningCSS)
 	// passthrough file copy //
 
-	// eleventy copy any files from /static to /assets
+	// eleventy copy any files from /anything to /assets, recreating the files system
 	eleventyConfig.addPassthroughCopy(
 		{ "static/": "assets/" },
 		{
@@ -23,19 +27,23 @@ module.exports = function(eleventyConfig) {
 		}
 	);
 
-	eleventyConfig.addPlugin(eleventyPluginLightningCSS)
 
 	eleventyConfig.addPassthroughCopy(
-		{ "src/**/*.+(jpg|jpeg|png|gif|svg)": "/assets/images/" },
+		"src/**/*.+(jpg|jpeg|png|gif|svg)", {
+		overwrite: true,
+	}
 	);
 
 	eleventyConfig.addPassthroughCopy(
-		{ "src/**/*.+(woff|woff2|eot|otf|ttf)": "/assets/fonts/" },
-	);
 
-	eleventyConfig.addPassthroughCopy(
-		"src/**/fonts/" 
-	);
+		"src/**/*.+(woff|woff2|eot|otf|ttf)",
+		{
+			overwrite: true,
+		})
+
+	// eleventyConfig.addPassthroughCopy(
+	// 	"src/**/fonts/" 
+	// );
 
 	// Copy JavaScript files from any folder
 	eleventyConfig.addPassthroughCopy({ "src/**/*.js": 'assets/js/' });

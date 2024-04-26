@@ -2,7 +2,7 @@
 	"name": "Flax",
 	"version": "0.0.1",
 	"description": "an eleventy template for book on screen",
-	"main": ".eleventy.js",
+	"main": "eleventy.config.js",
 	"scripts": {
 		"build": "eleventy",
 		"watch": "eleventy --watch",
@@ -15,7 +15,7 @@
 		"screen-reading",
 		"static-site-generator"
 	],
-	"author": "julientaq",
+	"author": "julientaq/coko",
 	"license": "ISC",
 	"dependencies": {
 		"@11ty/eleventy": "^2.0.1",

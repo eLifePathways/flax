@@ -1,0 +1,35 @@
+:root {
+  /* set usable color names */
+  --color-black: #223;
+  --color-white: #fff;
+  --color-blue: #087acc;
+  --color-blue-darker: #032c8e;
+  --color-blue-light: #d0ebff;
+  --color-blue-lighter: #eef8ff;
+  --color-aquamarine: aquamarine;
+  --color-grey: #ddd;
+  --color-grey-text: #888;
+  --color-grey-lighter: #f7f7f7;
+
+  /* set usable fonts names */
+  --font-sans: "Inria Sans", sans-serif;
+  --font-serif: "Inria Serif", serif;
+
+  /* set semantic variables */
+  --color-main: var(--color-blue-darker);
+  --color-main-lighter: var(--color-blue-lighter);
+  --color-sub: var(--color-grey);
+  --color-body: var(--color-black);
+  --color-reverse: var(--color-white);
+  --color-meta: var(--color-grey);
+  --color-meta-text: var(--color-grey-text);
+  --color-meta-light: var(--color-grey-lighter);
+  --color-background: var(--color-white);
+
+  /* set semantic fonts */
+  --font-title: var(--font-sans);
+  --font-body: var(--font-serif);
+  --font-meta: var(--font-sans);
+}
+
+
