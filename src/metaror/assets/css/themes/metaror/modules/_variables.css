@@ -12,12 +12,16 @@
   --color-grey-lighter: #f7f7f7;
 
   /* set usable fonts names */
-  --font-sans: "Inria Sans", sans-serif;
-  --font-serif: "Inria Serif", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Noto Serif", serif;
+
+
+  --color-metaror-main: #0470C0;
+  --color-metaror-light: #F2F9FF;
 
   /* set semantic variables */
-  --color-main: var(--color-blue-darker);
-  --color-main-lighter: var(--color-blue-lighter);
+  --color-main: var(--color-metaror-main);
+  --color-main-lighter: var(--color-metaror-light);
   --color-sub: var(--color-grey);
   --color-body: var(--color-black);
   --color-reverse: var(--color-white);
@@ -31,5 +35,3 @@
   --font-body: var(--font-serif);
   --font-meta: var(--font-sans);
 }
-
-

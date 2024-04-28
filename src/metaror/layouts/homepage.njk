@@ -1,210 +1,242 @@
 {% extends "base.njk" %}
+{% block bodyclass %}
+    home
+{% endblock bodyclass %}
 {% block content %}
-<section id="home-entry">
-  <h1>
-    MetaR<span>OR</span>
-  </h1>
-  <p>A new plaform for metaresearch</p>
-  <a href="/about">About MetaROR</a>
-</section>
-<section>
-  <h2>Seamless Integration of Research and Review</h2>
-  <p>
-    At MetaROR, we empower researchers to enhance their work through an open and dynamic review process. Our platform
-    supports the publication, review, and curation of academic preprints, ensuring transparency and rigour.
-  </p>
-  <ul id="home-publish-review-curate">
-    <li>
-      <img src="/assets/images/img-publish.jpg" alt="a person with a pen, ready to write on paper">
-      <h3>Publish</h3>
-      <p>
-        This initial step involves the researcher submitting their preprint to a preprint repository where it can be
-        accessed by peers and the public. This step is crucial for early dissemination and can facilitate broader
-        feedback and collaboration.
-      </p>
-    </li>
-    <li>
-      <img src="/assets/images/img-review.jpg" alt="a type writer with writter Review on the paper">
-      <h3>Review</h3>
-      <p>
-        During this phase, reviewers can provide feedback, critiques, and suggestions. This peer review is conducted
-        openly, with reviews being visible to the public and becoming a part of the knowledge creation process.
-      </p>
-    </li>
-    <li>
-      <img src="/assets/images/img-curate.jpg" alt="a person with a pen, ready to write on paper">
-      <h3>Curate</h3>
-      <p>
-        Editors assess the reviews and the preprint, providing an editorial assessment to contextualise the feedback and
-        quality of the work. This step adds a layer of validation to the research, so that high standards are
-        maintained.
-      </p>
-    </li>
-  </ul>
-</section>
-<section id="home-part2">
-  <h2>Seamless Integration of Research and Review</h2>
-  <p class="subtitle">MetaROR simplifies the path from preprint to publication with a clear, straightforward process</p>
-  <ul>
-    <li>
-      <h2>Deposit your preprint</h2>
-      <p>
-        You can deposit your preprint on the server of your choice, respecting your personal preferences or disciplinary
-        practices.
-      </p>
-      <p>MetaROR will work with all servers.</p>
-      <img src="/assets/images/deposit.jpg" alt="">
-    </li>
-    <li>
-      <h2>Register your submission in MetaROR</h2>
-      <p>
-        Once you have deposited your preprint, take note of its DOI or url and come to MetaROR, where you can register
-        your submission for open peer review.
-      </p>
-      <img src="/assets/images/register.jpg" alt="">
-    </li>
-    <li>
-      <h2>Get your work reviewed and curated</h2>
-      <p>
-        As the reviews come in, they will be shared with you and be attached to your submission once they are moderated
-        by our editorial team. Once all reviews are in, our team will prepare an editorial assessment of your work.
-      </p>
-      <img src="/assets/images/getyourwork.jpg" alt="">
-    </li>
-    <li>
-      <h2>Submit your response</h2>
-      <p>
-        Engage with reviewers’ and editorial feedback directly. Publish your responses and decide if you wish to revise
-        and resubmit your preprint.
-      </p>
-      <img src="/assets/images/submit.jpg" alt="">
-    </li>
-  </ul>
-</section>
-<section id="home-part3">
-  <ul>
-    <li>
-      <figure>
-        <img src="/assets/images/yourcurated.jpg" alt="">
-        <figcaption>
-          <h3>Your curated preprint can be the final product</h3>
-          <p>
-            For many researchers, a positive open review is sufficient to finalise their findings. At MetaROR, you can
-            choose to consider your work complete upon receiving favourable evaluations.
-          </p>
-          <p>
-            If reviewers and editors have reservations, it's also up to you to decide whether a new version of the work
-            is necessary, and you can even publish a response and defend your original views instead.
-          </p>
-        </figcaption>
-      </figure>
-    </li>
-    <li>
-      <figure>
-        <img src="/assets/images/furtheropportunities.jpg" alt="">
-        <figcaption>
-          <h3>Further opportunities: Journal publishing</h3>
-          <p>
-            If you aim to publish in traditional journals, MetaROR supports you as well. Our reviews can accompany your
-            submissions, and we collaborate with several journals to streamline the submission process with
-            pre-validated research.
-          </p>
-          <p>
-            If reviewers and editors have reservations, it's also up to you to decide whether a new version of the work
-            is necessary, and you can even publish a response and defend your original views instead.
-          </p>
-        </figcaption>
-      </figure>
-    </li>
-  </ul>
-</section>
-<section id="testimonies">
-  <h2>
-    Some thoughts from journal editors
-    on the MetaROR platform
-  </h2>
-  <ul class="testimony-list">
-    <li>
-      <p>
-        Place holder Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad
-        nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit
-        cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
-      </p>
-      <img src="assets/images/author.jpg" alt="">
-      <p class="home-testimony-author">
-        <span class="name">Name Surname</span> <span class="role">Editor, journal A</span>
-      </p>
-    </li>
-    <li>
-      <p>
-        Place holder Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad
-        nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit
-        cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
-      </p>
-      <img src="assets/images/author.jpg" alt="">
-      <p class="home-testimony-author">
-        <span class="name">Name Surname</span> <span class="role">Editor, journal B</span>
-      </p>
-    </li>
-    <li>
-      <p>
-        Place holder Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad
-        nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit
-        cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
-      </p>
-      <img src="assets/images/author.jpg" alt="">
-      <p class="home-testimony-author">
-        <span class="name">Name Surname</span> <span class="role">Editor, journal C</span>
-      </p>
-    </li>
-  </ul>
-</section>
-<section id="home-part4">
-  <h2>Advancing Science through Open Collaboration</h2>
-  <p>
-    MetaROR advances science by making peer review transparent and accountable. Reviews receive DOIs, publicly crediting
-    reviewers and integrating their contributions into the broader scholarly dialogue. This open approach accelerates
-    knowledge dissemination and collaboration across the research community.
-  </p>
-  <ul class="advance-science-list">
-    <li>
-      {% include "./svg/phone.njk" %}
-      <h3>Transparent feedback</h3>
-      <p>
-        Peer review is transformed from a secretive process to an open, transparent activity, enhancing trust and
-        accountability in research.
-      </p>
-      <a href="">Discover more</a>
-    </li>
-    <li>
-      {% include "./svg/route.njk" %}
-      <h3>Recognition made easier</h3>
-      <p>
-        Peer review is transformed from a secretive process to an open, transparent activity, enhancing trust and
-        accountability in research.
-      </p>
-      <a href="">Discover more</a>
-    </li>
-    <li>
-      {% include "./svg/magnify.njk" %}
-      <h3>Knowledge creation</h3>
-      <p>
-        Open reviewing elevates the process to a crucial, visible part of creating and disseminating knowledge across
-        the academic community.
-      </p>
-      <a href="">Discover more</a>
-    </li>
-  </ul>
-</section>
-<section id="home-partner">
-  <h2>Want to be a partner of this effort?</h2>
-  <menu>
-    <li>
-      <a href="/contact-us/">Contact us</a>
-    </li>
-    <li>
-      <a href="#kotahiurl">Submit your work</a>
-    </li>
-  </menu>
-</section>
+    <section id="home-entry">
+        {# <h1> #}
+        {#     MetaR<span>OR</span> #}
+        {# </h1> #}
+        <img class="homeReuseLogo" src="/assets/images/logo-metaror.png" alt="">
+        <h2>A new plaform for metaresearch</h2>
+        <a href="/about">About MetaROR</a>
+    </section>
+    <section id="home-part2">
+        <h2>Seamless Integration of Research and Review</h2>
+        <p>
+            At MetaROR, we empower researchers to enhance their work through an open and dynamic review process. Our platform
+            supports the publication, review, and curation of academic preprints, ensuring transparency and rigour.
+        </p>
+        <ul id="home-publish-review-curate" class="pub-rev-cur">
+            <li>
+                <img src="/assets/images/img-publish.jpg"
+                     alt="a person with a pen, ready to write on paper">
+                <h3>Publish</h3>
+                <p>
+                    This initial step involves the researcher submitting their preprint to a preprint repository where it can be
+                    accessed by peers and the public. This step is crucial for early dissemination and can facilitate broader
+                    feedback and collaboration.
+                </p>
+            </li>
+            <li>
+                <img src="/assets/images/img-review.jpg"
+                     alt="a type writer with writter Review on the paper">
+                <h3>Review</h3>
+                <p>
+                    During this phase, reviewers can provide feedback, critiques, and suggestions. This peer review is conducted
+                    openly, with reviews being visible to the public and becoming a part of the knowledge creation process.
+                </p>
+            </li>
+            <li>
+                <img src="/assets/images/img-curate.jpg"
+                     alt="a person with a pen, ready to write on paper">
+                <h3>Curate</h3>
+                <p>
+                    Editors assess the reviews and the preprint, providing an editorial assessment to contextualise the feedback and
+                    quality of the work. This step adds a layer of validation to the research, so that high standards are
+                    maintained.
+                </p>
+            </li>
+        </ul>
+    </section>
+    <section id="home-part3">
+        <h2>Seamless Integration of Research and Review</h2>
+        <p class="subtitle">MetaROR simplifies the path from preprint to publication with a clear, straightforward process</p>
+        <div class="detailswrap">
+            <details open>
+                <summary>
+                    <h3>Deposit your preprint</h3>
+                </summary>
+                <p>
+                    You can deposit your preprint on the server of your choice, respecting your personal preferences or disciplinary
+                    practices.
+                </p>
+                <p>MetaROR will work with all servers.</p>
+            </details>
+            <img src="/assets/images/deposit.jpg" alt="">
+            <details>
+                <summary>
+                    <h3>Register your submission in MetaROR</h3>
+                </summary>
+                <p>
+                    Once you have deposited your preprint, take note of its DOI or url and come to MetaROR, where you can register
+                    your submission for open peer review.
+                </p>
+            </details>
+            <img src="/assets/images/register.jpg" alt="">
+            <details>
+                <summary>
+                    <h3>Get your work reviewed and curated</h3>
+                </summary>
+                <p>
+                    As the reviews come in, they will be shared with you and be attached to your submission once they are moderated
+                    by our editorial team. Once all reviews are in, our team will prepare an editorial assessment of your work.
+                </p>
+            </details>
+            <img src="/assets/images/getyourwork.jpg" alt="">
+            <details>
+                <summary>
+                    <h3>Submit your response</h3>
+                </summary>
+                <p>
+                    Engage with reviewers’ and editorial feedback directly. Publish your responses and decide if you wish to revise
+                    and resubmit your preprint.
+                </p>
+            </details>
+            <img src="/assets/images/submit.jpg" alt="">
+        </div>
+    </section>
+    <section id="home-part4">
+        <ul>
+            <li>
+                <figure>
+                    <img src="/assets/images/yourcurated.jpg" alt="">
+                    <figcaption>
+                        <h3>Your curated preprint can be the final product</h3>
+                        <p>
+                            For many researchers, a positive open review is sufficient to finalise their findings. At MetaROR, you can
+                            choose to consider your work complete upon receiving favourable evaluations.
+                        </p>
+                        <p>
+                            If reviewers and editors have reservations, it's also up to you to decide whether a new version of the work
+                            is necessary, and you can even publish a response and defend your original views instead.
+                        </p>
+                    </figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <img src="/assets/images/furtheropportunities.jpg" alt="">
+                    <figcaption>
+                        <h3>Further opportunities: Journal publishing</h3>
+                        <p>
+                            If you aim to publish in traditional journals, MetaROR supports you as well. Our reviews can accompany your
+                            submissions, and we collaborate with several journals to streamline the submission process with
+                            pre-validated research.
+                        </p>
+                        <p>
+                            If reviewers and editors have reservations, it's also up to you to decide whether a new version of the work
+                            is necessary, and you can even publish a response and defend your original views instead.
+                        </p>
+                    </figcaption>
+                </figure>
+            </li>
+        </ul>
+    </section>
+    <section id="testimonies">
+        <h2>
+            Some thoughts from journal editors
+            on the MetaROR platform
+        </h2>
+        <ul class="testimony-list">
+            <li>
+                    
+                <blockquote>
+                    
+
+                    Place holder Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad
+                    nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit
+                    cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+                </blockquote>
+                <p class="home-testimony-author">
+                    <img src="assets/images/author.jpg" alt="">
+                    <span>
+                        <span class="name">Name Surname</span> <span class="role">Editor, journal A</span>
+                    </span>
+                </p>
+            </li>
+            <li>
+                <blockquote>
+                    Place holder Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad
+                    nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit
+                    cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+                </blockquote>
+                <p class="home-testimony-author">
+                    <img src="assets/images/author.jpg" alt="">
+                    <span>   <span class="name">Name Surname</span> <span class="role">Editor, journal B</span></span>
+                </p>
+            </li>
+            <li>
+                <blockquote>
+                    Place holder Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad
+                    nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit
+                    cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+                                    </blockquote>
+
+                <p class="home-testimony-author">
+                    <img src="assets/images/author.jpg" alt="">
+                    <span>
+                        <span class="name">Name Surname</span> <span class="role">Editor, journal C</span>
+                    </span>
+                </p>
+            </li>
+        </ul>
+    </section>
+    <section id="home-part5">
+        <h2>Advancing Science through Open Collaboration</h2>
+        <p>
+            MetaROR advances science by making peer review transparent and accountable. Reviews receive DOIs, publicly crediting
+            reviewers and integrating their contributions into the broader scholarly dialogue. This open approach accelerates
+            knowledge dissemination and collaboration across the research community.
+        </p>
+        <ul class="advance-science-list">
+            <li>
+                {% include "./svg/phone.njk" %}
+                <h3>Transparent feedback</h3>
+                <p>
+                    Peer review is transformed from a secretive process to an open, transparent activity, enhancing trust and
+                    accountability in research.
+                </p>
+                <a href="">Discover more</a>
+            </li>
+            <li>
+                {% include "./svg/route.njk" %}
+                <h3>Recognition made easier</h3>
+                <p>
+                    Peer review is transformed from a secretive process to an open, transparent activity, enhancing trust and
+                    accountability in research.
+                </p>
+                <a href="">Discover more</a>
+            </li>
+            <li>
+                {% include "./svg/magnify.njk" %}
+                <h3>Knowledge creation</h3>
+                <p>
+                    Open reviewing elevates the process to a crucial, visible part of creating and disseminating knowledge across
+                    the academic community.
+                </p>
+                <a href="">Discover more</a>
+            </li>
+        </ul>
+    </section>
+    <section id="home-partner">
+        <h2>Want to be a partner of this effort?</h2>
+        <menu>
+            <li>
+                <a href="/contact-us/">Contact us</a>
+            </li>
+            <li>
+                <a href="#kotahiurl">Submit your work</a>
+            </li>
+        </menu>
+    </section>
 {% endblock content %}
+{% block scripts %}
+    <script>
+    document.querySelectorAll("details").forEach(detail =>{
+        detail.addEventListener("click", function() {
+            document.querySelector("details[open]").removeAttribute("open");
+        })
+    })
+    </script>
+{% endblock %}

@@ -4,6 +4,7 @@
 @import url("./modules/_layout.css");
 @import url("./modules/_menu.css");
 @import url("./modules/_singlepage.css");
+@import url("./modules/_homepage.css");
 @import url("./modules/_texts.css");
 @import url("./modules/_content.css");
 @import url("./modules/_images.css");
@@ -11,7 +12,6 @@
 @import url("./modules/_article.css");
 @import url("./modules/_crossref.css");
 @import url("./modules/_catalog.css");
-@import url("./modules/_splash.css");
 @import url("./modules/_flax-custom.css");
 @import url("./modules/_flax-slideshow.css");
 
