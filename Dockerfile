@@ -2,8 +2,12 @@ FROM node:16.16.0-alpine3.16
 
 WORKDIR /app
 
-# Install NGINX
-RUN apk update && apk add --no-cache nginx
+# Install NGINX and necessary tools
+RUN apk update && apk add --no-cache nginx curl bash
+
+# Download wait-for-it
+RUN curl -sSL https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh > /usr/local/bin/wait-for-it.sh \
+    && chmod +x /usr/local/bin/wait-for-it.sh
 
 # Copy NGINX configuration
 COPY nginx.conf /etc/nginx/http.d/default.conf
