@@ -19,10 +19,10 @@ app.post("/rebuild-group", authenticate, groupController.rebuildGroup);
 app.post("/delete-group", authenticate, groupController.deleteGroup);
 
 // Start the server
-app.listen(PORT, () => {
-	setTimeout(() => groupController.setupSiteForGroups(), 60000);
-
+app.listen(PORT, async () => {
 	console.log(
 		`Flax and Express server running on port 8080 and ${PORT} respectively.`
 	);
+	console.log('Rebuilding Flax site upon startup...')
+	await groupController.setupSiteForGroups();
 });
