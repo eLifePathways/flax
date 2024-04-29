@@ -21,10 +21,10 @@ section {
 }
 
 a {
-  color: inherit;
-  text-decoration: underline dotted;
+  color: var(--color-main);
+  text-decoration: underline;
   /* decoration-style: dashed; */
-  text-decoration-color: var(--color-main);
+  text-decoration-color: var(--color-secondary);
   text-underline-offset: 3px;
   text-decoration-thickness: 2px;
 }

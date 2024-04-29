@@ -1,0 +1,36 @@
+footer {
+  padding-top: 5em;
+  margin: 10em auto;
+  display: flex;
+  justify-content: space-around;
+  border-top: 2px solid var(--color-main);
+  max-width: 2000px;
+  text-align: left;
+  font-family: var(--font-sans);
+
+  img {
+    max-width: 300px;
+    margin-bottom: 3em;
+  }
+
+  footer>section {
+    margin: 0;
+    padding: 0;
+    border: 2px solid red;
+    max-width: minmax(50%, 600px);
+  }
+
+  & menu {
+    list-style-type: none;
+
+    padding: 0;
+    margin: 0;
+
+    & li {
+      text-align: left;
+      margin-bottom: .5em;
+    }
+  }
+
+
+}

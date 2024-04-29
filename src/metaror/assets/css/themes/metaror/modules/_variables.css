@@ -12,8 +12,9 @@
   --color-grey-lighter: #f7f7f7;
 
   /* set usable fonts names */
-  --font-sans: "Inter", sans-serif;
+  --font-sans: "Noto Sans", sans-serif;
   --font-serif: "Noto Serif", serif;
+  --font-deco: "Poppins", serif;
 
 
   --color-metaror-main: #0470C0;
@@ -23,6 +24,7 @@
   --color-main: var(--color-metaror-main);
   --color-main-lighter: var(--color-metaror-light);
   --color-sub: var(--color-grey);
+  --color-secondary: var(--color-grey);
   --color-body: var(--color-black);
   --color-reverse: var(--color-white);
   --color-meta: var(--color-grey);
@@ -31,7 +33,13 @@
   --color-background: var(--color-white);
 
   /* set semantic fonts */
-  --font-title: var(--font-sans);
+  --font-title: var(--font-deco);
   --font-body: var(--font-serif);
   --font-meta: var(--font-sans);
+
+
+   --color-svg: var(--color-main);
+
 }
+
+

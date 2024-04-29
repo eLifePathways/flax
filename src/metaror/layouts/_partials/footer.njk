@@ -1,22 +1,32 @@
 <footer>
-    <div class="footer-info-container">
-        <div class="footer-cms-page-info-container">
-            <div class="footer-cms-page-listing">
-                {% for cmsFooterPage in (cmsLayout.flaxFooterConfig | reorderPages) %}
-                    {% if cmsFooterPage.shownInMenu == true or cmsFooterPage.shownInMenu == "true" %}
-                        <div class="pageListItem">
-                            <a
-                            href="{{ cmsFooterPage.url }}"
-                            title="{{ cmsFooterPage.title }}">
-                            {{ cmsFooterPage.title }}
-                            </a>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-        <div class="footerText">
-            {{ cmsLayout.footerText | safe }}
-        </div>
-    </div>
-</footer>
+    <section>
+        <img src="/assets/images/logo-metaror.png" alt="">
+        <menu>
+            <li>
+                <a href="/about">About</a>
+            </li>
+            <li>
+                <a href="/privacy">Privacy Notice</a>
+            </li>
+            <li>
+                <a href="/forthepress">For the Press</a>
+            </li>
+            <li>
+                <a href="/privacy">Terms and conditions</a>
+            </li>
+        </menu>
+    </section>
+    <section>
+        <p>
+            Contact <a href="mailto:enquiries@metaror.org">enquiries@metaror.org</a>
+            <ul>
+                <a href="linkedin">linkedin link</a>
+                <a href="x">twitter link</a>
+                <p>
+                    Subject to a Creative Commons Attribution license,
+                    except where otherwise noted.
+                </p>
+                <p>© 2023 MetaROR</p>
+            </ul>
+        </section>
+    </footer>

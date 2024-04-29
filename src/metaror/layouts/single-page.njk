@@ -1,0 +1,12 @@
+{% extends '../layouts/base.njk' %}
+{% block bodyclass %}
+    single
+{% endblock bodyclass %}
+{% block content %}
+    <header>
+        {{headerblock | markdownify | safe}}
+    </header>
+    <main>
+        <article class="content">{{ content | safe }}</article>
+    </main>
+{% endblock %}
