@@ -3,7 +3,7 @@ FROM node:16.16.0-alpine3.16
 WORKDIR /app
 
 # Install NGINX and necessary tools
-RUN apk update && apk add --no-cache nginx curl bash
+RUN apk update && apk add --no-cache nginx curl bash supervisor
 
 # Download wait-for-it
 RUN curl -sSL https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh > /usr/local/bin/wait-for-it.sh \
@@ -11,6 +11,11 @@ RUN curl -sSL https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wai
 
 # Copy NGINX configuration
 COPY nginx.conf /etc/nginx/http.d/default.conf
+# Copy supervisord configuration
+COPY supervisord.conf /etc/supervisord.conf
+# Copy start script
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
 # Install dependencies for Eleventy and Express
 COPY package*.json ./
@@ -30,4 +35,4 @@ COPY server.js .
 EXPOSE 80 3000
 
 # Start NGINX and Express server
-CMD nginx && node server.js
+CMD ["/start.sh"]
