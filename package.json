@@ -45,6 +45,7 @@
 		"markdown-it-deflist": "^2.1.0",
 		"markdown-it-footnote": "^3.0.3",
 		"markdown-it-gridtables": "^0.6.0",
+		"markdown-it-image-figures": "^2.1.1",
 		"markdown-it-implicit-figures": "^0.11.0",
 		"markdown-it-mathjax3": "^4.3.2",
 		"markdown-it-pandoc": "^2.1.0",
@@ -60,7 +61,7 @@
 	},
 	"devDependencies": {
 		"@11ty/eleventy-navigation": "^0.3.5",
-		"eleventy-plugin-postcss": "^1.0.4",
+		"eleventy-plugin-postcss": "^0.0.1",
 		"postcss-url": "^10.1.3"
 	}
 }
