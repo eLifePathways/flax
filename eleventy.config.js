@@ -2,11 +2,13 @@ const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 const pluginTOC = require("eleventy-plugin-nesting-toc");
 const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
+const markdownItPandoc = require("markdown-it-pandoc");
 const { DateTime } = require("luxon");
 const cheerio = require("cheerio");
 const fg = require("fast-glob");
 const flaxPlugins = require("./11ty-plugins/flax-plugins.js");
 const eleventyPluginLightningCSS = require("@11tyrocks/eleventy-plugin-lightningcss")
+const implicitFigures = require("markdown-it-image-figures")
 
 // why do we delete the directory
 const deleteDirectories = require("./SiteHelpers/deleteDirectories.js");
@@ -82,7 +84,10 @@ module.exports = function(eleventyConfig) {
 			html: true,
 			linkify: true,
 			typographer: true,
-		}).use(markdownItAnchor, {})
+		}).use(markdownItAnchor).use(implicitFigures, {
+			figcaption: true
+		}).use(markdownItPandoc, { implicitFigures: false })
+
 	);
 
 	// add link to the diverses files
