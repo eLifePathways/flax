@@ -12,6 +12,8 @@ headerblock: >
 <!-- ![metarorimg](/assets/images/logo-metaror.png) -->
 
 
+## About Metaror
+
 Research on research, or metaresearch, is changing fast. In the past five years, researchers from a diverse range of disciplines have contributed to such efforts, and new communities of scholarship and practice have emerged. It is exciting to see fresh energy and methodological innovation being directed to these agendas. But this can also bring challenges, particularly in how research outcomes are communicated and evaluated.
 
 - **Siloed organisation.** There is limited interaction between different research on research communities (e.g., history of science, innovation studies, philosophy of science, science and technology studies, science of science, scientometrics).
@@ -22,7 +24,7 @@ Research on research, or metaresearch, is changing fast. In the past five years,
 
 These problems are far from unique to our fields. But metaresearch has a particular responsibility to develop and test innovative solutions. To this end, RoRI and the Association for Interdisciplinary Meta-Research and Open Science (AIMOS) are launching a new platform for review and scholarly communication called MetaROR (MetaResearch Open Review).
 
-![Credit:  An article for the European Association for the Study of Science and Technology, as one example of our extensive community outreach about MetaRoR.](/assets/images/logo-metaror.png)
+![Credit: An article for the European Association for the Study of Science and Technology, as one example of our extensive community outreach about MetaRoR.](/assets/images/article-example.png "Credit: An article for the European Association for the Study of Science and Technology, as one example of our extensive community outreach about MetaRoR.")
 
 ## Publication Process
 

@@ -5,10 +5,10 @@
 {% block content %}
     <main>
         <section id="home-entry">
-            {# <h1> #}
-            {#     MetaR<span>OR</span> #}
-            {# </h1> #}
-            <img class="homeReuseLogo" src="/assets/images/logo-metaror.png" alt="">
+            {# <div class="homeReuseLogo"> #}
+
+                {% include "./_partials/metarorlogo-whiteback.njk" %}
+            {# </div> #}
             <h2>A new plaform for metaresearch</h2>
             <a href="/about/">About MetaROR</a>
         </section>
@@ -232,7 +232,7 @@
             <h2>Want to be a partner of this effort?</h2>
             <menu>
                 <li>
-                    <a href="/contact-us/">Contact us</a>
+                    <a href="/contact/">Contact us</a>
                 </li>
                 <li>
                     <a href="#kotahiurl">Submit your work</a>

@@ -146,7 +146,7 @@ body {
 }
 
 .team section .grid-item > div {
-  max-width: 60ch;
+  /* max-width: 60ch; */
 }
 
 .team h2 {

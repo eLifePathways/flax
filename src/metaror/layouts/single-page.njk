@@ -3,10 +3,10 @@
     single
 {% endblock bodyclass %}
 {% block content %}
-    <header>
-        {{headerblock | markdownify | safe}}
-    </header>
     <main>
-        <article class="content">{{ content | safe }}</article>
+        <header>
+            {{ headerblock | markdownify | safe }}
+        </header>
+        <article class="content">{{ content  | safe }}</article>
     </main>
 {% endblock %}

@@ -32,6 +32,9 @@
     position: relative;
     padding: 5em 0;
 
+    & svg {
+      max-width: 1200px;
+    }
     &::before {
       content: "";
       z-index: -1;
@@ -224,6 +227,8 @@
 }
 
 #home-part4 {
+  margin: auto;
+
   &>ul {
     list-style-type: none;
 

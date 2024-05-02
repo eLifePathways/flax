@@ -1,0 +1,68 @@
+{% extends "base.njk" %}
+{% block bodyclass %}
+    contact-form
+{% endblock bodyclass %}
+{% block content %}
+    <main>
+        {{ content | safe }}
+        <form id="contact" action="" method="post">
+            <span>
+                <label for="name">First name</label>
+                <input type="text" id="name" name="name" required placeholder="Nina">
+            </span>
+            <span>
+                <label for="name">Last name</label>
+                <input type="text" id="name" name="name"  placeholder="Simone">
+            </span>
+            <span>
+                <label for="mail">E-mail</label>
+                <input id="mail"
+                       name="mail"
+                       placeholder="nina@rock.sl"
+                       type="email"
+                       required
+                       onchange="checkMail(this.value)">
+            </span>
+            <span>
+                <label for="phone">Phone number (optional)</label>
+                <input id="phone" name="phone" placeholder="+33 6 67 67 38 32" type="phone">
+            </span>
+            <span>
+                <label for="job">Inatitution/company (optional)</label>
+                <input type="text" id="job" name="job" placeholder="educator researcher">
+            </span>
+            <span>
+                <label for="orga">Institution/company (optional)</label>
+                <input type="text" id="orga" name="orga" placeholder="the house of soul">
+            </span>
+            <span class="message">
+                <label for="message">Your message</label>
+                <textarea rows="8" cols="" type="text" id="message" name="message"></textarea>
+            </span>
+            <span>
+                <input type="submit" value="Send">
+                <input type="text" id="gotcha" name="_gotcha">
+            </span>
+        </form>
+    </main>
+{% endblock content %}
+{% block scripts %}
+    <script>
+    var form = document.querySelector("#contact");
+    form.addEventListener("submit", sendMail, true);
+    function sendMail(event) {
+    event.preventDefault();
+    {# do some with the data when we know what #}
+    }
+    function emailIsValid(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+    function checkMail(mail) {
+    if (!emailIsValid(mail)) {
+    alert(
+    "There is a problem with your email adress. It should look like this: awesome@domain.my",
+    );
+    }
+    }
+    </script>
+{% endblock scripts %}

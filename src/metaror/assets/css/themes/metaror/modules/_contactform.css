@@ -1,0 +1,57 @@
+.contact-form {
+  font-family: var(--font-sans);
+  font-weight: 300;
+
+  & main {
+    max-width: 1000px;
+    margin: 8em auto;
+  }
+
+  & form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em 10ch;
+    margin-top: 4em;
+  }
+
+  & form span {
+    display: block;
+
+    &.message {
+      grid-column: span 2;
+    }
+
+  }
+
+  & label {
+    display: block;
+    margin-bottom: .5em;
+  }
+
+  & :is(input, textarea) {
+    width: 100%;
+
+
+    &[type=submit] {
+      width: auto;
+      background: var(--color-main);
+      color: white;
+      padding: .5em 3ch;
+      border-radius: 8px;
+      border: 0;
+      font-weight: 500;
+      box-shadow: 0 0 0 1px var(--color-main);
+      transition: box-shadow .4s;
+
+       cursor: pointer;
+      &:hover {
+        box-shadow: 0 0 0 10px var(--color-main);
+      }
+    }
+  }
+
+}
+
+#gotcha {
+  display: none;
+}
