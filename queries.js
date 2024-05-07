@@ -187,6 +187,51 @@ const getArticles = async (group, limit, offset) => {
   return response;
 }
 
+const getCollectionsQuery = async (group) => {
+  const graphQLQuery = JSON.stringify({
+    query: `query GetPublishingCollection($groupId: ID!) {
+      publishingCollection(groupId: $groupId) {
+        id
+        created
+        updated
+        formData {
+          title
+          description
+          publicationDate
+          image
+          issueNumber
+          file {
+            id
+            name
+          }
+        }
+        active
+        manuscripts {
+          id
+          submission
+        }
+        groupId
+      }
+    }
+    `,
+    variables: {
+      groupId: group.id
+    },
+  });
+
+  let response = await makeAPICall({
+    graphQLQuery,
+    group,
+  });
+
+  console.log("Collection query responded.");
+
+  if (!response) {
+    return [];
+  }
+
+  return response;
+}
 
 const getActiveCmsFilesTree = async (group) => {
   const graphQLQuery = JSON.stringify({
@@ -212,8 +257,9 @@ const getActiveCmsFilesTree = async (group) => {
 
 
 module.exports = {
-  getActiveCmsFilesTree,
   getArticles,
   getCmsPages,
+  getCollectionsQuery,
+  getActiveCmsFilesTree,
   getCMSLayout
 };
