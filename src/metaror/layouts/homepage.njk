@@ -243,7 +243,7 @@
 {% endblock content %}
 {% block scripts %}
     <script>
-    document.querySelectorAll("details").forEach(detail =>{
+    document.querySelectorAll("#home-part3 details").forEach(detail =>{
         detail.addEventListener("click", function(event) {
             document.querySelector("details[open]")?.removeAttribute("open");
         })

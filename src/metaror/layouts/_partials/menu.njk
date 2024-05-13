@@ -2,6 +2,35 @@
     {% include "_partials/logo.njk" %}
     <nav id="menu" class="hide">
         <menu>
+            {# menu from the content block #}
+            <li>
+                <a href="/">Home</a>
+            </li>
+            {# <li> #}
+            {#     <a href="/research">Research Articles</a> #}
+            {# </li> #}
+            {# <li> #}
+            {#     <a href="/communities">Communities</a> #}
+            {# </li> #}
+            {# <li> #}
+            {#     <a href="/research-in-practice">Research in Practices</a> #}
+            {# </li> #}
+            <li>
+                <details>
+                    <summary>About</summary>
+                    <ul>
+                        <li>
+                            <a href="about-metaror">About Metaror</a>
+                        </li>
+                        <li>
+                            <a href="about-team">The people behind it</a>
+                        </li>
+                        <li>
+                            <a href="about-metaror">Publish > review > curate</a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
             {% for cmsHeaderPage in (cmsLayout.flaxHeaderConfig | reorderPages) %}
                 {# endif should get back to what we need.  #}
                 {# {% if cmsHeaderPage.shownInMenu == true or cmsHeaderPage.shownInMenu == "true" %} #}

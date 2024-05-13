@@ -4,11 +4,14 @@ nav {
   font-family: var(--font-sans);
 }
 
+
+
 .topbar button {
   border: 0;
   background: unset;
   border-bottom: 1px solid var(--color-main);
 }
+
 .topbar {
   display: flex;
   gap: 5ch;
@@ -21,11 +24,13 @@ nav {
   fill: var(--color-main);
 }
 
+
+
 .topbar nav menu {
   align-items: last-baseline;
   justify-content: flex-end;
   list-style-type: none;
-  font-style: italic;
+  /* font-style: italic; */
   display: flex;
   gap: 5ch;
 
@@ -42,15 +47,94 @@ nav {
   .topbar .menu-call {
     display: block;
   }
+
   .topbar nav {
     display: none;
   }
+
   .topbar nav.shown {
     display: flex;
   }
+
   .topbar nav menu {
     flex-direction: column;
     width: 100%;
     flex-wrap: wrap;
+  }
+}
+
+
+/* // menu links */
+.topbar a {
+  color: var(--color-body);
+  text-decoration: none;
+}
+
+.topbar {
+  & summary:hover {
+    background: var(--color-main-lighter);
+  }
+
+}
+
+.topbar details {
+  position: relative;
+}
+
+.topbar details ::marker {
+  content: "";
+  color: blue;
+}
+
+.topbar details summary::after {
+  --color-grey: grey;
+  content: " ";
+  width: .4em;
+  position: relative;
+  top: -.2em;
+  height: .4em;
+  display: inline-block;
+  margin-left: 1ch;
+  rotate: -45deg;
+  border-bottom: 2px solid var(--color-grey);
+  border-left: 2px solid var(--color-grey);
+  /* background:black; */
+  color: var(--color-grey);
+}
+
+.topbar details[open] summary::after {
+  rotate: 0;
+  transition: rotate 1s;
+}
+
+
+/* submenu */
+.topbar menu ul {
+  position: absolute;
+  width: max-content;
+  right: 0;
+  padding: 0;
+  list-style-type: none;
+  /* position: absolute; */
+  background: white;
+  padding-top: .5em;
+  border-right: 1px solid var(--color-main);
+  padding-right: 1ch;
+  right: 3px;
+
+  &:target {
+    scroll-margin: 2000;
+  }
+
+  & li {
+    border-bottom: 1px solid var(--color-grey);
+    text-align: right;
+    line-height: 1.5;
+  }
+
+
+
+  & a:hover {
+    background: var(--color-main-lighter);
   }
 }

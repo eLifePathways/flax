@@ -8,51 +8,9 @@
       "logoPath":"/assets/logo-kotahi.png"
    },
    "flaxHeaderConfig":[
-      {
-         "title":"About MetaROR",
-         "sequenceIndex":null,
-         "shownInMenu":null,
-         "url":"/about/"
-      },
-      {
-         "title":"Contact us",
-         "sequenceIndex":null,
-         "shownInMenu":null,
-         "url":"/contact-us/"
-      },
-      {
-         "title":"Team",
-         "sequenceIndex":null,
-         "shownInMenu":null,
-         "url":"/our-team/"
-      }
-   ],
+       ],
    "flaxFooterConfig":[
-      {
-         "title":"About",
-         "sequenceIndex":null,
-         "shownInMenu":null,
-         "url":"/about/"
-      },
-      {
-         "title":"Contact us",
-         "sequenceIndex":null,
-         "shownInMenu":null,
-         "url":"/contact-us/"
-      },
-      {
-         "title":"Custom Page",
-         "sequenceIndex":null,
-         "shownInMenu":null,
-         "url":"/custom-page/"
-      },
-      {
-         "title":"Team",
-         "sequenceIndex":null,
-         "shownInMenu":null,
-         "url":"/team/"
-      }
-   ],
+       ],
    "partners":[
       
    ],
