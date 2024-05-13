@@ -1,8 +1,8 @@
 ---
 title: Instructions for authors
 type: submit
-permalink: /instructions-authors/
-
+permalink: "/instructions-authors/"
+layout: "single-page.njk"
 ---
 
 

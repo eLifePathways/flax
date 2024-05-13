@@ -5,7 +5,8 @@
 {% block content %}
     <main>
         <header>
-            {{ headerblock | markdownify | safe }}
+            <h1>{{ title }}</h1>
+            {% if headerblock %}{{ headerblock | markdownify | safe }}{% endif %}
         </header>
         <article class="content">{{ content  | safe }}</article>
     </main>

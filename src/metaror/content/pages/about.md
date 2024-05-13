@@ -1,6 +1,6 @@
 ---
 title: "About Metaror"
-permalink: "/about/"
+permalink: "/about-metaror/"
 layout: single-page.njk
 headerblock: >
   ![](/assets/images/logo-metaror.png)

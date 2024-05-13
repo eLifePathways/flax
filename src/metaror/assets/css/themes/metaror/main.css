@@ -21,3 +21,17 @@
 
 
 
+/*custom metaror*/
+main {
+  & a:is([href="#submit"],
+    [href="#submit-reviewer"]) {
+    background: var(--color-main);
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: .5em 3ch;
+    margin-top: 3em;
+    display: block;
+    max-width: max-content;
+  }
+}

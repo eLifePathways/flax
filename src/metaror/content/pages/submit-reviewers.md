@@ -1,6 +1,7 @@
 ---
 title: Instructions for reviewers
-permalink: /instructions-reviewers/
+layout: single-page.njk
+permalink: "/instructions-reviewers/"
 ---
 
 MetaResearch Open Review (MetaROR) is extending an invitation to the academic community to join our platform as peer reviewers. Your expertise can significantly contribute to advancing scholarly communication through our Publish, Review, Curate model. As part of our commitment to transparency and constructive feedback, MetaROR utilises an open peer review system. Below, we outline the guidelines for our review process and invite you to become an integral part of this innovative approach to academic publishing.
@@ -28,4 +29,4 @@ Your role as a reviewer is critical in guiding authors to refine their work and 
 
 Are you ready to make a significant impact on the advancement of open scholarly communication? Join our network of esteemed reviewers at MetaROR and contribute to shaping the future of academic research. If you are interested in becoming a reviewer, please follow the link below to manifest your interest. We welcome researchers from all disciplines and career stages.
 
-Become a reviewer
+[Become a reviewer](#submit-reviewer)
