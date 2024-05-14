@@ -19,6 +19,7 @@ module.exports = function(eleventyConfig) {
 
     return volumes;
   });
+
   eleventyConfig.addFilter("groupBy", function(data, keys) {
     return data.reduce(function(result, item) {
       let currentItem = result;

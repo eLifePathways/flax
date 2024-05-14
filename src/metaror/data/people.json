@@ -1,0 +1,27 @@
+{"orgs":
+  [ { "name": "Research on Research Institute",
+    "text": "The Research on Research Institute (RoRI) is an international consortium dedicated to enhancing the effectiveness and efficiency of scientific research. RoRI engages in meta-research, a field that scrutinizes how research methodologies, practices, and policies impact scientific outputs. By investigating these systemic factors, RoRI aims to uncover insights that lead to more robust, transparent, and efficient research processes. It collaborates with a diverse range of stakeholders, including funders, policymakers, and researchers across various disciplines. Through its interdisciplinary approach, RoRI seeks to foster innovations in research governance and practice, ultimately improving the reliability and impact of scientific research globally.",
+    "image": "rori.svg", 
+    "link": "https://researchonresearch.org/"
+},{ "name": "Association for Interdisciplinary Meta-Research and Open Science",
+    "text": "AIMOS is dedicated to enhancing the quality of scientific research. Recognising the challenges of reproducibility, rigour, and relevance in current research, AIMOS focuses on meta-research—an interdisciplinary field that studies research methods themselves—to identify areas for improvement and promote effective solutions. It supports researchers across disciplines who are committed to open science practices such as study registration and data sharing. As an interdisciplinary society, AIMOS embraces diverse perspectives from all scientific fields and backgrounds, aiming to foster a more reliable and transparent research landscape.",
+    "image": "aimos.svg" ,
+    "link": "https://aimos.community"
+    }
+],
+
+"partners": [
+    {
+      "name": "Coko",
+      "url": "https://coko.foundation",
+      "img": "coko.svg"
+    },
+    {
+      "name": "eLife",
+      "url": "https://elife.org",
+      "img": "elife.svg"
+    }
+  ]
+
+
+}

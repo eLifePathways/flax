@@ -1,18 +1,16 @@
 ---
-title: "About Metaror"
+title: "A new platform for metaresearch"
 permalink: "/about-metaror/"
 layout: single-page.njk
 headerblock: >
   ![](/assets/images/logo-metaror.png)
-
-  ## A new platform for metaresearch 
 ---
 
 <!-- this goes up -->
 <!-- ![metarorimg](/assets/images/logo-metaror.png) -->
 
 
-## About Metaror
+<!-- ## About Metaror -->
 
 Research on research, or metaresearch, is changing fast. In the past five years, researchers from a diverse range of disciplines have contributed to such efforts, and new communities of scholarship and practice have emerged. It is exciting to see fresh energy and methodological innovation being directed to these agendas. But this can also bring challenges, particularly in how research outcomes are communicated and evaluated.
 

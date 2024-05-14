@@ -1,0 +1,34 @@
+{% extends 'base.njk' %}
+{% block bodyclass %}
+    team single
+{% endblock bodyclass %}
+{% block content %}
+    <main>
+        <header>
+            <h1>{{ title }}</h1>
+            {# {% if headerblock %}{{ headerblock | markdownify | safe }}{% endif %} #}
+        </header>
+        <article class="content">{{ content  | safe }}</article>
+        <h2>Organisations behind MetaROR</h2>
+        <ul>
+            {% for org in people.orgs %}
+                <li>
+                    <img src="{{ org.img }}" alt="Logo of {{ org.name }}">
+                    <h3>{{ org.name }}</h3>
+                    <p>{{ org.text }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Partners of MetaROR</h2>
+        <ul>
+            {% for org in people.partners %}
+                <li>
+                    <img src="{{ org.img }}" alt="Logo of {{ org.name }}">
+                    <h3>{{ org.name }}</h3>
+                    <p>{{ org.text }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+{% endblock content %}

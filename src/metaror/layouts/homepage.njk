@@ -10,7 +10,7 @@
                 {% include "./_partials/metarorlogo-whiteback.njk" %}
             {# </div> #}
             <h2>A new plaform for metaresearch</h2>
-            <a href="/about/">About MetaROR</a>
+            <a href="/about-metaror/">About MetaROR</a>
         </section>
         <section id="home-part2">
             <h2>Seamless Integration of Research and Review</h2>
@@ -54,7 +54,7 @@
             <h2>Seamless Integration of Research and Review</h2>
             <p class="subtitle">MetaROR simplifies the path from preprint to publication with a clear, straightforward process</p>
             <div class="detailswrap">
-                <details open>
+                <details open="open">
                     <summary>
                         <h3>
                             {% include "./svg/clock.njk" %}
@@ -245,7 +245,7 @@
     <script>
     document.querySelectorAll("#home-part3 details").forEach(detail =>{
         detail.addEventListener("click", function(event) {
-            document.querySelector("details[open]")?.removeAttribute("open");
+            document.querySelector("#home-part3 details[open]")?.removeAttribute("open");
         })
     })
     </script>

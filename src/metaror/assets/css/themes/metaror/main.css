@@ -33,5 +33,6 @@ main {
     margin-top: 3em;
     display: block;
     max-width: max-content;
+    border-radius: 8px;
   }
 }

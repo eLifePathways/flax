@@ -43,7 +43,7 @@ if(document.querySelector('nav.toc li')) {
       }
     });
   });
-}
+
 
 
 

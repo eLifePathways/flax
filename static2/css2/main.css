@@ -2,7 +2,7 @@
 @import url(./layout/one-column.css);
 @import url(./fonts.css);
 
-/* menu  */
+* menu  */
 
 * {
   scroll-margin: 4.5em;
@@ -1374,3 +1374,4 @@ footer .footerText {
       display: none;
     }
 }
+

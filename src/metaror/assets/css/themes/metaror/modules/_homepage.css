@@ -35,6 +35,7 @@
     & svg {
       max-width: 1200px;
     }
+
     &::before {
       content: "";
       z-index: -1;
@@ -50,6 +51,8 @@
 
 
     & a {
+      text-decoration: none;
+      border-radius: 8px;
       background: var(--color-main);
       color: white;
       font-weight: 500;

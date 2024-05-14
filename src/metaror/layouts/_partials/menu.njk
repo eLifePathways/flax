@@ -23,11 +23,12 @@
                             <a href="/about-metaror/">About Metaror</a>
                         </li>
                         <li>
-                            <a href="/about-team/">The people behind it</a>
+                            <a href="/people/">The people behind MetaROR</a>
                         </li>
-                        <li>
-                            <a href="/about-metaror/">Publish > review > curate</a>
-                        </li>
+                        {#not there yet#}
+                        {# <li> #}
+                        {#     <a href="/about-metaror/">Publish > review > curate</a> #}
+                        {# </li> #}
                     </ul>
                 </details>
             </li>
@@ -46,6 +47,9 @@
                         </li>
                     </ul>
                 </details>
+            </li>
+            <li>
+                <a href="/contact/">Contact</a>
             </li>
             {% for cmsHeaderPage in (cmsLayout.flaxHeaderConfig | reorderPages) %}
                 {# endif should get back to what we need.  #}
