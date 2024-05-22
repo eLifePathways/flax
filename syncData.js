@@ -1,6 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 
+const {syncData: syncArticles} = require('./ExternalData/articles/articleQuery')
+const {syncData: syncCollections} = require('./ExternalData/collections/collectionQuery')
+const {syncData: syncLayout} = require('./ExternalData/pages/cmsLayoutQuery')
+const {syncData: syncPages} = require('./ExternalData/pages/cmsPagesQuery')
+
 const getFilesFromDirectory = (dirPath) => {
 	const files = [];
 	fs.readdirSync(dirPath).forEach((file) => {
@@ -22,18 +27,14 @@ const syncAllData = async (group, cmsLayout, attrs = {}) => {
 		return false;
 	}
 
-	const promises = [];
-	const dirPath = "./ExternalData";
-	const jsFiles = getFilesFromDirectory(dirPath);
-
-	for (let i in jsFiles) {
-		const filePath = `./${jsFiles[i]}`;
-		const scriptModule = require(filePath);
-		promises.push(scriptModule.syncData(group, cmsLayout));
-		console.log("Sync started for file: " + filePath);
-	}
-	await Promise.all(promises);
-	console.log("Sync completed for files ", jsFiles);
+	console.log("Starting sync");
+	await Promise.all([
+		syncArticles(group, cmsLayout),
+		syncCollections(group, cmsLayout),
+		syncLayout(group, cmsLayout),
+		syncPages(group, cmsLayout)
+	]);
+	console.log("Sync completed");
 
 	return true;
 };

@@ -10,7 +10,7 @@ const getPages = async (group) => {
 };
 
 const syncData = async (group, cmsLayout) => {
-	const dataFile = getGroupDataDir(group) + "/cmsPages.json";
+	const dataFile = getGroupDataDir(group, cmsLayout.hexCode) + "/cmsPages.json";
 	let data = await getPages(group);
 	if (data) {
 		fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");

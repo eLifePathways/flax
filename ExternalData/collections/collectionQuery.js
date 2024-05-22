@@ -7,12 +7,12 @@ const storeImages = async (group, hexCode, collections) => {
 	let updatedCollectionsData = [];
 
 	if (!fs.existsSync(collectionImagesDir)) {
-		fs.mkdir(collectionImagesDir, (err) => {
-			if (err) {
-				return console.error(err);
-			}
+		try {
+			fs.mkdirSync(collectionImagesDir, { recursive: true })
 			console.log(`Collection Directory created successfully!`);
-		});
+		} catch (err) {
+			console.error(err);
+		}
 	}
 
 	for (let i in collections) {
@@ -33,7 +33,7 @@ const storeImages = async (group, hexCode, collections) => {
 
 const syncData = async (group, cmsLayout) => {
     const { hexCode } = cmsLayout
-	const dataFile = getGroupDataDir(group) + "/cmsCollections.json";
+	const dataFile = getGroupDataDir(group, cmsLayout.hexCode) + "/cmsCollections.json";
 	let data = await getCollectionsQuery(group)
 
     collections = await storeImages(group, hexCode, data.publishingCollection)

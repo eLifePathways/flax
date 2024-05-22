@@ -35,6 +35,16 @@ const getChunkOfArticles = async (group, cmsLayout, limit, offset) => {
       })) || [];
 
       //add index.css File
+      const cssDir = getGroupAssetDir(group, hexCode, 'css')
+      if (!fs.existsSync(cssDir)) {
+        try {
+          fs.mkdirSync(cssDir, { recursive: true })
+          console.log(`Directory ${cssDir} created successfully!`);
+        } catch (err) {
+          console.error(err)
+        }
+      }
+  
       const cssFile = getGroupAssetDir(group, hexCode, 'css/index.css')
       fs.writeFileSync(cssFile, css, 'utf8');
 
@@ -68,12 +78,12 @@ const setSupplementaryFiles = (article, group, hexCode) => {
   let updatedSupplementaryFiles = []
 
   if (!fs.existsSync(supplementaryFilesDir)) {
-    fs.mkdir(supplementaryFilesDir, (err) => {
-      if (err) {
-        return console.error(err);
-      }
-      console.log(`Directory created successfully!`);
-    });
+    try {
+      fs.mkdirSync(supplementaryFilesDir, { recursive: true })
+      console.log(`Directory ${supplementaryFilesDir} created successfully!`);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   let files = [];
@@ -161,7 +171,7 @@ const syncData = async (group, cmsLayout) => {
   try {
     const chunkSize = 10;
     const allArticles = await getAllArticles(group, cmsLayout, chunkSize);
-    const dataFile = `${getGroupDataDir(group)}/articleQuery.json`;
+    const dataFile = `${getGroupDataDir(group, cmsLayout.hexCode)}/articleQuery.json`;
     fs.writeFileSync(dataFile, JSON.stringify({ articles: allArticles }), "utf8");
   } catch (error) {
     console.error("Error syncing data:", error);

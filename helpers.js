@@ -10,8 +10,8 @@ const getGroupAssetDir = (group, hexCode, appendStr) => {
 	return appendStr ? `${dataFolderPath}/${appendStr}` : dataFolderPath;
 };
 
-const getGroupDataDir = (group, appendStr) => {
-	const dataFolderPath = path.join(__dirname, `src/${group.name}/data`);
+const getGroupDataDir = (group, hexCode, appendStr) => {
+	const dataFolderPath = path.join(__dirname, `src/${group.name}${hexCode ? '/' + hexCode : ''}/data`);
 	return appendStr ? `${dataFolderPath}/${appendStr}` : dataFolderPath;
 };
 
@@ -78,9 +78,9 @@ const downloadFile = (url, localPath) => {
 
 const deleteLocalFile = (localPath) => {
   try {
-		fs.rm(localPath, () => {});
-	} catch (err) {
-		console.log(err);
+		fs.rmSync(localPath)
+	} catch {
+		// Do nothing
 	}
 };
 
@@ -140,7 +140,7 @@ const downloadAndSaveFile = async (url, fileName) => {
 
 const rebuildSite = (group, hexCode) => {
 	const { exec } = require("child_process");
-	let command = `npx eleventy --pathprefix=${group.name} --input=src/${group.name} --output=public/${group.name}${hexCode ? '/' + hexCode : ''}`;
+	let command = `npx eleventy --pathprefix=${group.name} --input=src/${group.name}${hexCode ? '/' + hexCode : ''} --output=public/${group.name}${hexCode ? '/' + hexCode : ''}`;
 	console.log({ command, status: "rebuilding site" });
 	return new Promise((resolve, reject) => {
 		exec(command, (error, output) => (error ? reject(error) : resolve(output)));
@@ -171,15 +171,15 @@ const getSubDirectories = async (parentDir) => {
 	});
 };
 
-const updateFlaxSiteConfigFile = async (group, updatedConfig) => {
-	const configFilePath = getGroupDataDir(group, "cmsConfig.json");
+const updateFlaxSiteConfigFile = async (group, hexCode, updatedConfig) => {
+	const configFilePath = getGroupDataDir(group, hexCode, "cmsConfig.json");
 	const config = require(configFilePath);
 	let newConfig = { ...config, ...updatedConfig };
 	fs.writeFileSync(configFilePath, JSON.stringify(newConfig), "utf8");
 };
 
-const updateFlaxSiteFile = group => {
-	const siteFilePath = getGroupDataDir(group, "site.json");
+const updateFlaxSiteFile = (group, hexCode) => {
+	const siteFilePath = getGroupDataDir(group, hexCode, "site.json");
 	const site = require(siteFilePath);
 	site.name = `${group.name} `;
 	const updatedSite = { ...site }

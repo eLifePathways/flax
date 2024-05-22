@@ -16,27 +16,35 @@ const { getCMSLayout, getActiveCmsFilesTree } = require("./queries");
 const DEFAULT_GROUP = { id: "", name: "kotahi" };
 
 const reCreateFileStructure= async (files, parentFolder ) => {
-	const folderName = parentFolder + '/' + files.name;
+	const entityName = parentFolder + '/' + files.name;
 
 	if (files.fileId === null) {
-		fs.mkdirSync(folderName);
+		fs.mkdirSync(entityName, { recursive: true });
 	}
 
 	if (files.children && files.children.length > 0) {
 	  for (const child of files.children) {
-		await reCreateFileStructure(child, folderName);
+		await reCreateFileStructure(child, entityName);
 	  }
 	}
 	
 	if (files.fileId && files.url) {
-	  await downloadAndSaveFile(files.url, folderName)
-		.then(() => console.log(`File ${folderName} downloaded and saved successfully.`))
-		.catch(error => console.error(`Error downloading file ${folderName}: ${error.message}`));
+	  await downloadAndSaveFile(files.url, entityName)
+		.then(() => console.log(`File ${entityName} downloaded and saved successfully.`))
+		.catch(error => console.error(`Error downloading file ${entityName}: ${error.message}`));
 	}
 }
 
 const setupDirectoryFromUrl = async (group, hexCode) => {
+	if (hexCode) {
+		// Eleventy doesn't reliably delete a non-draft group that it has previously built.
+		// So we force its deletion.
+		await deleteAllSubDirectories(`public/${group.name}`)
+	}
+
 	const currentGroupDir = getGroupSrcDir(group);
+	await deleteAllSubDirectories(currentGroupDir);
+	fs.mkdirSync(currentGroupDir, { recursive: true });
 
 	const updatedConfig = {
 		defaultImagesDirectory: `${hexCode ? '/' + hexCode : ''}/assets/images/`,
@@ -44,9 +52,6 @@ const setupDirectoryFromUrl = async (group, hexCode) => {
 		group,
 	}
 
-	await deleteAllSubDirectories(currentGroupDir);
-	
-	fs.mkdirSync(currentGroupDir, { recursive: true });
 
 	const files = await getActiveCmsFilesTree(group)
 
@@ -57,8 +62,8 @@ const setupDirectoryFromUrl = async (group, hexCode) => {
 	}
 
 	// await copyFolder(defaultGroupDir, currentGroupDir);
-	await updateFlaxSiteConfigFile(group, updatedConfig);
-	await setupSiteFlag(group);
+	await updateFlaxSiteConfigFile(group, hexCode, updatedConfig);
+	await setupSiteFlag(group, hexCode);
 	return true;
 }
 
@@ -76,7 +81,7 @@ const setupGroup = async (currentGroup, cmsLayout, buildConfig) => {
 
 	await setupDirectoryFromUrl(currentGroup, hexCode)
 
-	await updateFlaxSiteConfigFile(currentGroup, updatedConfig);
+	await updateFlaxSiteConfigFile(currentGroup, hexCode, updatedConfig);
 
 	if (buildConfig.build != false) {
 		if (!fs.existsSync(publicDir)) {
@@ -101,8 +106,8 @@ const setupGroup = async (currentGroup, cmsLayout, buildConfig) => {
 	}
 };
 
-const setupSiteFlag = async group => {
-	return updateFlaxSiteFile(group);
+const setupSiteFlag = async (group, hexCode) => {
+	return updateFlaxSiteFile(group, hexCode);
 }
 
 const setupAllGroups = async () => {
