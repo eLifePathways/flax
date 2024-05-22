@@ -40,12 +40,12 @@ const imagesHandler = (group, folderName, content, id, hexCode) => {
 	let dirPath = getDirPathToSaveTheImages(group, hexCode, folderName);
 	let imageId = id ? id : (Math.random() + 1).toString(36).substring(5);
 	if (!fs.existsSync(dirPath)) {
-		fs.mkdir(dirPath, (err) => {
-			if (err) {
-				return console.error(err);
-			}
+		try {
+			fs.mkdirSync(dirPath, { recursive: true })
 			console.log("Directory created successfully!");
-		});
+		} catch (err) {
+			return console.error(err);
+		}
 	}
 
 	const contentDom = new JSDOM(content);

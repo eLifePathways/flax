@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("fs/promises");
 const {
 	getGroupAssetDir,
 	getGroupDataDir,
@@ -8,17 +8,26 @@ const {
 	isValidFile,
 } = require("../../helpers");
 
+const exists = async path => {
+	try{
+		await fs.access(path)
+		return true
+	} catch {
+		return false
+	}
+}
+
 const storePartners = async (group, hexCode, partners) => {
 	const partnersDir = getGroupAssetDir(group, hexCode, "images/partners");
 	let updatedPartnersData = [];
 
-	if (!fs.existsSync(partnersDir)) {
-		fs.mkdir(partnersDir, (err) => {
-			if (err) {
-				return console.error(err);
-			}
+	if (!(await exists(partnersDir))) {
+		try {
+			await fs.mkdir(partnersDir, { recursive: true })
 			console.log(`Directory created successfully!`);
-		});
+		} catch (err) {
+			console.error(err);
+		}
 	}
 
 	for (let i in partners) {
@@ -76,17 +85,27 @@ const getLayoutInfo = async (group, cmsLayout) => {
 	);
 
 	const groupAssetDir = getGroupAssetDir(group, hexCode, "images/")
-	await storeGroupwideFile(cmsLayout.logo, groupAssetDir, 'logo.png');
+
+	if (cmsLayout.logo)
+		await storeGroupwideFile(cmsLayout.logo, groupAssetDir, 'logo.png');
+	else {
+		try {
+			await fs.copyFile('static/images/placeholders/logo.png', `${groupAssetDir}logo.png`)
+		} catch (err) {
+			console.warn('Unable to copy placeholder logo into position.')
+		}
+	}
+
 	await storeGroupwideFile(cmsLayout.favicon, groupAssetDir, 'favicon.png')
 	cmsLayout.partners = await storePartners(group, hexCode, cmsLayout.partners);
 	return cmsLayout;
 };
 
 const syncData = async (group, cmsLayout) => {
-	const dataFile = getGroupDataDir(group) + "/cmsLayout.json";
+	const dataFile = getGroupDataDir(group, cmsLayout.hexCode) + "/cmsLayout.json";
 	let data = await getLayoutInfo(group, cmsLayout);
 	if (data) {
-		fs.writeFileSync(dataFile, JSON.stringify(data), "utf8");
+		await fs.writeFile(dataFile, JSON.stringify(data), "utf8");
 	}
 };
 
