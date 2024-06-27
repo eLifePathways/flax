@@ -23,6 +23,7 @@
 
 /*custom metaror*/
 main {
+
   & a:is([href="#submit"],
     [href="#submit-reviewer"]) {
     background: var(--color-main);
@@ -34,5 +35,92 @@ main {
     display: block;
     max-width: max-content;
     border-radius: 8px;
+  }
+}
+
+
+
+#parners-logo {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5ch;
+
+}
+
+.home #partners-logo {
+  display: flex;
+  align-items: center;
+  gap: 3ch;
+  justify-content: space-around;
+}
+
+#partners-logo a {
+  max-width: 600px;
+  display: block;
+  width: 50%;
+}
+
+.home .metarormail {
+  color: white;
+  margin-top: 2em;
+  font-size: 1.8em;
+}
+
+.home .metarormail:hover {
+  background: white;
+  display: block;
+  color: var(--color-main)
+}
+
+
+body {
+  margin: auto;
+  width: 90vw;
+}
+
+
+@media screen and (max-width:800px) {
+  body {
+    /* width: 100%; */
+    font-size: .9em;
+    padding: 1em 2ch;
+    margin: auto;
+  }
+
+  .home {
+    padding: 0;
+    margin: auto;
+  }
+
+  .logo {
+    display: none;
+
+  }
+
+  main {
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .home #home-part2 {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .home #home-entry {
+    background: transparent;
+    margin-bottom: 0;
+  }
+
+  .home #home-entry::before {
+    inset: 0;
+    content: none;
+  }
+
+  .home main section>h2 {
+    font-size: 1.6em;
+    line-height: 1.35;
+    font-weight: 700;
   }
 }

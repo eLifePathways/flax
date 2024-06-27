@@ -40,7 +40,7 @@
       content: "";
       z-index: -1;
       position: absolute;
-      inset: 0 -5em;
+      inset: 0 -5rem;
       background: var(--color-main-lighter);
     }
 
@@ -407,6 +407,8 @@
     background: var(--color-main);
     color: white;
     border-radius: 32px;
+    padding-left: 5ch;
+    padding-right: 5ch;
 
     & h2 {
       font-size: 2.3em;
