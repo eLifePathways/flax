@@ -139,7 +139,7 @@ const getArticles = async (group, limit, offset) => {
             reviews {
               id
               jsonData
-              user{
+              users {
                 id
                 username
               }
@@ -147,7 +147,7 @@ const getArticles = async (group, limit, offset) => {
             decisions {
               id
               jsonData
-              user{
+              users {
                 id
                 username
               }
