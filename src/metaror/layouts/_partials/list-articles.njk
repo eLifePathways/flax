@@ -1,27 +1,24 @@
 <section class="articles-list">
-    {% if articleQuery.articles.length == 0 %}
-        No articles published yet.
-    {% endif %}
-
+    {% if articleQuery.articles.length == 0 %}No articles published yet.{% endif %}
     {% for article in pagination.items %}
         <article>
-            <span class="topics">
-                {{ article.headerInfo.topics }}
-            </span>
-            <h2 class="article-title">
-                <a href="{{cmsConfig.defaultArticleDirectory}}{{article.shortId}}/index.html">{{ article.headerInfo.title | safe }}</a>
-            </h2>
-            <span class="author-name">{{ article.headerInfo.authorNames | arrayToString('lastName') }}</span>
-            <p class="published-date">
-                Published on <time datetime="article.headerInfo.publishedOn">{{ article.headerInfo.publishedOn | replace('Z','') | postDate }}</time>
+            <p class="article-type">{{- article.parsedSubmission.objectType -}}</p>
+            <p class="subjects">
+                {% for topic in article.parsedSubmission.topics %}<span class="topic">{{ topic }}</span>{% endfor %}
             </p>
-
+            <a href="/articles/{{ article.shortId }}">
+                <h2>{{ article.parsedSubmission.$title }}</h2>
+            </a>
+            <div class="article-affiliations-list">
+                <p class="authors">
+                    {% for author in  article.parsedSubmission.$authors %}
+                        {{- author.firstName -}}&nbsp;{{- author.lastName -}}
+                        {% if not loop.last %},{% endif %}
+                    {% endfor %}
+                </p>
+            </div>
+            <p class="article-publishing-date">{{ article.parsedSubmission.datePublished | dateWrangler('en', 'long') }}</p>
+            <a class="doi" href="https://doi.org/{{- article.doi -}}">https://doi.org/{{- article.parsedSubmission.$doi -}}</a>
         </article>
     {% endfor %}
 </section>
-
-{% if pagination.pages.length > 1 %}
-    <div class="pagination-page">
-        {% include "_partials/article-page-links.njk" %}
-    </div>
-{% endif %}

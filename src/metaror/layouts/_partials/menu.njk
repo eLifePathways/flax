@@ -3,8 +3,12 @@
     <nav id="menu" class="hide">
         <menu>
             {# menu from the content block #}
+            {# <li> #}
+            {#     <a href="/articles/">Articles</a> #}
+            {# </li> #}
             <li>
-                <a href="/">Home</a>
+                <a href="/articles-list/page-{{ (articleQuery.articles.length / 10) | round(0, 'floor') + 1 }}/index.html"
+                /">Articles</a>
             </li>
             {# <li> #}
             {#     <a href="/research">Research Articles</a> #}

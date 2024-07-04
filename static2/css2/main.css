@@ -493,11 +493,15 @@ a
 
 .articles-list .author {
   display: inline;
+  font-weight: 400;
 }
+
+
 
 .articles-list .author .author-name::before {
   content: ", ";
   margin-left: 0;
+  
 }
 
 .articles-list .author:first-of-type .author-name::before {
@@ -1374,4 +1378,5 @@ footer .footerText {
       display: none;
     }
 }
+
 

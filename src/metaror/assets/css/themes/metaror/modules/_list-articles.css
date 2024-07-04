@@ -1,0 +1,52 @@
+.articles-list {
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5ch;
+
+
+  & article {
+    & .article-type {
+      color: var(--color-main);
+      text-transform: uppercase;
+      font-family: var(--font-sans);
+      font-size: .8em;
+      letter-spacing: .4ch;
+      margin: 0;
+    }
+
+    & .subjects {
+      margin: 0;
+      margin-top: .3em;
+      font-weight: 500;
+      font-family: var(--font-sans);
+
+
+      & .topic:not(:last-of-type)::after {
+        content: " | "
+      }
+
+
+    }
+
+    /* color: var(--color-main); */
+    & .article-publishing-date {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: .9em;
+      margin: .5em 0 .5em;
+    }
+
+    & .authors {
+      margin-bottom: .8em;
+    }
+
+    & h2 {
+      font-size: 1.8em;
+      margin: .3em 0 0;
+      color: var(--color-main);
+      font-family: var(--font-text);
+      font-weight: 600;
+    }
+  }
+}

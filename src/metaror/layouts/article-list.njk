@@ -1,9 +1,14 @@
 {% extends "base.njk" %}
-
 {% block content %}
     <main>
+        <header>
+            <h1>Articles</h1>
+        </header>
         <section class="section-latest">
             {% include "_partials/list-articles.njk" %}
         </section>
+        {% if pagination.pages.length > 1 %}
+            <div class="pagination-page">{% include "_partials/article-page-links.njk" %}</div>
+        {% endif %}
     </main>
 {% endblock %}
