@@ -68,6 +68,10 @@ module.exports = function (eleventyConfig) {
 		"!**/public",
 	]);
 
+	eleventyConfig.addFilter("map", function (array, attribute) {
+		return array.map(item => item[attribute]);
+	});
+
 	eleventyConfig.addFilter("reorderPages", function (pages) {
 		return pages.sort((page1, page2) => {
 			if (page1.sequenceIndex > page2.sequenceIndex) return 1;
