@@ -1,6 +1,7 @@
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 const pluginTOC = require("eleventy-plugin-nesting-toc");
 const markdownIt = require("markdown-it");
+const inspect = require("util").inspect;
 const markdownItAnchor = require("markdown-it-anchor");
 const { DateTime } = require("luxon");
 const cheerio = require("cheerio");
@@ -8,9 +9,13 @@ const fg = require("fast-glob");
 const flaxPlugins = require("./11ty-plugins/flax-plugins.js");
 
 const deleteDirectories = require("./SiteHelpers/deleteDirectories.js");
-const { imagesHandler } = require("./SiteHelpers/fileHandler.js");
+const { imagesHandler, linkHandler } = require("./SiteHelpers/fileHandler.js");
 
 module.exports = function (eleventyConfig) {
+
+    // Make the base path available in all templates
+    eleventyConfig.addGlobalData('basePath',`/app/src/`);
+
 	// passthrough file copy //
 
 	eleventyConfig.addPassthroughCopy(
@@ -99,6 +104,12 @@ module.exports = function (eleventyConfig) {
 		}
 	);
 
+	eleventyConfig.addFilter("linkHandler",
+		function (content, id, folderName, group, hexCode) {
+			return linkHandler(group, folderName, content, id, hexCode);
+		}
+	);
+
 	eleventyConfig.addFilter("addIDtoTitles", function (value) {
 		const $ = cheerio.load(`${value}`);
 
@@ -117,6 +128,8 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addFilter("dumpObject", function (value) {
 		return "items";
 	});
+
+	eleventyConfig.addFilter("debug", (content) => `<pre>${inspect(content)}</pre>`);
 
 	eleventyConfig.addFilter("shouldShowEllipses", (pagination, position) => {
 		if (pagination.links.length <= 5) {
