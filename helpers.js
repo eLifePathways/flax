@@ -33,6 +33,11 @@ const imageFileLocalUrl = (hexCode, appendStr) => {
 	return appendStr ? `${baseImagesUrl}/${appendStr}` : baseImagesUrl;
 };
 
+const supplementaryFileLocalUrl = (hexCode, appendStr) => {
+	const baseFilesUrl = `${hexCode ? '/' + hexCode : ''}/assets/supplementary-files`;
+	return appendStr ? `${baseFilesUrl}/${appendStr}` : baseFilesUrl;
+};
+
 const deleteAllSubDirectories = async (directoryPath) => {
 	rimraf.sync(directoryPath);
 
@@ -227,4 +232,5 @@ module.exports = {
 	deleteLocalFile,
 	updateFlaxSiteFile,
 	imageFileLocalUrl,
+	supplementaryFileLocalUrl,
 };
