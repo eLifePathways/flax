@@ -133,7 +133,6 @@ html {
   z-index: 10000000;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   font-family: var(--font-interface);
   top: 0;
   position: sticky;
@@ -152,9 +151,10 @@ html {
 }
 
 .topbar nav {
-  /* font-size: .8em; */
-  /* letter-spacing: .15ch; */
-  
+  margin-left: calc(20 / var(--base-font-size)* 1rem);
+  border-left: var(--border);
+  display: inline-block;
+  height: 24px;
 }
 
 .topbar nav  ul {

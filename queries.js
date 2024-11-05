@@ -153,6 +153,7 @@ const getArticles = async (group, limit, offset) => {
               }
             }
             editors {
+              id
               name
               role
             }
