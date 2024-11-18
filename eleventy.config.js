@@ -77,6 +77,14 @@ module.exports = function (eleventyConfig) {
 		return array.map(item => item[attribute]);
 	});
 
+	eleventyConfig.addFilter("convertCamelCaseToTitleCase", function (string) {
+		return Array.from(string).reduce((acc, cur) => {
+			if (!acc) return cur.toUpperCase()
+			if (cur < 'A' || cur > 'Z') return acc + cur
+			return `${acc} ${cur}`
+		  }, '')
+	});
+	  
 	eleventyConfig.addFilter("reorderPages", function (pages) {
 		return pages.sort((page1, page2) => {
 			if (page1.sequenceIndex > page2.sequenceIndex) return 1;

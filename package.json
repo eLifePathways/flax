@@ -36,6 +36,7 @@
 		"jsdom": "^22.0.0",
 		"katex": "^0.16.8",
 		"luxon": "^2.5.2",
+		"lodash": "4.17.21",
 		"markdown-it": "^13.0.1",
 		"markdown-it-anchor": "^7.1.0",
 		"markdown-it-attrs": "^4.1.6",

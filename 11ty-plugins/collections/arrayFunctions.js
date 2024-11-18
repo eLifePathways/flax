@@ -1,4 +1,22 @@
+
+const { get } = require("lodash");
 module.exports = function (eleventyConfig) {
+
+	eleventyConfig.addFilter("filterArray", function (array, field, value) {
+		return array.filter(data => get(data, field) !== value);
+	});
+
+
+	eleventyConfig.addFilter("findElement", function (array, field, value) {
+		for (let item of array) {
+			if (get(item, field) === value) {
+				return item;
+			}
+		}
+		
+		return null;
+	});
+
 	eleventyConfig.addFilter("arrayToString", function (array, key, trim) {
 		if (!array) {
 			return "";
@@ -6,7 +24,7 @@ module.exports = function (eleventyConfig) {
 
 		let results = array;
 		results = array.map((item) => {
-			let newItem = key ? item[key] : item;
+			let newItem = key ? get(item, key) : item;
 			return (newItem + "").trim();
 		});
 
