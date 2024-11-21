@@ -23,10 +23,13 @@ module.exports = function (eleventyConfig) {
 		}
 
 		let results = array;
-		results = array.map((item) => {
-			let newItem = key ? get(item, key) : item;
-			return (newItem + "").trim();
-		});
+		
+		results = array
+		.map((item) => {
+			let newItem = key ? get(item, key, undefined) : item;
+			return newItem === undefined ? "" : (newItem + "").trim();
+		})
+		.filter((item) => item !== "");
 
 		if (!trim) {
 			return results.join(", ");

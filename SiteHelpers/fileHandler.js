@@ -47,7 +47,7 @@ const downloadAndSetFilePath = (a, id, dirPath, folderName, hexCode) => {
 };
 
 const downloadAndSetImagePath = (img, imageId, dirPath, folderName, hexCode) => {
-	let fileName = `${imageId}-${img.alt}`;
+	let fileName = `${imageId}-${img.alt || img.dataset?.id}`;
 	downloadFile(img.src, `${dirPath}/${fileName}`);
 	let ImageUrl = imageFileLocalUrl(hexCode, `${folderName}/${fileName}`);
 	setImageAttrs(img, ImageUrl);
