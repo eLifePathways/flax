@@ -142,6 +142,10 @@ const getArticles = async (group, limit, offset) => {
               users {
                 id
                 username
+                defaultIdentity {
+                  id
+                  identifier
+                }
               }
             }
             decisions {
@@ -150,6 +154,10 @@ const getArticles = async (group, limit, offset) => {
               users {
                 id
                 username
+                defaultIdentity {
+                  id
+                  identifier
+                }
               }
             }
             editors {
