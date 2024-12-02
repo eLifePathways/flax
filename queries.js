@@ -217,7 +217,72 @@ const getCollectionsQuery = async (group) => {
         active
         manuscripts {
           id
+          shortId
+          totalCount
+          files {
+            id
+            name
+            alt
+            caption
+            tags
+            objectId
+            storedObjects {
+              type
+              key
+              size
+              mimetype
+              extension
+              imageMetadata {
+                width
+                height
+                space
+                density
+              }
+              url
+            }
+            uploadStatus
+            inUse
+          }
+          reviews {
+            id
+            jsonData
+            users {
+              id
+              username
+              defaultIdentity {
+                id
+                identifier
+              }
+            }
+          }
+          decisions {
+            id
+            jsonData
+            users {
+              id
+              username
+              defaultIdentity {
+                id
+                identifier
+              }
+            }
+          }
+          editors {
+            id
+            name
+            role
+          }
+          status
+          meta {
+            source 
+          }
           submission
+          supplementaryFiles
+          submissionWithFields
+          publishedDate
+          printReadyPdfUrl
+          styledHtml
+          css
         }
         groupId
       }

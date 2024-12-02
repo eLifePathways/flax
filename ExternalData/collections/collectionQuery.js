@@ -37,6 +37,18 @@ const syncData = async (group, cmsLayout) => {
 	let data = await getCollectionsQuery(group)
 
     collections = await storeImages(group, hexCode, data.publishingCollection)
+
+	collections.map(collection => {
+		collection.manuscripts = collection.manuscripts.map(manuscript => {	
+			const parsedSubmission = JSON.parse(manuscript.submission);
+			return {
+				...manuscript,
+				parsedSubmission
+			}
+		})
+		return collection
+	});
+
 	if (collections.length) {
 		fs.writeFileSync(dataFile, JSON.stringify({ collections }), "utf8");
 	}
