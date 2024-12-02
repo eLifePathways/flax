@@ -155,6 +155,10 @@ module.exports = function (eleventyConfig) {
 		return "...";
 	});
 
+	eleventyConfig.addFilter("jsonify", (value) => {
+		return JSON.stringify(value);
+	});
+
 	eleventyConfig.addPlugin(pluginTOC, {
 		tags: ["h2", "h3", "h4"], // which heading tags are selected headings must each have an ID attribute
 		wrapper: "nav", // element to put around the root `ol`/`ul`
