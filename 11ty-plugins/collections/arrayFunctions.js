@@ -5,7 +5,13 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addFilter("filterArray", function (array, field, value) {
 		return array.filter(data => get(data, field) !== value);
 	});
-
+    
+	eleventyConfig.addFilter("split", function(str, separator) {
+        if (typeof str !== 'string') {
+            return [];
+        }
+        return str.split(separator || ',');
+    });
 
 	eleventyConfig.addFilter("findElement", function (array, field, value) {
 		for (let item of array) {
