@@ -8,7 +8,13 @@ const { getGroupDataDir, getGroupAssetDir, storeImage } = require("../../helpers
  */
 const getPublishableSubmissionObject = submissionWithFields => {
   const result = {}
-  (submissionWithFields || [])
+
+  if (!Array.isArray(submissionWithFields)) {
+    console.error("Expected an array, but got:", submissionWithFields);
+    return result; // Return an empty object to prevent crashes
+  }
+
+  submissionWithFields
     .filter(entry => entry.shouldPublish && entry.fieldName.startsWith('submission.'))
     .forEach(entry => {
       const submissionFieldName = entry.fieldName.split('submission.')[1]
