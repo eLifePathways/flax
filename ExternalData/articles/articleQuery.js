@@ -8,7 +8,7 @@ const { getGroupDataDir, getGroupAssetDir, storeImage } = require("../../helpers
  */
 const getPublishableSubmissionObject = submissionWithFields => {
   const result = {}
-  submissionWithFields
+  (submissionWithFields || [])
     .filter(entry => entry.shouldPublish && entry.fieldName.startsWith('submission.'))
     .forEach(entry => {
       const submissionFieldName = entry.fieldName.split('submission.')[1]
