@@ -160,7 +160,7 @@ const getAllArticles = async (group, cmsLayout, chunkSize) => {
       const result = await getChunkOfArticles(group, cmsLayout, chunkSize, offset)
       if (!result.length) break;
       allArticles.push(...result)
-      totalRecordsCount = result[0].totalLength
+      totalRecordsCount = result[0].totalCount
       offset += chunkSize
     }
 
