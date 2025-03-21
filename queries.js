@@ -280,9 +280,42 @@ const getActiveCmsFilesTree = async (group) => {
   return response;
 }
 
+const getFilesByTagOrId = async (id, objectId, tag, group) => {
+  const graphQLQuery = JSON.stringify({
+    query: `query getFilesByTagOrId($input: EntityTagOrId) {
+      getFilesByTagOrId(input: $input) {
+        id
+        storedObjects {
+          url
+        }
+      }
+    }`,
+    variables: {
+      input: {
+        id,
+        objectId,
+        tag,
+      }
+    },
+  });
+
+  let response = await makeAPICall({
+    graphQLQuery,
+    group,
+  });
+
+  console.log("Files query responded.");
+
+  if (!response) {
+    return [];
+  }
+
+  return response;
+}
 
 
 module.exports = {
+  getFilesByTagOrId,
   getArticles,
   getCmsPages,
   getCollectionsQuery,
