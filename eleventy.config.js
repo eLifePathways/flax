@@ -11,6 +11,8 @@ const flaxPlugins = require("./11ty-plugins/flax-plugins.js");
 const deleteDirectories = require("./SiteHelpers/deleteDirectories.js");
 const { imagesHandler, linkHandler } = require("./SiteHelpers/fileHandler.js");
 
+const { getFilesByTagOrId } = require("./queries");
+
 module.exports = function (eleventyConfig) {
 
     // Make the base path available in all templates
@@ -104,6 +106,26 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addFilter("postDate", (dateObj) => {
 		let date = new Date(dateObj);
 		return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_MED);
+	});
+
+	eleventyConfig.addAsyncFilter("showFileIdOrTag", async function(id, tag, objectId, group) { 
+		if(!id && !tag) {
+			return false;
+		}
+		
+		if (id) {
+			const files = await getFilesByTagOrId(id, null, null, group)
+			if (files.getFilesByTagOrId.length) {
+				return files.getFilesByTagOrId[0].storedObjects[0].url
+			}
+		} else if (tag) {
+			const files = await getFilesByTagOrId(null, objectId, tag, group)
+			if (files.getFilesByTagOrId.length) {
+				return files.getFilesByTagOrId[0].storedObjects[0].url	
+			}
+		}
+
+		return ''
 	});
 
 	eleventyConfig.addFilter("imagesHandler",
