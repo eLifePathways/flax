@@ -149,8 +149,6 @@ const getArticles = async (group, limit, offset) => {
             supplementaryFiles
             submissionWithFields
             publishedDate
-            printReadyPdfUrl
-            styledHtml
             css
             }
           }
@@ -232,8 +230,6 @@ const getCollectionsQuery = async (group) => {
           supplementaryFiles
           submissionWithFields
           publishedDate
-          printReadyPdfUrl
-          styledHtml
           css
         }
         groupId
