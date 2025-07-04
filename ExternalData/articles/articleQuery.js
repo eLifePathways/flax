@@ -152,26 +152,27 @@ const getMetaData = (submissionWithFields, article) => {
 
 const getAllArticles = async (group, cmsLayout, chunkSize) => {
   try {
-    let totalRecordsCount = Number.POSITIVE_INFINITY
     let offset = 0
-
     const allArticles = []
-    while (offset < totalRecordsCount) {
+
+    while (true) {
       const result = await getChunkOfArticles(group, cmsLayout, chunkSize, offset)
-      if (!result.length) break;
+      if (!result.length) break
+
       allArticles.push(...result)
-      totalRecordsCount = result[0].totalCount
       offset += chunkSize
+
+      if (result.length < chunkSize) break
     }
 
     console.log(`Retrieved ${allArticles.length} articles for group ${group.name}`)
-
-    return allArticles;
+    return allArticles
   } catch (error) {
-    console.error("Error retrieving articles:", error);
-    return [];
+    console.error("Error retrieving articles:", error)
+    return []
   }
-};
+}
+
 
 const syncData = async (group, cmsLayout) => {
   try {
