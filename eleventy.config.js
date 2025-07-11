@@ -10,35 +10,29 @@ const flaxPlugins = require("./11ty-plugins/flax-plugins.js");
 
 const deleteDirectories = require("./SiteHelpers/deleteDirectories.js");
 const { imagesHandler, linkHandler } = require("./SiteHelpers/fileHandler.js");
+const {
+	PATHS: { GLOB, DEST, SRC },
+	COPY_OPTIONS: { 
+		overwriteFile,
+		expandSymLinks,
+		// uniqueName,
+	},
+} = require("./utils/copyUtils.js");
 
 const { getFilesByTagOrId } = require("./queries");
 
 module.exports = function (eleventyConfig) {
 
-    // Make the base path available in all templates
-    eleventyConfig.addGlobalData('basePath',`/app/src/`);
-
-	// passthrough file copy //
-
-	eleventyConfig.addPassthroughCopy(
-		{ "static/": "assets/" },
-		{
-			expand: true,
-		}
-	);
-
-	eleventyConfig.addPassthroughCopy(
-		{ "src/**/*.+(jpg|jpeg|png|gif|svg)": "assets/images/" },
-	);
-
-	// Copy JavaScript files from any folder
-	eleventyConfig.addPassthroughCopy({ "src/**/*.js": 'assets/js/' });
-
-	// Copy font files from any folder
-	eleventyConfig.addPassthroughCopy({ "src/**/*.+(woff|woff2|ttf|otf)": 'assets/fonts/' });
+    // Make the base path available in all templates and passthrough file copy
+    eleventyConfig
+	.addGlobalData('basePath', SRC.BASE)
+	.addPassthroughCopy({ [SRC.STATIC]: SRC.ASSETS }, expandSymLinks)
+	.addPassthroughCopy({ [GLOB.IMAGES]: DEST.IMAGES }, overwriteFile)
+	.addPassthroughCopy({ [GLOB.JAVASCRIPT]: DEST.JAVASCRIPT }, overwriteFile)
+	.addPassthroughCopy({ [GLOB.FONTS]: DEST.FONTS }, overwriteFile);
 
 	eleventyConfig.setServerOptions({
-		watch: ["public/**/*.css", "static/**/*.css"],
+		watch: [GLOB.CSS_PUBLIC, GLOB.CSS_STATIC],
 	});
 
 	// flaxHelpers
