@@ -112,6 +112,30 @@ const getArticles = async (group, limit, offset) => {
             id
             shortId
             totalCount
+            files {
+              id
+              name
+              alt
+              caption
+              tags
+              objectId
+              storedObjects {
+                type
+                key
+                size
+                mimetype
+                extension
+                imageMetadata {
+                  width
+                  height
+                  space
+                  density
+                }
+                url
+              }
+              uploadStatus
+              inUse
+            }
             reviews {
               id
               jsonData
@@ -193,6 +217,30 @@ const getCollectionsQuery = async (group) => {
           id
           shortId
           totalCount
+		  files {
+            id
+            name
+            alt
+            caption
+            tags
+            objectId
+            storedObjects {
+              type
+              key
+              size
+              mimetype
+              extension
+              imageMetadata {
+                width
+                height
+                space
+                density
+              }
+              url
+            }
+            uploadStatus
+            inUse
+          }
           reviews {
             id
             jsonData
